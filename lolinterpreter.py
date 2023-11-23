@@ -61,9 +61,12 @@ def get_lexeme_type(lexeme):
     # EIRENE
     elif re.match(r"^SMOOSH$", lexeme):
         lexeme_type = "Concatenation Keyword" 
+        
     # KAT
+
     
     # JERICO
+
 
     return lexeme_type
 

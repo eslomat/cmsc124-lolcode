@@ -49,7 +49,7 @@ def get_lexeme_type(lexeme):
     elif re.match(r"\+", lexeme):
         lexeme_type = "Print Operand Connector"
     elif re.match(r"^YR$", lexeme):
-        lexeme_type = "Parameter Connector Keyword"
+        lexeme_type = "Parameter Operand Connector"
     elif re.match(r"^-?[1-9][0-9]*$", lexeme):
         lexeme_type = "Numbr Literal"
     elif re.match(r"^-?[1-9][0-9]*.[0-9]+$", lexeme):

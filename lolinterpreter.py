@@ -22,7 +22,7 @@ except FileNotFoundError:
 #                                                                  single-lexeme    
 
 # PATTERN FOR TOKENIZER
-pattern = r'(\bBTW .*|\b.*OBTW[\s\S]*?TLDR.*\b|\bI HAS A\b|\bSUM OF\b|\bDIFF OF\b|\bPRODUKT OF\b|\bQUOSHUNT OF\b|\bMOD OF\b|\bBIGGR OF\b|\bSMALLR OF\b|\bBOTH OF\b|\bEITHER OF\b|\bWON OF\b|\bANY OF\b|\bALL OF\b|\bBOTH SAEM\b|\bIS NOW A\b|\bO RLY?\b|\bYA RLLY\b|\bNO WAI\b|\bIM IN YR\b|\bIM OUTTA YR\b|\bHOW IZ I\b|\bIF U SAY SO\b|\bFOUND YR\b|\bI IZ\b|".*?"|\S+|\n)'
+pattern = r'(\bBTW .*|\b.*OBTW[\s\S]*?TLDR.*\b|\bI HAS A\b|\bSUM OF\b|\bDIFF OF\b|\bPRODUKT OF\b|\bQUOSHUNT OF\b|\bMOD OF\b|\bBIGGR OF\b|\bSMALLR OF\b|\bBOTH OF\b|\bEITHER OF\b|\bWON OF\b|\bANY OF\b|\bALL OF\b|\bBOTH SAEM\b|\bIS NOW A\b|\bO RLY\?|\bYA RLY\b|\bNO WAI\b|\bIM IN\b|\bIM OUTTA\b|\bHOW IZ I\b|\bIF U SAY SO\b|\bFOUND YR\b|\bI IZ\b|".*?"|\S+|\n)'
 
 # GETTING THE ARRAY-OF-LEXEMES-VERSION OF THE CODE
 lexemes = re.findall(pattern, code)
@@ -48,6 +48,8 @@ def get_lexeme_type(lexeme):
         lexeme_type = "Operand Connector"
     elif re.match(r"\+", lexeme):
         lexeme_type = "Print Operand Connector"
+    elif re.match(r"^YR$", lexeme):
+        lexeme_type = "Parameter Connector Keyword"
     elif re.match(r"^-?[1-9][0-9]*$", lexeme):
         lexeme_type = "Numbr Literal"
     elif re.match(r"^-?[1-9][0-9]*.[0-9]+$", lexeme):
@@ -61,7 +63,44 @@ def get_lexeme_type(lexeme):
     # EIRENE
     elif re.match(r"^SMOOSH$", lexeme):
         lexeme_type = "Concatenation Keyword" 
-        
+    elif re.match(r"^WAZZUP$", lexeme):
+        lexeme_type = "Variable Declaration Start Delimiter" 
+    elif re.match(r"^BUHBYE$", lexeme):
+        lexeme_type = "Variable Declaration End Delimiter"
+    elif re.match(r"^I HAS A$", lexeme):
+        lexeme_type = "Variable Declaration Keyword"
+    elif re.match(r"^ITZ$", lexeme):
+        lexeme_type = "Variable Initialization Keyword"
+    elif re.match(r"^R$", lexeme):
+        lexeme_type = "Assignment Keyword"
+    elif re.match(r"^O RLY\?$", lexeme):
+        lexeme_type = "Conditional Statement Start Delimiter"
+    elif re.match(r"^OIC$", lexeme):
+        lexeme_type = "Control Flow End Delimiter"
+    elif re.match(r"^YA RLY$", lexeme):
+        lexeme_type = "If Keyword"
+    elif re.match(r"^MEBBE$", lexeme):
+        lexeme_type = "Else If Keyword"
+    elif re.match(r"^NO WAI$", lexeme):
+        lexeme_type = "Else Keyword"
+    elif re.match(r"^WTF\?$", lexeme):
+        lexeme_type = "Switch Statement Start Delimiter"
+    elif re.match(r"^OMG$", lexeme):
+        lexeme_type = "Case Keyword"
+    elif re.match(r"^OMGWTF$", lexeme):
+        lexeme_type = "Default Case Keyword"
+    elif re.match(r"^IM IN$", lexeme):
+        lexeme_type = "Loop Statement Start Delimiter"
+    elif re.match(r"^IM OUTTA$", lexeme):
+        lexeme_type = "Loop Statement End Delimiter"
+    elif re.match(r"^UPPIN$", lexeme):
+        lexeme_type = "Increment Keyword"
+    elif re.match(r"^NERFIN$", lexeme):
+        lexeme_type = "Decrement Keyword"
+    elif re.match(r"^TIL$", lexeme):
+        lexeme_type = "Until Loop Condition Keyword"
+    elif re.match(r"^WILE$", lexeme):
+        lexeme_type = "While Loop Condition Keyword"
     # KAT
 
     

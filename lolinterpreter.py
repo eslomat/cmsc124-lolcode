@@ -44,6 +44,27 @@ def get_lexeme_type(lexeme):
         lexeme_type = "Unterminated Comment (ERROR)"
     elif re.match(r"\b.*OBTW[\s\S]*?TLDR.*\b", lexeme):
         lexeme_type = "Unexpected Token Beside Multiline Comment (ERROR)"
+    elif re.match(r"AN", lexeme):
+        lexeme_type = "Operand Connector"
+    elif re.match(r"\+", lexeme):
+        lexeme_type = "Print Operand Connector"
+    elif re.match(r"^-?[1-9][0-9]*$", lexeme):
+        lexeme_type = "Numbr Literal"
+    elif re.match(r"^-?[1-9][0-9]*.[0-9]+$", lexeme):
+        lexeme_type = "Numbar Literal"
+    elif re.match(r'^".*"$', lexeme):
+        lexeme_type = "Yarn Literal"
+    elif re.match(r"^WIN$|^FAIL$", lexeme):
+        lexeme_type = "Troof Literal"
+    elif re.match(r"^NUMBR$|^NUMBAR$|^TROOF$|^YARN$|^NOOB$", lexeme):
+        lexeme_type = "Type Literal"
+    # EIRENE
+    elif re.match(r"^SMOOSH$", lexeme):
+        lexeme_type = "Concatenation Keyword" 
+    # KAT
+    
+    # JERICO
+
     return lexeme_type
 
 # LOOPS THE ARRAY-OF-LEXEMES, IDENTIFIES THE TYPE OF EACH LEXEME
@@ -63,7 +84,7 @@ for i in range(0,len(lexemes)):
                     break
                 lexemes.insert(i+buffer_i, [j.strip(), "--- (ERROR)"])
                 buffer_i+=1
-        elif not lexeme_type == "Comment" or not lexeme_type[-7:] == "(ERROR)":
+        elif not lexeme_type == "Comment" and not lexeme_type[-7:] == "(ERROR)":
             lexeme_dictionary[lexeme] = lexeme_type
         lexemes[i+buffer_i] = [lexeme,lexeme_type]
     else:
@@ -122,14 +143,14 @@ for lexeme in lexemes:
 #     print(f"[{i+1}]\t" + lexeme[0].replace("\n", "\\n") + f' : {lexeme[1]}')
 #     i+=1
 
-# print("\n")
-# print("________________________________________________ LEXEMES FOR DICTIONARY")
-# print("\n")
-# i = 1
-# for lexeme in lexeme_dictionary:
-#     print(f"[{i}]\t" + lexeme.replace("\n", "\\n") + f' : {lexeme_dictionary[lexeme]}')
-#     i+=1
-# print("\n")
+print("\n")
+print("________________________________________________ LEXEMES FOR DICTIONARY")
+print("\n")
+i = 1
+for lexeme in lexeme_dictionary:
+    print(f"[{i}]\t" + lexeme.replace("\n", "\\n") + f' : {lexeme_dictionary[lexeme]}')
+    i+=1
+print("\n")
 
 print("\nLEXICAL ANALYSIS DONE!\n")
 # _______________________________________________________________________________________________________________ SYNTAX ANALYZER

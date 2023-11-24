@@ -105,7 +105,34 @@ def get_lexeme_type(lexeme):
 
     
     # JERICO
-
+    elif re.match(r"^SUM OF$", lexeme):
+        lexeme_type = "Sum Keyword"
+    elif re.match(r"^DIFF OF$", lexeme):
+        lexeme_type = "Difference Keyword"
+    elif re.match(r"^PRODUKT OF$", lexeme):
+        lexeme_type = "Product Keyword"
+    elif re.match(r"^QUOSHUNT OF$", lexeme):
+        lexeme_type = "Quotient Keyword"
+    elif re.match(r"^MOD OF$", lexeme):
+        lexeme_type = "Modulo Keyword"
+    elif re.match(r"^BIGGR OF$", lexeme):
+        lexeme_type = "Maximum Keyword"
+    elif re.match(r"^SMALLR OF$", lexeme):
+        lexeme_type = "Minimum Keyword"
+    elif re.match(r"^BOTH SAEM$", lexeme):
+        lexeme_type = "Equal Keyword"
+    elif re.match(r"^DIFFRINT$", lexeme):
+        lexeme_type = "Not equal Keyword"
+    elif re.match(r"^MAEK$", lexeme):
+        lexeme_type = "Typecast It Keyword"
+    elif re.match(r"^A$", lexeme):
+        lexeme_type = "Typecast It Connector"
+    elif re.match(r"^IS NOW A$", lexeme):
+        lexeme_type = "Typecast Is Keyword"
+    elif re.match(r"^R MAEK$", lexeme):
+        lexeme_type = "Typecast As Keyword"
+    elif re.match(r"^[a-z].*$", lexeme):
+        lexeme_type = "Variable"
 
     return lexeme_type
 

@@ -22,7 +22,7 @@ except FileNotFoundError:
 #                                                                  single-lexeme    
 
 # PATTERN FOR TOKENIZER
-pattern = r'(\bBTW .*|\b.*OBTW[\s\S]*?TLDR.*\b|\bI HAS A\b|\bSUM OF\b|\bDIFF OF\b|\bPRODUKT OF\b|\bQUOSHUNT OF\b|\bMOD OF\b|\bBIGGR OF\b|\bSMALLR OF\b|\bBOTH OF\b|\bEITHER OF\b|\bWON OF\b|\bANY OF\b|\bALL OF\b|\bBOTH SAEM\b|\bIS NOW A\b|\bO RLY\?|\bYA RLY\b|\bNO WAI\b|\bIM IN\b|\bIM OUTTA\b|\bHOW IZ I\b|\bIF U SAY SO\b|\bFOUND YR\b|\bI IZ\b|".*?"|\S+|\n)'
+pattern = r'(\bBTW .*|\b.*OBTW[\s\S]*?TLDR.*\b|\bI HAS A\b|\bSUM OF\b|\bDIFF OF\b|\bPRODUKT OF\b|\bQUOSHUNT OF\b|\bMOD OF\b|\bBIGGR OF\b|\bSMALLR OF\b|\bBOTH OF\b|\bEITHER OF\b|\bWON OF\b|\bANY OF\b|\bALL OF\b|\bBOTH SAEM\b|\bIS NOW A\b|\bO RLY\?|\bYA RLY\b|\bNO WAI\b|\bIM IN\b|\bIM OUTTA\b|\bHOW IZ I\b|\bIF U SAY SO\b|\bI IZ\b|".*?"|\S+|\n)'
 
 # GETTING THE ARRAY-OF-LEXEMES-VERSION OF THE CODE
 lexemes = re.findall(pattern, code)
@@ -44,9 +44,9 @@ def get_lexeme_type(lexeme):
         lexeme_type = "Unterminated Comment (ERROR)"
     elif re.match(r"\b.*OBTW[\s\S]*?TLDR.*\b", lexeme):
         lexeme_type = "Unexpected Token Beside Multiline Comment (ERROR)"
-    elif re.match(r"AN", lexeme):
+    elif re.match(r"^AN$", lexeme):
         lexeme_type = "Operand Connector"
-    elif re.match(r"\+", lexeme):
+    elif re.match(r"^\+$", lexeme):
         lexeme_type = "Print Operand Connector"
     elif re.match(r"^YR$", lexeme):
         lexeme_type = "Parameter Operand Connector"
@@ -54,8 +54,8 @@ def get_lexeme_type(lexeme):
         lexeme_type = "Numbr Literal"
     elif re.match(r"^-?[1-9][0-9]*.[0-9]+$", lexeme):
         lexeme_type = "Numbar Literal"
-    elif re.match(r"", lexeme):
-        lexeme_type = "Numbr Literal"
+    # elif re.match(r"", lexeme):
+    #     lexeme_type = "Numbr Literal"
     elif re.match(r'^".*"$', lexeme):
         lexeme_type = "Yarn Literal"
     elif re.match(r"^WIN$|^FAIL$", lexeme):
@@ -108,40 +108,44 @@ def get_lexeme_type(lexeme):
     # KAT
     elif re.match(r"^HAI$", lexeme):
         lexeme_type = "Program Start Delimiter"
-    elif re.match(r"^TLDR$", lexeme):
+    elif re.match(r"^KTHXBYE$", lexeme):
         lexeme_type = "Program End Delimiter"
     elif re.match(r"^PRODUKT OF$", lexeme):
         lexeme_type = "Multiplication Keyword"
     elif re.match(r"^BIGGR OF$", lexeme):
         lexeme_type = "Maximum Keyword"
+    elif re.match(r"^BOTH OF$", lexeme):
+        lexeme_type = "Logical AND Keyword"
     elif re.match(r"^EITHER OF$", lexeme):
         lexeme_type = "Logical OR Keyword"
+    elif re.match(r"^WON OF$", lexeme):
+        lexeme_type = "Logical XOR Keyword"
+    elif re.match(r"^NOT$", lexeme):
+        lexeme_type = "Logical NOT Keyword"
+    elif re.match(r"^ALL OF$", lexeme):
+        lexeme_type = "Infinite Arity Keyword"
     elif re.match(r"^ANY OF$", lexeme):
-        lexeme_type = "Logical OR Keyword"  
+        lexeme_type = "Infinite Arity Keyword"  
     elif re.match(r"^DIFFRINT$", lexeme):
         lexeme_type = "Inequality Keyword"
-    elif re.match(r"^A$", lexeme):
-        lexeme_type = "Variable Declaration Keyword"  
     elif re.match(r"^GIMMEH$", lexeme):
         lexeme_type = "Input Keyword"
+    elif re.match(r"^VISIBLE$", lexeme):
+        lexeme_type = "Print Keyword"
+    elif re.match(r"^I IZ$", lexeme):
+        lexeme_type = "Function Call Keyword"
+    elif re.match(r"^HOW IZ I$", lexeme):
+        lexeme_type = "Function Declaration Keyword"
     elif re.match(r"^GTFO$", lexeme):
-        lexeme_type = "Exit Loop Keyword"
+        lexeme_type = "Void Return Keyword"
+    elif re.match(r"^FOUND$", lexeme):
+        lexeme_type = "Value Return Keyword"
+    elif re.match(r"^IF U SAY SO$", lexeme):
+        lexeme_type = "Function Declaration Delimiter"
     elif re.match(r"^MKAY$", lexeme):
         lexeme_type = "End of Input Keyword"
     elif re.match(r"^BUHBYE$", lexeme):
         lexeme_type = "Program End Delimiter"
-    elif re.match(r"^MEBBE$", lexeme):
-        lexeme_type = "Else If Keyword"
-    elif re.match(r"^WTF\?$", lexeme):
-        lexeme_type = "Switch Statement Start Delimiter"
-    elif re.match(r"^IM IN YR$", lexeme):
-        lexeme_type = "Loop Statement Start Delimiter"
-    elif re.match(r"^YR$", lexeme):
-        lexeme_type = "Loop Variable Declaration"
-    elif re.match(r"^R$", lexeme):
-        lexeme_type = "Assignment Keyword"
-    elif re.match(r"^IM OUTTA YR$", lexeme):
-        lexeme_type = "Loop Statement End Delimiter"
 
     # JERICO
     elif re.match(r"^SUM OF$", lexeme):
@@ -172,6 +176,10 @@ def get_lexeme_type(lexeme):
         lexeme_type = "Typecast As Keyword"
     elif re.match(r"^[A-Za-z][A-Za-z0-9_]*$", lexeme):
         lexeme_type = "Identifier"
+
+
+
+    
 
     return lexeme_type
 
@@ -243,22 +251,22 @@ for lexeme in lexemes:
 #     string += " " + lexeme[0]
 # print(string)
 
-# print("\n")
-# print("________________________________________________ LEXEMES FOR PARSE TREE ")
-# print("\n")
-# i = 0
-# for lexeme in lexemes:
-#     print(f"[{i+1}]\t" + lexeme[0].replace("\n", "\\n") + f' : {lexeme[1]}')
-#     i+=1
-
 print("\n")
-print("________________________________________________ LEXEMES FOR DICTIONARY")
+print("________________________________________________ LEXEMES FOR PARSE TREE ")
 print("\n")
-i = 1
-for lexeme in lexeme_dictionary:
-    print(f"[{i}]\t" + lexeme.replace("\n", "\\n") + f' : {lexeme_dictionary[lexeme]}')
+i = 0
+for lexeme in lexemes:
+    print(f"[{i+1}]\t" + lexeme[0].replace("\n", "\\n") + f' : {lexeme[1]}')
     i+=1
-print("\n")
+
+# print("\n")
+# print("________________________________________________ LEXEMES FOR DICTIONARY")
+# print("\n")
+# i = 1
+# for lexeme in lexeme_dictionary:
+#     print(f"[{i}]\t" + lexeme.replace("\n", "\\n") + f' : {lexeme_dictionary[lexeme]}')
+#     i+=1
+# print("\n")
 
 print("\nLEXICAL ANALYSIS DONE!\n")
 # _______________________________________________________________________________________________________________ SYNTAX ANALYZER

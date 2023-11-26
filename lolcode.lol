@@ -35,6 +35,9 @@ HAI                                                                          BTW
     GIMMEH thing                                                             BTW <input>
     VISIBLE "Input Yarn: " + thing + " " + 124                               BTW <print>  
 
+    GIMMEH thing, VISIBLE "Input Yarn: " + thing + " " + 124!               
+
+
     SMOOSH "SUM OF 2 AN 4 is " AN 6 AN " OR " AN 6.0                         BTW <concat>           str1 + str2 + ... + strN
     SUM OF 2 AN 4                                                            BTW <sum>              (result is NUMBR)
     DIFF OF 4 AN 3.14                                                        BTW <difference>       (result is NUMBAR)
@@ -95,7 +98,7 @@ HAI                                                                          BTW
         VISIBLE temp                                                         BTW                    Statements                           
     IM OUTTA YR print_10                                                     BTW                    End of A Loop
 
-    I IZ plusparam2 YR SUM OF 1 AN 1 AN YR SUM OF 1 AN 1                     BTW <funccall>         Function Call: 3 Parameters
+    I IZ plusparam2 YR SUM OF 1 AN 1 AN YR SUM OF 1 AN 1                    BTW <funccall>         Function Call: 3 Parameters
     I IZ yayyparam0 MKAY                                                     BTW                    Function Call: 0 Parameter
 
 KTHXBYE                                                                      BTW                    Program End

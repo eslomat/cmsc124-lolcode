@@ -12,17 +12,17 @@ except FileNotFoundError:
 # _______________________________________________________________________________________________________________ TOKENIZER
 
 #      --   GUIDE
-#           r'(\bBTW .*\b|\b.*OBTW[\s\S]*?TLDR.*\b|\bI HAS A\b|".*?"\s|\S+|\n)'
-#                   |                   |               |         |     |  |    
-#                  BTW                  |               |         |     |  |     
-#                                  OBTW & TLDR          |        yarn   |  |       
-#                                                       |               |  newline 
-#                                                compound-lexeme        |       
-#                                                                       |                             
-#                                                                  single-lexeme    
+#           r'(\bBTW .*\b|\b.*OBTW[\s\S]*?TLDR.*\b|\bI HAS A\b|".*?"\s|,|!|[^,\s!]+|\n)'
+#                   |                   |               |         |    | |    |      |    
+#                  BTW                  |               |       yarn   | |    |      |     
+#                                  OBTW & TLDR          |              |excl  |      |       
+#                                                       |              |      |   newline 
+#                                                compound-lexeme      comma   |       
+#                                                                             |                                    
+#                                                                       single-lexeme    
 
 # PATTERN FOR TOKENIZER
-pattern = r'(\bBTW .*|\b.*OBTW[\s\S]*?TLDR.*\b|\bI HAS A\b|\bSUM OF\b|\bDIFF OF\b|\bPRODUKT OF\b|\bQUOSHUNT OF\b|\bMOD OF\b|\bBIGGR OF\b|\bSMALLR OF\b|\bBOTH OF\b|\bEITHER OF\b|\bWON OF\b|\bANY OF\b|\bALL OF\b|\bBOTH SAEM\b|\bIS NOW A\b|\bO RLY\?|\bYA RLY\b|\bNO WAI\b|\bIM IN\b|\bIM OUTTA\b|\bHOW IZ I\b|\bIF U SAY SO\b|\bI IZ\b|".*?"|\S+|\n)'
+pattern = r'(\bBTW .*|\b.*OBTW[\s\S]*?TLDR.*\b|\bI HAS A\b|\bSUM OF\b|\bDIFF OF\b|\bPRODUKT OF\b|\bQUOSHUNT OF\b|\bMOD OF\b|\bBIGGR OF\b|\bSMALLR OF\b|\bBOTH OF\b|\bEITHER OF\b|\bWON OF\b|\bANY OF\b|\bALL OF\b|\bBOTH SAEM\b|\bIS NOW A\b|\bO RLY\?|\bYA RLY\b|\bNO WAI\b|\bIM IN\b|\bIM OUTTA\b|\bHOW IZ I\b|\bIF U SAY SO\b|\bI IZ\b|".*?"|,|!|[^,\s!]+|\n)'
 
 # GETTING THE ARRAY-OF-LEXEMES-VERSION OF THE CODE
 lexemes = re.findall(pattern, code)
@@ -60,6 +60,10 @@ def get_lexeme_type(lexeme):
         lexeme_type = "Troof Literal"
     elif re.match(r"^NUMBR$|^NUMBAR$|^TROOF$|^YARN$|^NOOB$", lexeme):
         lexeme_type = "Type Literal"
+    elif re.match(r"!", lexeme):
+        lexeme_type = "Exclamation"
+    elif re.match(r",", lexeme):
+        lexeme_type = "Comma"
     
     # EIRENE
     elif re.match(r"^SMOOSH$", lexeme):

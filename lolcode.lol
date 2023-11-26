@@ -9,8 +9,6 @@ OBTW -------------------------------------->
 
 BTW _________________________________________________________________________________________________________________________________ MAIN
 
-OBTW -------------------------------------->
-
 HOW IZ I yayyparam0                                                          BTW <func>             Function Declaration Start
     VISIBLE "YAY!"                                                           BTW                    Statements
 IF U SAY SO                                                                  BTW                    Function Declaration End
@@ -37,17 +35,12 @@ HAI                                                                          BTW
     GIMMEH thing                                                             BTW <input>
     VISIBLE "Input Yarn: " + thing + " " + 124                               BTW <print>  
 
-<-------------------------------------- TLDR
-
     SMOOSH "SUM OF 2 AN 4 is " AN 6 AN " OR " AN 6.0                         BTW <concat>           str1 + str2 + ... + strN
-
-OBTW -------------------------------------->
-
     SUM OF 2 AN 4                                                            BTW <sum>              (result is NUMBR)
     DIFF OF 4 AN 3.14                                                        BTW <difference>       (result is NUMBAR)
-    PRODUKT OF “2” AN “7”                                                    BTW <product>          (result is NUMBR)
-    QUOSHUNT OF 5 AN “12”                                                    BTW <quotient>         (result is a NUMBR)
-    MOD OF 3 AN “3.14”                                                       BTW <modulo>           (result is a NUMBAR)
+    PRODUKT OF "2" AN "7"                                                    BTW <product>          (result is NUMBR)
+    QUOSHUNT OF 5 AN "12"                                                    BTW <quotient>         (result is a NUMBR)
+    MOD OF 3 AN "3.14"                                                       BTW <modulo>           (result is a NUMBAR)
     BIGGR OF 1.24 AN 1                                                       BTW <min>              Minimum
     SMALLR OF 1.24 AN 1                                                      BTW <max>              Maximum
     SUM OF QUOSHUNT OF PRODUKT OF 3 AN 4 AN 2 AN 1                           BTW                    NESTED -- (((3*4)/2)+1)
@@ -106,5 +99,3 @@ OBTW -------------------------------------->
     I IZ yayyparam0 MKAY                                                     BTW                    Function Call: 0 Parameter
 
 KTHXBYE                                                                      BTW                    Program End
-
-<-------------------------------------- TLDR

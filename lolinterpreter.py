@@ -54,8 +54,6 @@ def get_lexeme_type(lexeme):
         lexeme_type = "Numbr Literal"
     elif re.match(r"^-?[1-9][0-9]*.[0-9]+$", lexeme):
         lexeme_type = "Numbar Literal"
-    # elif re.match(r"", lexeme):
-    #     lexeme_type = "Numbr Literal"
     elif re.match(r'^".*"$', lexeme):
         lexeme_type = "Yarn Literal"
     elif re.match(r"^WIN$|^FAIL$", lexeme):
@@ -176,11 +174,6 @@ def get_lexeme_type(lexeme):
         lexeme_type = "Typecast As Keyword"
     elif re.match(r"^[A-Za-z][A-Za-z0-9_]*$", lexeme):
         lexeme_type = "Identifier"
-
-
-
-    
-
     return lexeme_type
 
 # LOOPS THE ARRAY-OF-LEXEMES, IDENTIFIES THE TYPE OF EACH LEXEME
@@ -251,22 +244,22 @@ for lexeme in lexemes:
 #     string += " " + lexeme[0]
 # print(string)
 
-print("\n")
-print("________________________________________________ LEXEMES FOR PARSE TREE ")
-print("\n")
-i = 0
-for lexeme in lexemes:
-    print(f"[{i+1}]\t" + lexeme[0].replace("\n", "\\n") + f' : {lexeme[1]}')
-    i+=1
-
 # print("\n")
-# print("________________________________________________ LEXEMES FOR DICTIONARY")
+# print("________________________________________________ LEXEMES FOR PARSE TREE ")
 # print("\n")
-# i = 1
-# for lexeme in lexeme_dictionary:
-#     print(f"[{i}]\t" + lexeme.replace("\n", "\\n") + f' : {lexeme_dictionary[lexeme]}')
+# i = 0
+# for lexeme in lexemes:
+#     print(f"[{i+1}]\t" + lexeme[0].replace("\n", "\\n") + f' : {lexeme[1]}')
 #     i+=1
-# print("\n")
+
+print("\n")
+print("________________________________________________ LEXEMES FOR DICTIONARY")
+print("\n")
+i = 1
+for lexeme in lexeme_dictionary:
+    print(f"[{i}]\t" + lexeme.replace("\n", "\\n") + f' : {lexeme_dictionary[lexeme]}')
+    i+=1
+print("\n")
 
 print("\nLEXICAL ANALYSIS DONE!\n")
 # _______________________________________________________________________________________________________________ SYNTAX ANALYZER

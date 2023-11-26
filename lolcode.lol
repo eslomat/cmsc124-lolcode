@@ -98,7 +98,7 @@ HAI                                                                          BTW
         VISIBLE temp                                                         BTW                    Statements                           
     IM OUTTA YR print_10                                                     BTW                    End of A Loop
 
-    I IZ plusparam2 YR SUM OF 1 AN 1 AN YR SUM OF 1 AN 1                    BTW <funccall>         Function Call: 3 Parameters
+    I IZ plusparam2 YR SUM OF 1 AN 1 AN YR SUM OF 1 AN 1                     BTW <funccall>         Function Call: 3 Parameters
     I IZ yayyparam0 MKAY                                                     BTW                    Function Call: 0 Parameter
 
 KTHXBYE                                                                      BTW                    Program End

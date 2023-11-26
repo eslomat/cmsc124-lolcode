@@ -125,9 +125,9 @@ def get_lexeme_type(lexeme):
     elif re.match(r"^NOT$", lexeme):
         lexeme_type = "Logical NOT Keyword"
     elif re.match(r"^ALL OF$", lexeme):
-        lexeme_type = "Infinite Arity Keyword"
+        lexeme_type = "Infinite Arity AND Keyword"
     elif re.match(r"^ANY OF$", lexeme):
-        lexeme_type = "Infinite Arity Keyword"  
+        lexeme_type = "Infinite Arity OR Keyword"  
     elif re.match(r"^DIFFRINT$", lexeme):
         lexeme_type = "Inequality Keyword"
     elif re.match(r"^GIMMEH$", lexeme):
@@ -145,7 +145,7 @@ def get_lexeme_type(lexeme):
     elif re.match(r"^IF U SAY SO$", lexeme):
         lexeme_type = "Function Declaration Delimiter"
     elif re.match(r"^MKAY$", lexeme):
-        lexeme_type = "End of Input Keyword"
+        lexeme_type = "Infinite Arity End Keyword"
     elif re.match(r"^BUHBYE$", lexeme):
         lexeme_type = "Program End Delimiter"
 

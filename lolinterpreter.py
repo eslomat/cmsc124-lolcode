@@ -54,12 +54,15 @@ def get_lexeme_type(lexeme):
         lexeme_type = "Numbr Literal"
     elif re.match(r"^-?[1-9][0-9]*.[0-9]+$", lexeme):
         lexeme_type = "Numbar Literal"
+    elif re.match(r"", lexeme):
+        lexeme_type = "Numbr Literal"
     elif re.match(r'^".*"$', lexeme):
         lexeme_type = "Yarn Literal"
     elif re.match(r"^WIN$|^FAIL$", lexeme):
         lexeme_type = "Troof Literal"
     elif re.match(r"^NUMBR$|^NUMBAR$|^TROOF$|^YARN$|^NOOB$", lexeme):
         lexeme_type = "Type Literal"
+    
     # EIRENE
     elif re.match(r"^SMOOSH$", lexeme):
         lexeme_type = "Concatenation Keyword" 
@@ -101,9 +104,45 @@ def get_lexeme_type(lexeme):
         lexeme_type = "Until Loop Condition Keyword"
     elif re.match(r"^WILE$", lexeme):
         lexeme_type = "While Loop Condition Keyword"
-    # KAT
 
-    
+    # KAT
+    elif re.match(r"^HAI$", lexeme):
+        lexeme_type = "Program Start Delimiter"
+    elif re.match(r"^TLDR$", lexeme):
+        lexeme_type = "Program End Delimiter"
+    elif re.match(r"^PRODUKT OF$", lexeme):
+        lexeme_type = "Multiplication Keyword"
+    elif re.match(r"^BIGGR OF$", lexeme):
+        lexeme_type = "Maximum Keyword"
+    elif re.match(r"^EITHER OF$", lexeme):
+        lexeme_type = "Logical OR Keyword"
+    elif re.match(r"^ANY OF$", lexeme):
+        lexeme_type = "Logical OR Keyword"  
+    elif re.match(r"^DIFFRINT$", lexeme):
+        lexeme_type = "Inequality Keyword"
+    elif re.match(r"^A$", lexeme):
+        lexeme_type = "Variable Declaration Keyword"  
+    elif re.match(r"^GIMMEH$", lexeme):
+        lexeme_type = "Input Keyword"
+    elif re.match(r"^GTFO$", lexeme):
+        lexeme_type = "Exit Loop Keyword"
+    elif re.match(r"^MKAY$", lexeme):
+        lexeme_type = "End of Input Keyword"
+    elif re.match(r"^BUHBYE$", lexeme):
+        lexeme_type = "Program End Delimiter"
+    elif re.match(r"^MEBBE$", lexeme):
+        lexeme_type = "Else If Keyword"
+    elif re.match(r"^WTF\?$", lexeme):
+        lexeme_type = "Switch Statement Start Delimiter"
+    elif re.match(r"^IM IN YR$", lexeme):
+        lexeme_type = "Loop Statement Start Delimiter"
+    elif re.match(r"^YR$", lexeme):
+        lexeme_type = "Loop Variable Declaration"
+    elif re.match(r"^R$", lexeme):
+        lexeme_type = "Assignment Keyword"
+    elif re.match(r"^IM OUTTA YR$", lexeme):
+        lexeme_type = "Loop Statement End Delimiter"
+
     # JERICO
     elif re.match(r"^SUM OF$", lexeme):
         lexeme_type = "Sum Keyword"

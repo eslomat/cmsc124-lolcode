@@ -131,8 +131,8 @@ def get_lexeme_type(lexeme):
         lexeme_type = "Typecast Is Keyword"
     elif re.match(r"^R MAEK$", lexeme):
         lexeme_type = "Typecast As Keyword"
-    elif re.match(r"^[a-z].*$", lexeme):
-        lexeme_type = "Variable"
+    elif re.match(r"^[A-Za-z][A-Za-z0-9_]*$", lexeme):
+        lexeme_type = "Identifier"
 
     return lexeme_type
 

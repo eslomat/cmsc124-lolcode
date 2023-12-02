@@ -242,10 +242,11 @@ def error(expected):
     lexeme_to_match = lexemes[parse_index].replace("\n", "new line")
     if parse_index != 0:
         prev_lexeme = lexemes[parse_index-1].replace("\n", "new line")
-        if expected == None: print(f"error: syntax error at line {line}, unexpected '{lexeme_to_match}' after '{prev_lexeme}'\n")
+        if lexeme_to_match == "$": print(f"error: syntax error at line {line}, expected '{expected}' after '{prev_lexeme}'\n")
+        elif expected == None: print(f"error: syntax error at line {line}, unexpected '{lexeme_to_match}' after '{prev_lexeme}'\n")
         else:print(f"error: syntax error at line {line}, expected {expected} after '{prev_lexeme}', but found '{lexeme_to_match}'\n")
     else:
-        print(f"error: syntax error at line {line}, unexpected '{lexeme_to_match}' at start\n")
+        print(f"error: syntax error at line {line}, expected '{expected}' at start\n")
     exit()
 
 def match(token, expected):
@@ -270,28 +271,74 @@ def lookahead_compare(token):
 
 # KAT
 def literallol():
-    return ["LITERAL", None]
+    if lookahead_compare("Numbr Literal"):
+        a = match("Numbr Literal", None)
+        return ["LITERAL", a]
+    elif lookahead_compare("Numbar Literal"):
+        b = match("Numbar Literal", None)
+        return ["LITERAL", b]
+    elif lookahead_compare("Yarn Literal"):
+        c = match("Yarn Literal", None)
+        return ["LITERAL", c]
+    elif lookahead_compare("Troof Literal"):
+        d = match("Troof Literal", None)
+        return ["LITERAL", d]
+    else:
+        return ["LITERAL", None]
 
-def operandlol():        
+def operandlol():
+    a = None
     if lookahead_compare("Identifier"):
         a = match("Identifier", None)
-        return ["OPERAND", a]
 
-    return ["OPERAND", None]
+    if a == None:
+        a = literallol()
+        if a[1] == None:
+            a = expressionlol()
+        if a[1] == None:
+            a = None
+    if a == None: return ["OPERAND", None]
+    else: return ["OPERAND", a]
 
 def numberlol():
-    return ["NUMBER", None]
+    if lookahead_compare("Numbr Literal"):
+        a = match("Numbr Literal", None)
+        return ["NUMBER", a]
+    elif lookahead_compare("Numbar Literal"):
+        b = match("Numbar Literal", None)
+        return ["NUMBER", b]
+    else:
+        return ["NUMBER", None]
 
 def paramlol():
+    if lookahead_compare("Parameter Operand Connector"):
+        a = match("Parameter Operand Connector", None)
+        b = match("Identifier", "an 'identifier'")
+        c = paramextlol()
+        return ["PARAMETER", a, b, c]
     return ["PARAMETER", None]
 
 def paramextlol():
+    if lookahead_compare("Operand Connector"):
+        a = match("Operand Connector", None)
+        b = match("Parameter Operand Connector", None)
+        c = paramextlol()
+        return ["PARAMETER EXTENSION", a, b, c]
     return ["PARAMETER EXTENSION", None]
 
 def funcallol():
+    if lookahead_compare("Function Call Keyword"):
+        a = match("Function Call Keyword", None)
+        b = match("Identifier", "an 'identifier'")
+        c = fcparamextlol()
+        return ["FUNCTION CALL", a, b, c]
     return ["FUNCTION CALL", None]
 
 def fcparamextlol():
+    if lookahead_compare("Parameter Operand Connector"):
+        a = match("Parameter Operand Connector", None)
+        b = expressionlol()
+        c = fcparamextlol()
     return ["FUNCTION CALL PARAMETER EXTENSION", None]
 
 def statementlol():
@@ -301,6 +348,8 @@ def statementlol():
         return ["STATEMENT",a,b]
     else:
         a = printlol()
+        if a[1] == None:
+            a = inputlol()
         if a[1] == None:
             a = concatlol()
         if a[1] == None:
@@ -314,16 +363,37 @@ def statementlol():
         if a[1] == None:
             a = modulolol()
         if a[1] == None:
+            a = minlol()
+        if a[1] == None:
             a = maxlol()
         if a[1] == None:
-            a = minlol()
+            a = andlol()
+        if a[1] == None:
+            a = orlol()
+        if a[1] == None:
+            a = xorlol()
+        if a[1] == None:
+            a = notlol()
+        if a[1] == None:
+            a = infand()
+        if a[1] == None:
+            a = infor()
         if a[1] == None:
             a = equallol()
         if a[1] == None:
-            a = notequallol()
+            a = notequallol()  
         if a[1] == None:
             a = typecastit()
-            
+        if a[1] == None:
+            a = varssignlol()
+        if a[1] == None:
+            a = ifelselol()
+        if a[1] == None:
+            a = caselol()
+        if a[1] == None:
+            a = looplol()
+        if a[1] == None:
+            a = funcallol()
         if a[1] != None:
             b = linebreaklol()
             if a[1] == None:
@@ -333,12 +403,63 @@ def statementlol():
     return ["STATEMENT", None]
 
 def expressionlol():
-    return ["EXPRESSION", None]
+    a = sumlol()
+    if a[1] == None:
+        a = differencelol()
+    if a[1] == None:
+        a = productlol()
+    if a[1] == None:
+        a = quotientlol()
+    if a[1] == None:
+        a = modulolol()
+    if a[1] == None:
+        a = maxlol()
+    if a[1] == None:
+        a = minlol()
+    if a[1] == None:
+        a = equallol()
+    if a[1] == None:
+        a = concatlol()
+    if a[1] == None:
+        a = andlol()
+    if a[1] == None:
+        a = orlol()
+    if a[1] == None:
+        a = xorlol()
+    if a[1] == None:
+        a = notlol()
+    if a[1] == None:
+        a = infand()
+    if a[1] == None:
+        a = infor()
+    if a[1] == None:
+        a = equallol()
+    if a[1] == None:
+        a = notequallol()
+    if a[1] == None:
+        a = typecastit() 
+    if a[1] == None:
+        a = None  
+    if a == None: return ["EXPRESSION", None]
+    else: return ["EXPRESSION", a]
 
 def inputlol():
+    if lookahead_compare("Input Keyword"):
+        a = match("Input Keyword", None)
+        b = varinitlol()
+        return ["INPUT", a, b]
     return ["INPUT", None]
 
 def printlol():
+    if lookahead_compare("Print Keyword"):
+        a = match("Print Keyword", None)
+        b = operandlol()
+        c = printextlol()
+        if lookahead_compare("Exclamation"):
+            d = match("Exclamation", None)
+            return ["PRINT", a, b, c, d]
+        
+        return ["PRINT", a, b, c]
     return ["PRINT", None]
 
 def printextlol():
@@ -519,12 +640,51 @@ def typecastit():
 
 # EIRENE
 def vardeclol():
+    if lookahead_compare("Variable Declaration Start Delimiter"):
+        a = match("Variable Declaration Start Delimiter", "a 'WAZZUP'")
+        b = linebreaklol()
+        if b[1] == None:
+            error("a 'line break")
+        c = varinitlol()
+        d = match("Variable Declaration End Delimiter", "a 'BUHBYE'")
+        return ["VARIABLE DECLARATION", a, b, c, d]
     return ["VARIABLE DECLARATION", None]
 
 def varinitlol():
+    if lookahead_compare("Variable Declaration Keyword"):
+        a = match("Variable Declaration Keyword", None)
+        b = match("Identifier", "an 'identifier'")
+        if lookahead_compare("Variable Initialization Keyword"):
+            c = match("Variable Initialization Keyword", None)
+            d = operandlol()
+            if d[1] == None:
+                error("an 'operand'")
+            e = linebreaklol()
+            if e[1] == None:
+                error("a 'linebreak'")
+            f = varinitlol()
+            return ["VARIABLE INITIALIZATION",a,b,c,e,f]
+        c = linebreaklol()
+        if c[1] == None:
+            error("a 'linebreak'")
+        d = varinitlol()
+        return ["VARIABLE INITIALIZATION",a,b,c,d]
     return ["VARIABLE INITIALIZATION", None]
 
 def varssignlol():
+    if lookahead_compare("Identifier"):
+        a = match("Identifier", None)
+        if lookahead_compare("Assignment Keyword"):
+            b = match("Assignment Keyword", None)
+            c = operandlol()
+            if c[1] == None:
+                error("an 'operand'")
+            return ["VARIABLE ASSIGNMENT",a,b,c]
+        elif lookahead_compare("Typecast Is Keyword"):
+            b = match("Typecast Is Keyword", None)
+            c = match("Type Literal", "a 'type literal'")
+            return ["VARIABLE ASSIGNMENT",a,b,c]
+        else: error("an 'assignment' or 'typecasting'")
     return ["VARIABLE ASSIGNMENT", None]
 
 def ifelselol():
@@ -575,7 +735,7 @@ def concatoplol():
     if a == None:
         a = literallol()
         if a[1] == None:
-            a = sumlol()
+            a = sumlol() 
         if a[1] == None:
             a = None
 
@@ -604,6 +764,7 @@ def retlol():
 
     if lookahead_compare("Void Return Keyword"):
         a = match("Void Return Keyword")
+        b = linebreaklol()
         if b[1] == None:
             error("a 'line break'")
         return ["RETURN", a, b]
@@ -629,10 +790,12 @@ def linebreaklol():
     if lookahead_compare("New Line"):
         a = match("New Line", None)
         line += 1
-        return ["LINE BREAK",a]
+        b = linebreaklol()
+        return ["LINE BREAK",a,b]
     elif lookahead_compare("Comma"):
         a = match("Comma", None)
-        return ["LINE BREAK",a]
+        b = linebreaklol()
+        return ["LINE BREAK",a,b]
     return ["LINE BREAK", None]
 
 def global_envlol():
@@ -652,15 +815,19 @@ def global_envlol():
     return ["GLOBAL ENVIRONMENT", None]
 
 def mainlol():
-    if lookahead_compare("Program Start Delimiter"):
-        a = match("Program Start Delimiter", None)
-        b = linebreaklol()
-        c = vardeclol()
-        if b[1] == None:
-            error("a 'line break'")
-        e = statementlol()
-        f = match("Program End Delimiter", None)
-        return ["MAIN",a,b,e,f]
+    a = match("Program Start Delimiter", "a 'HAI'")
+    b = linebreaklol()
+    if b[1] == None:
+        error("a 'line break'")
+    c = vardeclol()
+    if c[1] == None:
+        error("a 'variable declaration section'")
+    d = linebreaklol()
+    if d[1] == None:
+        error("a 'line break'")
+    e = statementlol()
+    f = match("Program End Delimiter", "a 'KTHXBYE'")
+    return ["MAIN",a,b,c,d,e,f]
 
 def mainendlol():
     a = linebreaklol()

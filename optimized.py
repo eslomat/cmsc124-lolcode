@@ -118,8 +118,6 @@ def get_lexeme_type(lexeme):
         lexeme_type = "Program Start Delimiter"
     elif re.match(r"^KTHXBYE$", lexeme):
         lexeme_type = "Program End Delimiter"
-    elif re.match(r"^PRODUKT OF$", lexeme):
-        lexeme_type = "Multiplication Keyword"
     elif re.match(r"^BIGGR OF$", lexeme):
         lexeme_type = "Maximum Keyword"
     elif re.match(r"^BOTH OF$", lexeme):
@@ -279,6 +277,10 @@ def literallol():
     return ["LITERAL", None]
 
 def operandlol():        
+    if lookahead_compare("Identifier"):
+        a = match("Identifier", None)
+        return ["OPERAND", a]
+
     return ["OPERAND", None]
 
 def numberlol():
@@ -305,7 +307,15 @@ def statementlol():
         a = printlol()
         if a[1] == None:
             a = concatlol()
-
+        if a[1] == None:
+            a = sumlol()
+        if a[1] == None:
+            a = differencelol()
+        if a[1] == None:
+            a = productlol()
+        if a[1] == None:
+            a = quotientlol()
+            
         if a[1] != None:
             b = linebreaklol()
             if a[1] == None:
@@ -369,12 +379,36 @@ def sumlol():
     return ["SUM", None]
 
 def differencelol():
+    if lookahead_compare("Difference Keyword"):
+        a = match("Difference Keyword", None)
+        b = operandlol()
+        if b[1] == None: error("an 'operand'")
+        c = match("Operand Connector", "an 'AN'")
+        d = operandlol()
+        if d[1] == None: error("an 'operand'")
+        return ["DIFFERENCE", a, b, c, d]
     return ["DIFFERENCE", None]
 
 def productlol():
+    if lookahead_compare("Product Keyword"):
+        a = match("Product Keyword", None)
+        b = operandlol()
+        if b[1] == None: error("an 'operand'")
+        c = match("Operand Connector", "an 'AN'")
+        d = operandlol()
+        if d[1] == None: error("an 'operand'")
+        return ["PRODUCT", a, b, c, d]
     return ["PRODUCT", None]
 
 def quotientlol():
+    if lookahead_compare("Quotient Keyword"):
+        a = match("Quotient Keyword", None)
+        b = operandlol()
+        if b[1] == None: error("an 'operand'")
+        c = match("Operand Connector", "an 'AN'")
+        d = operandlol()
+        if d[1] == None: error("an 'operand'")
+        return ["QUOTIENT", a, b, c, d]
     return ["QUOTIENT", None]
 
 def modulolol():

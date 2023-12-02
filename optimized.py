@@ -459,17 +459,33 @@ def printlol():
         if lookahead_compare("Exclamation"):
             d = match("Exclamation", None)
             return ["PRINT", a, b, c, d]
-        
         return ["PRINT", a, b, c]
     return ["PRINT", None]
 
 def printextlol():
+    if lookahead_compare("Print Operand Connector"):
+        a = match("Print Opearand Connector", None)
+        b = operandlol()
+        c = printextlol()
+        return ["PRINT EXTENSION", a, b, c]
     return ["PRINT EXTENSION", None]
 
 def andlol():
+    if lookahead_compare("Logical AND Keyword"):
+        a = match("Logical AND Keyword")
+        b = operandlol()
+        c = match("Operand Connector")
+        d = operandlol()
+        return ["AND", a, b, c, d]
     return ["AND", None]
 
 def orlol():
+    if lookahead_compare("Logical OR Keyword"):
+        a = match("Logical OR Keyword")
+        b = operandlol()
+        c = match("Operand Connector")
+        d = operandlol()
+        return ["AND", a,b ]
     return ["OR", None]
 
 def xorlol():

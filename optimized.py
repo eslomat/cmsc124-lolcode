@@ -276,13 +276,45 @@ def lookahead_compare(token):
 
 # KAT
 def literallol():
-    return ["LITERAL", None]
+    if lookahead_compare("Numbr Literal"):
+        a = match("Numbr Literal", None)
+        return ["LITERAL", a]
+    elif lookahead_compare("Numbar Literal"):
+        b = match("Numbar Literal", None)
+        return ["LITERAL", b]
+    elif lookahead_compare("Yarn Literal"):
+        c = match("Yarn Literal", None)
+        return ["LITERAL", c]
+    elif lookahead_compare("Troof Literal"):
+        d = match("Troof Literal", None)
+        return ["LITERAL", d]
+    else:
+        return ["LITERAL", None]
 
 def operandlol():
-    return ["OPERAND", None]
+    a = None
+    if lookahead_compare("Identifier"):
+        a = match("Identifier", None)
+
+    if a == None:
+        a = literallol()
+        if a[1] == None:
+            a = expressionlol()
+        if a[1] == None:
+            a = None
+
+    if a == None: return ["OPERAND", None]
+    else: return ["OPERAND", a]
 
 def numberlol():
-    return ["NUMBER", None]
+    if lookahead_compare("Numbr Literal"):
+        a = match("Numbr Literal", None)
+        return ["NUMBER", a]
+    elif lookahead_compare("Numbar Literal"):
+        b = match("Numbar Literal", None)
+        return ["NUMBER", b]
+    else:
+        return ["NUMBER", None]
 
 def paramlol():
     return ["PARAMETER", None]

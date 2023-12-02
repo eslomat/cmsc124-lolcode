@@ -576,27 +576,23 @@ def minlol():
 def equallol():
     if lookahead_compare("Equal Keyword"):
         a = match("Equal Keyword", None)
-        b = operandlol()
+        b = isNumberOrVarident()
         if b[1] == None: error("an 'operand'")
         c = match("Operand Connector", "an 'AN'")
         if lookahead_compare("Maximum Keyword"):
             d = match("Maximum Keyword", None)
-            e = operandlol()
-            if e[1] == None: error("an 'operand'")
+            e = isA(b[0])
             f = match("Operand Connector", "an 'AN'")
-            g = operandlol()
-            if g[1] == None: error("an 'operand'")
+            g = isNumberOrVarident()
             return ["GREATER OR EQUAL", a, b, c, d, e, f, g]
         elif lookahead_compare("Minimum Keyword"):
             d = match("Minimum Keyword", None)
-            e = operandlol()
-            if e[1] == None: error("an 'operand'")
+            e = isA(b[0])
             f = match("Operand Connector", "an 'AN'")
-            g = operandlol()
-            if g[1] == None: error("an 'operand'")
+            g = isNumberOrVarident()
             return ["LESS OR EQUAL", a, b, c, d, e, f, g]
         else:
-            d = operandlol()
+            d = isNumberOrVarident()
             if d[1] == None: error("an 'operand'")
             return ["EQUAL", a, b, c, d]
     return ["EQUAL", None]
@@ -604,30 +600,49 @@ def equallol():
 def notequallol():
     if lookahead_compare("Not equal Keyword"):
         a = match("Not equal Keyword", None)
-        b = operandlol()
+        b = isNumberOrVarident()
         if b[1] == None: error("an 'operand'")
         c = match("Operand Connector", "an 'AN'")
         if lookahead_compare("Maximum Keyword"):
             d = match("Maximum Keyword", None)
-            e = operandlol()
-            if e[1] == None: error("an 'operand'")
+            e = isA(b[0])
             f = match("Operand Connector", "an 'AN'")
-            g = operandlol()
-            if g[1] == None: error("an 'operand'")
-            return ["LESS", a, b, c, d, e, f, g]
+            g = isNumberOrVarident()
+            return ["GREATER OR EQUAL", a, b, c, d, e, f, g]
         elif lookahead_compare("Minimum Keyword"):
             d = match("Minimum Keyword", None)
-            e = operandlol()
-            if e[1] == None: error("an 'operand'")
+            e = isA(b[0])
             f = match("Operand Connector", "an 'AN'")
-            g = operandlol()
-            if g[1] == None: error("an 'operand'")
-            return ["GREATER", a, b, c, d, e, f, g]
+            g = isNumberOrVarident()
+            return ["LESS OR EQUAL", a, b, c, d, e, f, g]
         else:
-            d = operandlol()
+            d = isNumberOrVarident()
             if d[1] == None: error("an 'operand'")
             return ["NOT EQUAL", a, b, c, d]
     return ["NOT EQUAL", None]
+
+def isA(token):
+    if token == "NUMBER LITERAL":
+        if lookahead_compare("Numbr Literal"): a = match("Numbr Literal", None)
+        elif lookahead_compare("Numbar Literal"): a = match("Numbar Literal", None)
+        else: a = match("Numbr Literal", "a Number Literal")
+        return ["NUMBER LITERAL", a]
+    elif token =="IDENTIFIER":
+        a = match("Identifier", "a variable")
+        return ["IDENTIFIER", a]
+    return ["ISA", None]
+
+def isNumberOrVarident():
+    if lookahead_compare("Identifier"):
+        a = match("Identifier", None)
+        return ["IDENTIFIER", a]
+    elif lookahead_compare("Numbr Literal"):
+        a = match("Numbr Literal", None)
+        return ["NUMBER LITERAL", a]
+    elif lookahead_compare("Numbar Literal"):
+        a = match("Numbar Literal", None)
+        return ["NUMBER LITERAL", a]
+    else: error("a variable, numbr, or numbar")
 
 def typecastit():
     if lookahead_compare("Typecast It Keyword"):

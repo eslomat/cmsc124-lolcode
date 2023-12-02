@@ -303,7 +303,6 @@ def operandlol():
             a = expressionlol()
         if a[1] == None:
             a = None
-
     if a == None: return ["OPERAND", None]
     else: return ["OPERAND", a]
 
@@ -318,15 +317,34 @@ def numberlol():
         return ["NUMBER", None]
 
 def paramlol():
+    if lookahead_compare("Parameter Operand Connector"):
+        a = match("Parameter Operand Connector", None)
+        b = match("Identifier", "an 'identifier'")
+        c = paramextlol()
+        return ["PARAMETER", a, b, c]
     return ["PARAMETER", None]
 
 def paramextlol():
+    if lookahead_compare("Operand Connector"):
+        a = match("Operand Connector", None)
+        b = match("Parameter Operand Connector", None)
+        c = paramextlol()
+        return ["PARAMETER EXTENSION", a, b, c]
     return ["PARAMETER EXTENSION", None]
 
 def funcallol():
+    if lookahead_compare("Function Call Keyword"):
+        a = match("Function Call Keyword", None)
+        b = match("Identifier", "an 'identifier'")
+        c = fcparamextlol()
+        return ["FUNCTION CALL", a, b, c]
     return ["FUNCTION CALL", None]
 
 def fcparamextlol():
+    if lookahead_compare("Parameter Operand Connector"):
+        a = match("Parameter Operand Connector", None)
+        b = expressionlol()
+        c = fcparamextlol()
     return ["FUNCTION CALL PARAMETER EXTENSION", None]
 
 def statementlol():
@@ -337,10 +355,59 @@ def statementlol():
     else:
         a = printlol()
         if a[1] == None:
+            a = inputlol()
+        if a[1] == None:
             a = concatlol()
         if a[1] == None:
+            a = sumlol()
+        if a[1] == None:
+            a = differencelol()
+        if a[1] == None:
+            a = productlol()
+        if a[1] == None:
+            a = quotientlol()
+        if a[1] == None:
+            a = modulolol()
+        if a[1] == None:
+            a = minlol()
+        if a[1] == None:
+            a = maxlol()
+        if a[1] == None:
+            a = andlol()
+        if a[1] == None:
+            a = orlol()
+        if a[1] == None:
+            a = xorlol()
+        if a[1] == None:
+            a = notlol()
+        if a[1] == None:
+            a = infand()
+        if a[1] == None:
+            a = infor()
+        if a[1] == None:
+            a = equallol()
+        if a[1] == None:
+            a = notequallol()  
+        if a[1] == None:
+            a = greatequallol()
+        if a[1] == None:
+            a = lessequallol()
+        if a[1] == None:
+            a = lesslol()
+        if a[1] == None:
+            a = greatlol()
+        if a[1] == None:
+            a = typecastit()
+        if a[1] == None:
             a = varssignlol()
-
+        if a[1] == None:
+            a = ifelselol()
+        if a[1] == None:
+            a = caselol()
+        if a[1] == None:
+            a = looplol()
+        if a[1] == None:
+            a = funcallol()
         if a[1] != None:
             b = linebreaklol()
             if a[1] == None:
@@ -350,12 +417,63 @@ def statementlol():
     return ["STATEMENT", None]
 
 def expressionlol():
-    return ["EXPRESSION", None]
+    a = sumlol()
+    if a[1] == None:
+        a = differencelol()
+    if a[1] == None:
+        a = productlol()
+    if a[1] == None:
+        a = quotientlol()
+    if a[1] == None:
+        a = modulolol()
+    if a[1] == None:
+        a = maxlol()
+    if a[1] == None:
+        a = minlol()
+    if a[1] == None:
+        a = equallol()
+    if a[1] == None:
+        a = concatlol()
+    if a[1] == None:
+        a = andlol()
+    if a[1] == None:
+        a = orlol()
+    if a[1] == None:
+        a = xorlol()
+    if a[1] == None:
+        a = notlol()
+    if a[1] == None:
+        a = infand()
+    if a[1] == None:
+        a = infor()
+    if a[1] == None:
+        a = equallol()
+    if a[1] == None:
+        a = notequallol()
+    if a[1] == None:
+        a = typecastit() 
+    if a[1] == None:
+        a = None  
+    if a == None: return ["EXPRESSION", None]
+    else: return ["EXPRESSION", a]
 
 def inputlol():
+    if lookahead_compare("Input Keyword"):
+        a = match("Input Keyword", None)
+        b = varinitlol()
+        return ["INPUT", a, b]
     return ["INPUT", None]
 
 def printlol():
+    if lookahead_compare("Print Keyword"):
+        a = match("Print Keyword", None)
+        b = operandlol()
+        c = printextlol()
+        if lookahead_compare("Exclamation"):
+            d = match("Exclamation", None)
+            return ["PRINT", a, b, c, d]
+        
+        return ["PRINT", a, b, c]
     return ["PRINT", None]
 
 def printextlol():

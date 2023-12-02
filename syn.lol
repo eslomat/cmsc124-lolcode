@@ -1,4 +1,13 @@
+HOW IZ I param1 
+IF U SAY SO
 
+BTW _____________________________________________________ MAIN
 
-
-
+HAI 
+WAZZUP
+BUHBYE
+BOTH SAEM x AN y
+DIFFRINT x AN y
+BOTH SAEM x AN BIGGR OF x AN SUM OF 2 AN 2
+DIFFRINT x AN BIGGR OF x AN SUM OF 2 AN 2
+KTHXBYE 

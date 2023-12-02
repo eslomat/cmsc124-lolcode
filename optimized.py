@@ -8,7 +8,7 @@ import re
 # _______________________________________________________________________________________________________________ CODE GETTER
 
 try:
-    with open('syn.lol', 'r', encoding='utf-8') as file:
+    with open('lolcode.lol', 'r', encoding='utf-8') as file:
         code = file.read()
 except FileNotFoundError:
     print("\nFile not found or could not be opened.\n")
@@ -321,9 +321,10 @@ def paramlol():
 def paramextlol():
     if lookahead_compare("Operand Connector"):
         a = match("Operand Connector", None)
-        b = match("Parameter Operand Connector", None)
-        c = paramextlol()
-        return ["PARAMETER EXTENSION", a, b, c]
+        b = match("Parameter Operand Connector", "a 'YR'")
+        c = match("Identifier", "an 'identifier'")
+        d = paramextlol()
+        return ["PARAMETER EXTENSION", a, b, c, d]
     return ["PARAMETER EXTENSION", None]
 
 def funcallol():
@@ -678,7 +679,7 @@ def varinitlol():
             if e[1] == None:
                 error("a 'linebreak'")
             f = varinitlol()
-            return ["VARIABLE INITIALIZATION",a,b,c,e,f]
+            return ["VARIABLE INITIALIZATION",a,b,c,d,e,f]
         c = linebreaklol()
         if c[1] == None:
             error("a 'linebreak'")
@@ -769,16 +770,18 @@ def concatlol():
 
 def retlol():
     if lookahead_compare("Value Return Keyword"):
-        a = match("Value Return Keyword")
-        b = match("Parameter Operand Connector")
+        a = match("Value Return Keyword", None)
+        b = match("Parameter Operand Connector", "a 'YR'")
         c = expressionlol()
+        if c[1] == None:
+            error("an 'expression'")
         d = linebreaklol()
         if d[1] == None:
             error("a 'line break'")
         return ["RETURN", a, b, c, d]
 
     if lookahead_compare("Void Return Keyword"):
-        a = match("Void Return Keyword")
+        a = match("Void Return Keyword", None)
         b = linebreaklol()
         if b[1] == None:
             error("a 'line break'")
@@ -868,9 +871,8 @@ def syntax_analyzer():
     parse_tree = programlol()
     lexemes.pop()
     lexeme_dictionary.pop('$')
-    if parse_index == len(lexemes): print("... SYNTAX ANALYSIS DONE!\n")
-    else: error()
-
+    print("... SYNTAX ANALYSIS DONE!\n")
+    
 # _______________________________________________________________________________________________________________ SEMANTIC ANALYZER
 
 

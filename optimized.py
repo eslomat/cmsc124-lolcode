@@ -278,7 +278,7 @@ def lookahead_compare(token):
 def literallol():
     return ["LITERAL", None]
 
-def operandlol():
+def operandlol():        
     return ["OPERAND", None]
 
 def numberlol():
@@ -358,6 +358,14 @@ def inforopext():
 
 # JERICO
 def sumlol():
+    if lookahead_compare("Sum Keyword"):
+        a = match("Sum Keyword", None)
+        b = operandlol()
+        if b[1] == None: error("an 'operand'")
+        c = match("Operand Connector", "an 'AN'")
+        d = operandlol()
+        if d[1] == None: error("an 'operand'")
+        return ["SUM", a, b, c, d]
     return ["SUM", None]
 
 def differencelol():

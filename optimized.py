@@ -508,18 +508,6 @@ def notequallol():
             return ["NOT EQUAL", a, b, c, d]
     return ["NOT EQUAL", None]
 
-def greatequallol():
-    return ["GREATER THAN OR EQUAL", None]
-
-def lessequallol():
-    return ["LESS THAN OR EQUAL", None]
-
-def greatlol(): 
-    return ["GREATER THAN", None]
-
-def lesslol():
-    return ["LESS THAN", None]
-
 def typecastit():
     if lookahead_compare("Typecast It Keyword"):
         a = match("Typecast It Keyword", None)

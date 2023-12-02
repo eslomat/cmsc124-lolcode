@@ -447,7 +447,7 @@ def expressionlol():
 def inputlol():
     if lookahead_compare("Input Keyword"):
         a = match("Input Keyword", None)
-        b = varinitlol()
+        b = match("Identifier", "an 'identifier'")
         return ["INPUT", a, b]
     return ["INPUT", None]
 
@@ -692,13 +692,37 @@ def ifelselol():
     return ["CONDITIONAL STATEMENT", None]
 
 def iflol():
-    return ["IF STATEMENT", None]
+    if lookahead_compare("If Keyword"):
+        a = match("If Keyword")
+        b = linebreaklol()
+        if b[1] == None:
+            error("a 'linebreak'")
+        c = statementlol()
+        return ["IF BLOCK",a,b,c]
+    return ["IF BLOCK", None]
 
 def elseiflol():
-    return ["ELSE IF STATEMENT", None]
+    if lookahead_compare("Else If Keyword"):
+        a = match("Else If Keyword")
+        b = expressionlol()
+        if b[1] == None:
+            error("an 'expression'")
+        c = linebreaklol()
+        if c[1] == None:
+            error("a 'linebreak'")
+        d = statementlol()
+        return ["ELSE IF BLOCK",a,b,c,d]
+    return ["ELSE IF BLOCK", None]
 
 def elselol():
-    return ["ELSE STATEMENT", None]
+    if lookahead_compare("Else Keyword"):
+        a = match("Else Keyword")
+        b = linebreaklol()
+        if b[1] == None:
+            error("a 'linebreak'")
+        c = statementlol()
+        return ["ELSE BLOCK",a,b,c]
+    return ["ELSE BLOCK", None]
 
 def caselol():
     return ["CASE STATEMENT", None]
@@ -963,5 +987,5 @@ syntax_analyzer()
 # print_code()
 # print_lexemes_array()
 # print_lexeme_dictionary()
-print_parse_tree()
+# print_parse_tree()
 # compare_tree_lexemes()

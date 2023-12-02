@@ -1,0 +1,186 @@
+----------------------------------------------------------------------- PARSE TREE PRINTING
+------------------------------------------------
+[$]  PROGRAM
+
+		<GLOBAL ENVIRONMENT>
+			[['FUNCTION', 'HOW IZ I', 'param1', ['PARAMETER', None], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', None], ['RETURN', None], 'IF U SAY SO'], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['GLOBAL ENVIRONMENT', None]]
+
+		<MAIN>
+			['HAI', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['VARIABLE DECLARATION', 'WAZZUP', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['VARIABLE INITIALIZATION', None], 'BUHBYE'], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', None], 'KTHXBYE']
+
+		<MAIN END>
+			[None]
+
+------------------------------------------------
+[$]  GLOBAL ENVIRONMENT
+
+		<FUNCTION>
+			['HOW IZ I', 'param1', ['PARAMETER', None], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', None], ['RETURN', None], 'IF U SAY SO']
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+		<GLOBAL ENVIRONMENT>
+			[None]
+
+------------------------------------------------
+[$]  FUNCTION
+
+		HOW IZ I
+
+		param1
+
+		<PARAMETER>
+			[None]
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]
+
+		<STATEMENT>
+			[None]
+
+		<RETURN>
+			[None]
+
+		IF U SAY SO
+
+------------------------------------------------
+[$]  PARAMETER
+
+		EPSILON
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  STATEMENT
+
+		EPSILON
+
+------------------------------------------------
+[$]  RETURN
+
+		EPSILON
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  GLOBAL ENVIRONMENT
+
+		EPSILON
+
+------------------------------------------------
+[$]  MAIN
+
+		HAI
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+		<VARIABLE DECLARATION>
+			['WAZZUP', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['VARIABLE INITIALIZATION', None], 'BUHBYE']
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+		<STATEMENT>
+			[None]
+
+		KTHXBYE
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  VARIABLE DECLARATION
+
+		WAZZUP
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+		<VARIABLE INITIALIZATION>
+			[None]
+
+		BUHBYE
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  VARIABLE INITIALIZATION
+
+		EPSILON
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  STATEMENT
+
+		EPSILON
+
+------------------------------------------------
+[$]  MAIN END
+
+		EPSILON
+

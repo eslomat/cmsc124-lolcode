@@ -8,7 +8,7 @@ import re
 # _______________________________________________________________________________________________________________ CODE GETTER
 
 try:
-    with open('lolcode.lol', 'r', encoding='utf-8') as file:
+    with open('syn.lol', 'r', encoding='utf-8') as file:
         code = file.read()
 except FileNotFoundError:
     print("\nFile not found or could not be opened.\n")
@@ -464,7 +464,7 @@ def printlol():
 
 def printextlol():
     if lookahead_compare("Print Operand Connector"):
-        a = match("Print Opearand Connector", None)
+        a = match("Print Operand Connector", None)
         b = operandlol()
         c = printextlol()
         return ["PRINT EXTENSION", a, b, c]
@@ -472,20 +472,20 @@ def printextlol():
 
 def andlol():
     if lookahead_compare("Logical AND Keyword"):
-        a = match("Logical AND Keyword")
+        a = match("Logical AND Keyword", None)
         b = operandlol()
-        c = match("Operand Connector")
+        c = match("Operand Connector", None)
         d = operandlol()
         return ["AND", a, b, c, d]
     return ["AND", None]
 
 def orlol():
     if lookahead_compare("Logical OR Keyword"):
-        a = match("Logical OR Keyword")
+        a = match("Logical OR Keyword", None)
         b = operandlol()
-        c = match("Operand Connector")
+        c = match("Operand Connector", None)
         d = operandlol()
-        return ["AND", a,b ]
+        return ["OR", a,b,c,d]
     return ["OR", None]
 
 def xorlol():
@@ -650,9 +650,12 @@ def typecastit():
     if lookahead_compare("Typecast It Keyword"):
         a = match("Typecast It Keyword", None)
         b = match("Identifier", "a variable")
-        c = match("Typecast It Connector", "an A")
+        if lookahead_compare("Typecast It Connector"):
+            c = match("Typecast It Connector", "an A")
+            d = match("Type Literal", "a type literal")
+            return ["VALUE TYPECAST", a, b, c, d]
         d = match("Type Literal", "a type literal")
-        return ["VALUE TYPECAST", a, b, c, d]
+        return ["VALUE TYPECAST", a, b, d]
     return ["VALUE TYPECAST", None]
 
 # EIRENE
@@ -700,7 +703,7 @@ def varssignlol():
         elif lookahead_compare("Typecast Is Keyword"):
             b = match("Typecast Is Keyword", None)
             c = match("Type Literal", "a 'type literal'")
-            return ["VARIABLE ASSIGNMENT",a,b,c]
+            return ["VARIABLE TYPECAST",a,b,c]
         else: error("an 'assignment' or 'typecasting'")
     return ["VARIABLE ASSIGNMENT", None]
 
@@ -948,26 +951,29 @@ def delete_comments():
 
 def print_parse_tree():
     global parse_tree
-    print("----------------------------------------------------------------------- PARSE TREE PRINTING\n")
+    with open('debugger.txt', 'w') as file: 
+        file.write("----------------------------------------------------------------------- PARSE TREE PRINTING\n")
     print_parse_tree_helper(parse_tree)
+    print("... Successfully written the parse tree to debugger.txt!\n")
 
 def print_parse_tree_helper(parse_tree):
     if not isinstance(parse_tree, str) and parse_tree != None:
         index = 0
-        print("------------------------------------------------\n")
-        print(f"[$]  {parse_tree[0]}\n")
-        for branch in parse_tree:
-            if index != 0:
-                if branch == None: print(f"\tEPSILON")
-                elif isinstance(branch, str) and branch in lexeme_dictionary: print(f"\t{branch}".replace("\n", "\\n").ljust(5))
-                elif isinstance(branch, str): print(f"\t<{branch}>".ljust(5))
-                else:
-                    i = f"\t<{branch[0]}>".ljust(5)
-                    print(i + "\n")
-                    print(f"\t\t{branch[1:len(branch)]}".replace("\n", "\\n"))
-                
-                print("\n")
-            index += 1
+        with open('debugger.txt', 'a') as file: 
+            file.write("------------------------------------------------\n")
+            file.write(f"[$]  {parse_tree[0]}\n\n")
+            for branch in parse_tree:
+                if index != 0:
+                    if branch == None: file.write(f"\t\tEPSILON\n")
+                    elif isinstance(branch, str) and branch in lexeme_dictionary: file.write(f"\t\t{branch}".replace("\n", "\\n").ljust(5) + "\n")
+                    elif isinstance(branch, str): file.write(f"\t\t<{branch}>".ljust(5) + "\n")
+                    else:
+                        i = f"\t\t<{branch[0]}>".ljust(5)
+                        file.write(i + "\n")
+                        file.write(f"\t\t\t{branch[1:len(branch)]}".replace("\n", "\\n") + "\n")
+                    
+                    file.write("\n")
+                index += 1
         for branch in parse_tree:
             print_parse_tree_helper(branch)
 
@@ -1003,5 +1009,5 @@ syntax_analyzer()
 # print_code()
 # print_lexemes_array()
 # print_lexeme_dictionary()
-# print_parse_tree()
+print_parse_tree()
 # compare_tree_lexemes()

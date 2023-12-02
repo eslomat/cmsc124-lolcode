@@ -248,10 +248,11 @@ def error(expected):
     lexeme_to_match = lexemes[parse_index].replace("\n", "new line")
     if parse_index != 0:
         prev_lexeme = lexemes[parse_index-1].replace("\n", "new line")
-        if expected == None: print(f"error: syntax error at line {line}, unexpected '{lexeme_to_match}' after '{prev_lexeme}'\n")
+        if lexeme_to_match == "$": print(f"error: syntax error at line {line}, expected '{expected}' after '{prev_lexeme}'\n")
+        elif expected == None: print(f"error: syntax error at line {line}, unexpected '{lexeme_to_match}' after '{prev_lexeme}'\n")
         else:print(f"error: syntax error at line {line}, expected {expected} after '{prev_lexeme}', but found '{lexeme_to_match}'\n")
     else:
-        print(f"error: syntax error at line {line}, unexpected '{lexeme_to_match}' at start\n")
+        print(f"error: syntax error at line {line}, expected '{expected}' at start\n")
     exit()
 
 def match(token, expected):
@@ -553,12 +554,51 @@ def typecastit():
 
 # EIRENE
 def vardeclol():
+    if lookahead_compare("Variable Declaration Start Delimiter"):
+        a = match("Variable Declaration Start Delimiter", "a 'WAZZUP'")
+        b = linebreaklol()
+        if b[1] == None:
+            error("a 'line break")
+        c = varinitlol()
+        d = match("Variable Declaration End Delimiter", "a 'BUHBYE'")
+        return ["VARIABLE DECLARATION", a, b, c, d]
     return ["VARIABLE DECLARATION", None]
 
 def varinitlol():
+    if lookahead_compare("Variable Declaration Keyword"):
+        a = match("Variable Declaration Keyword", None)
+        b = match("Identifier", "an 'identifier'")
+        if lookahead_compare("Variable Initialization Keyword"):
+            c = match("Variable Initialization Keyword", None)
+            d = operandlol()
+            if d[1] == None:
+                error("an 'operand'")
+            e = linebreaklol()
+            if e[1] == None:
+                error("a 'linebreak'")
+            f = varinitlol()
+            return ["VARIABLE INITIALIZATION",a,b,c,e,f]
+        c = linebreaklol()
+        if c[1] == None:
+            error("a 'linebreak'")
+        d = varinitlol()
+        return ["VARIABLE INITIALIZATION",a,b,c,d]
     return ["VARIABLE INITIALIZATION", None]
 
 def varssignlol():
+    if lookahead_compare("Identifier"):
+        a = match("Identifier", None)
+        if lookahead_compare("Assignment Keyword"):
+            b = match("Assignment Keyword", None)
+            c = operandlol()
+            if c[1] == None:
+                error("an 'operand'")
+            return ["VARIABLE ASSIGNMENT",a,b,c]
+        elif lookahead_compare("Typecast Is Keyword"):
+            b = match("Typecast Is Keyword", None)
+            c = match("Type Literal", "a 'type literal'")
+            return ["VARIABLE ASSIGNMENT",a,b,c]
+        else: error("an 'assignment' or 'typecasting'")
     return ["VARIABLE ASSIGNMENT", None]
 
 def ifelselol():
@@ -609,7 +649,7 @@ def concatoplol():
     if a == None:
         a = literallol()
         if a[1] == None:
-            a = sumlol()
+            a = sumlol() 
         if a[1] == None:
             a = None
 
@@ -638,6 +678,7 @@ def retlol():
 
     if lookahead_compare("Void Return Keyword"):
         a = match("Void Return Keyword")
+        b = linebreaklol()
         if b[1] == None:
             error("a 'line break'")
         return ["RETURN", a, b]
@@ -663,10 +704,12 @@ def linebreaklol():
     if lookahead_compare("New Line"):
         a = match("New Line", None)
         line += 1
-        return ["LINE BREAK",a]
+        b = linebreaklol()
+        return ["LINE BREAK",a,b]
     elif lookahead_compare("Comma"):
         a = match("Comma", None)
-        return ["LINE BREAK",a]
+        b = linebreaklol()
+        return ["LINE BREAK",a,b]
     return ["LINE BREAK", None]
 
 def global_envlol():
@@ -686,15 +729,19 @@ def global_envlol():
     return ["GLOBAL ENVIRONMENT", None]
 
 def mainlol():
-    if lookahead_compare("Program Start Delimiter"):
-        a = match("Program Start Delimiter", None)
-        b = linebreaklol()
-        c = vardeclol()
-        if b[1] == None:
-            error("a 'line break'")
-        e = statementlol()
-        f = match("Program End Delimiter", None)
-        return ["MAIN",a,b,e,f]
+    a = match("Program Start Delimiter", "a 'HAI'")
+    b = linebreaklol()
+    if b[1] == None:
+        error("a 'line break'")
+    c = vardeclol()
+    if c[1] == None:
+        error("a 'variable declaration section'")
+    d = linebreaklol()
+    if d[1] == None:
+        error("a 'line break'")
+    e = statementlol()
+    f = match("Program End Delimiter", "a 'KTHXBYE'")
+    return ["MAIN",a,b,c,d,e,f]
 
 def mainendlol():
     a = linebreaklol()

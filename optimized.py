@@ -456,9 +456,26 @@ def equallol():
         b = operandlol()
         if b[1] == None: error("an 'operand'")
         c = match("Operand Connector", "an 'AN'")
-        d = operandlol()
-        if d[1] == None: error("an 'operand'")
-        return ["EQUAL", a, b, c, d]
+        if lookahead_compare("Maximum Keyword"):
+            d = match("Maximum Keyword", None)
+            e = operandlol()
+            if e[1] == None: error("an 'operand'")
+            f = match("Operand Connector", "an 'AN'")
+            g = operandlol()
+            if g[1] == None: error("an 'operand'")
+            return ["GREATER OR EQUAL", a, b, c, d, e, f, g]
+        elif lookahead_compare("Minimum Keyword"):
+            d = match("Minimum Keyword", None)
+            e = operandlol()
+            if e[1] == None: error("an 'operand'")
+            f = match("Operand Connector", "an 'AN'")
+            g = operandlol()
+            if g[1] == None: error("an 'operand'")
+            return ["LESS OR EQUAL", a, b, c, d, e, f, g]
+        else:
+            d = operandlol()
+            if d[1] == None: error("an 'operand'")
+            return ["EQUAL", a, b, c, d]
     return ["EQUAL", None]
 
 def notequallol():
@@ -467,9 +484,26 @@ def notequallol():
         b = operandlol()
         if b[1] == None: error("an 'operand'")
         c = match("Operand Connector", "an 'AN'")
-        d = operandlol()
-        if d[1] == None: error("an 'operand'")
-        return ["NOT EQUAL", a, b, c, d]
+        if lookahead_compare("Maximum Keyword"):
+            d = match("Maximum Keyword", None)
+            e = operandlol()
+            if e[1] == None: error("an 'operand'")
+            f = match("Operand Connector", "an 'AN'")
+            g = operandlol()
+            if g[1] == None: error("an 'operand'")
+            return ["LESS", a, b, c, d, e, f, g]
+        elif lookahead_compare("Minimum Keyword"):
+            d = match("Minimum Keyword", None)
+            e = operandlol()
+            if e[1] == None: error("an 'operand'")
+            f = match("Operand Connector", "an 'AN'")
+            g = operandlol()
+            if g[1] == None: error("an 'operand'")
+            return ["GREATER", a, b, c, d, e, f, g]
+        else:
+            d = operandlol()
+            if d[1] == None: error("an 'operand'")
+            return ["NOT EQUAL", a, b, c, d]
     return ["NOT EQUAL", None]
 
 def greatequallol():

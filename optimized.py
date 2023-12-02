@@ -118,8 +118,6 @@ def get_lexeme_type(lexeme):
         lexeme_type = "Program Start Delimiter"
     elif re.match(r"^KTHXBYE$", lexeme):
         lexeme_type = "Program End Delimiter"
-    elif re.match(r"^BIGGR OF$", lexeme):
-        lexeme_type = "Maximum Keyword"
     elif re.match(r"^BOTH OF$", lexeme):
         lexeme_type = "Logical AND Keyword"
     elif re.match(r"^EITHER OF$", lexeme):
@@ -315,6 +313,12 @@ def statementlol():
             a = productlol()
         if a[1] == None:
             a = quotientlol()
+        if a[1] == None:
+            a = modulolol()
+        if a[1] == None:
+            a = maxlol()
+        if a[1] == None:
+            a = minlol()
             
         if a[1] != None:
             b = linebreaklol()
@@ -412,12 +416,36 @@ def quotientlol():
     return ["QUOTIENT", None]
 
 def modulolol():
+    if lookahead_compare("Modulo Keyword"):
+        a = match("Modulo Keyword", None)
+        b = operandlol()
+        if b[1] == None: error("an 'operand'")
+        c = match("Operand Connector", "an 'AN'")
+        d = operandlol()
+        if d[1] == None: error("an 'operand'")
+        return ["MODULO", a, b, c, d]
     return ["MODULO", None]
 
-def maxlol():
+def maxlol(): 
+    if lookahead_compare("Maximum Keyword"):
+        a = match("Maximum Keyword", None)
+        b = operandlol()
+        if b[1] == None: error("an 'operand'")
+        c = match("Operand Connector", "an 'AN'")
+        d = operandlol()
+        if d[1] == None: error("an 'operand'")
+        return ["MAX", a, b, c, d]
     return ["MAX", None]
 
 def minlol():
+    if lookahead_compare("Minimum Keyword"):
+        a = match("Minimum Keyword", None)
+        b = operandlol()
+        if b[1] == None: error("an 'operand'")
+        c = match("Operand Connector", "an 'AN'")
+        d = operandlol()
+        if d[1] == None: error("an 'operand'")
+        return ["MIN", a, b, c, d]
     return ["MIN", None]
 
 def equallol():
@@ -432,7 +460,7 @@ def greatequallol():
 def lessequallol():
     return ["LESS THAN OR EQUAL", None]
 
-def greatlol():
+def greatlol(): 
     return ["GREATER THAN", None]
 
 def lesslol():

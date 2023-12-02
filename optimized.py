@@ -321,6 +321,8 @@ def statementlol():
             a = equallol()
         if a[1] == None:
             a = notequallol()
+        if a[1] == None:
+            a = typecastit()
             
         if a[1] != None:
             b = linebreaklol()
@@ -519,6 +521,12 @@ def lesslol():
     return ["LESS THAN", None]
 
 def typecastit():
+    if lookahead_compare("Typecast It Keyword"):
+        a = match("Typecast It Keyword", None)
+        b = match("Identifier", "a variable")
+        c = match("Typecast It Connector", "an A")
+        d = match("Type Literal", "a type literal")
+        return ["VALUE TYPECAST", a, b, c, d]
     return ["VALUE TYPECAST", None]
 
 # EIRENE

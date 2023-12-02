@@ -327,9 +327,10 @@ def paramlol():
 def paramextlol():
     if lookahead_compare("Operand Connector"):
         a = match("Operand Connector", None)
-        b = match("Parameter Operand Connector", None)
-        c = paramextlol()
-        return ["PARAMETER EXTENSION", a, b, c]
+        b = match("Parameter Operand Connector", "a 'YR'")
+        c = match("Identifier", "an 'identifier'")
+        d = paramextlol()
+        return ["PARAMETER EXTENSION", a, b, c, d]
     return ["PARAMETER EXTENSION", None]
 
 def funcallol():
@@ -668,16 +669,18 @@ def concatlol():
 
 def retlol():
     if lookahead_compare("Value Return Keyword"):
-        a = match("Value Return Keyword")
-        b = match("Parameter Operand Connector")
+        a = match("Value Return Keyword", None)
+        b = match("Parameter Operand Connector", "a 'YR'")
         c = expressionlol()
+        if c[1] == None:
+            error("an 'expression'")
         d = linebreaklol()
         if d[1] == None:
             error("a 'line break'")
         return ["RETURN", a, b, c, d]
 
     if lookahead_compare("Void Return Keyword"):
-        a = match("Void Return Keyword")
+        a = match("Void Return Keyword", None)
         b = linebreaklol()
         if b[1] == None:
             error("a 'line break'")

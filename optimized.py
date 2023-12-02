@@ -238,14 +238,13 @@ def lexical_analyzer():
 
 # _______________________________________________________________________________________ EXTRAS
 
+parse_tree = None
 parse_index = 0
-parse_tree = []
 line = 1
-expected = None
 
 # _______________________________________________________________________________________ HELPERS
 
-def error():
+def error(expected):
     lexeme_to_match = lexemes[parse_index].replace("\n", "new line")
     if parse_index != 0:
         prev_lexeme = lexemes[parse_index-1].replace("\n", "new line")
@@ -255,13 +254,13 @@ def error():
         print(f"error: syntax error at line {line}, unexpected '{lexeme_to_match}' at start\n")
     exit()
 
-def match(token):
-    global parse_index, line, expected
+def match(token, expected):
+    global parse_index, line
     if(lexeme_dictionary[lexemes[parse_index]] == token):
         parse_index += 1
-        expected = None
+        return lexemes[parse_index-1]
     else:
-        error()
+        error(expected)
         exit()
 
 def lookahead_compare(token):
@@ -276,121 +275,297 @@ def lookahead_compare(token):
 # _______________________________________________________________________________________ RECURSIVE DESCENT PARSER
 
 # KAT
+def literallol():
+    return ["LITERAL", None]
+
+def operandlol():
+    return ["OPERAND", None]
+
+def numberlol():
+    return ["NUMBER", None]
+
+def paramlol():
+    return ["PARAMETER", None]
+
+def paramextlol():
+    return ["PARAMETER EXTENSION", None]
+
+def funcallol():
+    return ["FUNCTION CALL", None]
+
+def fcparamextlol():
+    return ["FUNCTION CALL PARAMETER EXTENSION", None]
+
+def statementlol():
+    a = linebreaklol()
+    if a[1] != None:
+        b = statementlol()
+        return ["STATEMENT",a,b]
+    else:
+        a = printlol()
+        if a[1] == None:
+            a = concatlol()
+
+        if a[1] != None:
+            b = linebreaklol()
+            if a[1] == None:
+                error("a 'line break'")
+            c = statementlol()
+            return ["STATEMENT",a,b,c]
+    return ["STATEMENT", None]
+
+def expressionlol():
+    return ["EXPRESSION", None]
+
+def inputlol():
+    return ["INPUT", None]
+
+def printlol():
+    return ["PRINT", None]
+
+def printextlol():
+    return ["PRINT EXTENSION", None]
+
+def andlol():
+    return ["AND", None]
+
+def orlol():
+    return ["OR", None]
+
+def xorlol():
+    return ["XOR", None]
+
+def notlol():
+    return ["NOT", None]
+
+def infand():
+    return ["INFINITE ARITY AND", None]
+
+def infandop():
+    return ["INFINITE ARITY AND OPERAND", None]
+
+def infandopext():
+    return ["INFINITE ARITY AND OPERAND EXTENSION", None]
+
+def infor():
+    return ["INFINITE ARITY OR", None]
+
+def inforop():
+    return ["INFINITE ARITY OR OPERAND", None]
+
+def inforopext():
+    return ["INFINITE ARITY OR OPERAND EXTENSION", None]
 
 # JERICO
+def sumlol():
+    return ["SUM", None]
+
+def differencelol():
+    return ["DIFFERENCE", None]
+
+def productlol():
+    return ["PRODUCT", None]
+
+def quotientlol():
+    return ["QUOTIENT", None]
+
+def modulolol():
+    return ["MODULO", None]
+
+def maxlol():
+    return ["MAX", None]
+
+def minlol():
+    return ["MIN", None]
+
+def equallol():
+    return ["EQUAL", None]
+
+def notequallol():
+    return ["NOT EQUAL", None]
+
+def greatequallol():
+    return ["GREATER THAN OR EQUAL", None]
+
+def lessequallol():
+    return ["LESS THAN OR EQUAL", None]
+
+def greatlol():
+    return ["GREATER THAN", None]
+
+def lesslol():
+    return ["LESS THAN", None]
+
+def typecastit():
+    return ["VALUE TYPECAST", None]
 
 # EIRENE
-# def concatop():
-#     consumed = literal()
+def vardeclol():
+    return ["VARIABLE DECLARATION", None]
 
-# def concat(parse_tree):
-#     if lookahead_compare("Concatenation Keyword"):
-#         match("Concatenation Keyword")
-#         parse_tree.append(lexemes[parse_index-1])
-#         a = []
-#         concatop(a)
-#         parse_tree.append(a)
-#         b = []
-#         concatext(b)
-#         parse_tree.append(b)
+def varinitlol():
+    return ["VARIABLE INITIALIZATION", None]
 
-def func(parse_tree):
-    global expected
+def varssignlol():
+    return ["VARIABLE ASSIGNMENT", None]
+
+def ifelselol():
+    return ["CONDITIONAL STATEMENT", None]
+
+def iflol():
+    return ["IF STATEMENT", None]
+
+def elseiflol():
+    return ["ELSE IF STATEMENT", None]
+
+def elselol():
+    return ["ELSE STATEMENT", None]
+
+def caselol():
+    return ["CASE STATEMENT", None]
+
+def acaselol():
+    return ["CASE", None]
+
+def defcaselol():
+    return ["DEFAULT CASE", None]
+
+def looplol():
+    return ["LOOP", None]
+
+def loopchangelol():
+    return ["LOOP CHANGE", None]
+
+def loopcondlol():
+    return ["LOOP CONDITION", None]
+
+def concatextlol():
+    if lookahead_compare("Operand Connector"):
+        a = match("Operand Connector", None)
+        b = concatoplol()
+        if b[1] == None:
+            error("a 'concatenation operand'")
+        c = concatextlol()
+        return ["CONCATENATION EXTENSION",a,b,c]
+    return ["CONCATENATION EXTENSION", None]
+
+def concatoplol():
+    a = None
+    if lookahead_compare("Identifier"):
+        a = match("Identifier", None)
+
+    if a == None:
+        a = literallol()
+        if a[1] == None:
+            a = sumlol()
+        if a[1] == None:
+            a = None
+
+    if a == None: return ["CONCATENATION OPERAND", None]
+    else: return ["CONCATENATION OPERAND", a]
+
+def concatlol():
+    if lookahead_compare("Concatenation Keyword"):
+        a = match("Concatenation Keyword", None)
+        b = concatoplol()
+        if b[1] == None:
+            error("a 'concatenation operand'")
+        c = concatextlol()
+        return ["CONCATENATION",a,b,c]
+    return ["CONCATENATION", None]
+
+def retlol():
+    if lookahead_compare("Value Return Keyword"):
+        a = match("Value Return Keyword")
+        b = match("Parameter Operand Connector")
+        c = expressionlol()
+        d = linebreaklol()
+        if d[1] == None:
+            error("a 'line break'")
+        return ["RETURN", a, b, c, d]
+
+    if lookahead_compare("Void Return Keyword"):
+        a = match("Void Return Keyword")
+        if b[1] == None:
+            error("a 'line break'")
+        return ["RETURN", a, b]
+    
+    return ["RETURN", None]
+
+def funclol():
     if lookahead_compare("Function Declaration Keyword"):
-        match("Function Declaration Keyword")
-        parse_tree.append(lexemes[parse_index-1])
-        expected = "an 'identifier'"
-        match("Identifier")
-        parse_tree.append(lexemes[parse_index-1])
-        expected = "a 'line break'"
-        a = []
-        if not linebreak(a):
-            error()
-        parse_tree.append(a)
-        expected = "an 'IF U SAY SO'"
-        match("Function Declaration Delimiter")
-        parse_tree.append(lexemes[parse_index-1])
-        return True
-    else: return False
+        a = match("Function Declaration Keyword", None)
+        b = match("Identifier", "an 'identifier'")
+        c = paramlol()
+        d = linebreaklol()
+        if d[1] == None:
+            error("a 'line break'")
+        e = statementlol()
+        f = retlol()
+        g = match("Function Declaration Delimiter", "an 'IF U SAY SO'")
+        return ["FUNCTION",a,b,c,d,e,f,g]
+    return ["FUNCTION", None]
 
-def linebreak(parse_tree):
+def linebreaklol():
     global line
     if lookahead_compare("New Line"):
-        match("New Line")
-        parse_tree.append(lexemes[parse_index-1])
+        a = match("New Line", None)
         line += 1
-        return True
+        return ["LINE BREAK",a]
     elif lookahead_compare("Comma"):
-        match("Comma")
-        parse_tree.append(lexemes[parse_index-1])
-        return True
-    else: return False
+        a = match("Comma", None)
+        return ["LINE BREAK",a]
+    return ["LINE BREAK", None]
 
-def global_env(parse_tree):
-    global expected
-    a = []
-    consumed = linebreak(a)
-    if consumed:
-        b = []
-        parse_tree.append(a)
-        parse_tree.append(b)
+def global_envlol():
+    a = linebreaklol()
+    if a[1] != None:
+        b = global_envlol()
+        return ["GLOBAL ENVIRONMENT",a,b]
     else:
-        a = []
-        consumed = func(a)
-        expected = "a 'line break'"
-        c = []
-        if consumed and not linebreak(c):
-            error()
-        else:
-            b = []
-            if consumed:
-                parse_tree.append(a)
-                parse_tree.append(c)
-                parse_tree.append(b)
-    if consumed: global_env(b)
+        a = funclol()
+        if a[1] != None:
+            b = linebreaklol()
+            if b[1] == None:
+                error("a 'line break'")
+            else:
+                c = global_envlol()
+                return ["GLOBAL ENVIRONMENT",a,b,c]
+    return ["GLOBAL ENVIRONMENT", None]
 
-def main(parse_tree):
-    global expected
+def mainlol():
     if lookahead_compare("Program Start Delimiter"):
-        match("Program Start Delimiter")
-        parse_tree.append(lexemes[parse_index-1])
-        expected = "a 'line break'"
-        b = []
-        if not linebreak(b):
-            error()
-        parse_tree.append(b)
-        expected = "a 'KTHXBYE'"
-        match("Program End Delimiter")
-        parse_tree.append(lexemes[parse_index-1])
-        return True
+        a = match("Program Start Delimiter", None)
+        b = linebreaklol()
+        c = vardeclol()
+        if b[1] == None:
+            error("a 'line break'")
+        e = statementlol()
+        f = match("Program End Delimiter", None)
+        return ["MAIN",a,b,e,f]
 
-def mainend(parse_tree):
-    a = []
-    consumed = linebreak(a)
-    if consumed: 
-        b = []
-        parse_tree.append(a)
-        parse_tree.append(b)
-        global_env(b)
+def mainendlol():
+    a = linebreaklol()
+    if a[1] != None: 
+        b = global_envlol()
+        return ["MAIN END",a,b]
+    return ["MAIN END", None]
+    
 
-def program(parse_tree):
+def programlol():
     global parse_index
-    a = []
-    global_env(a)
-    parse_tree.append(a)
-    b = []
-    main(b)
-    parse_tree.append(b)
-    c = []
-    mainend(c)
-    parse_tree.append(c)
+    a = global_envlol()
+    b = mainlol()
+    c = mainendlol()
+    return ["PROGRAM",a,b,c]
 
 # _______________________________________________________________________________________ MAIN SECTION: SYNTAX ANALYZER
 
 def syntax_analyzer():
+    global parse_tree
     lexemes.append("$")
     lexeme_dictionary["$"] = "Syntax Analyzer End"
-    program(parse_tree)
+    parse_tree = programlol()
     lexemes.pop()
     lexeme_dictionary.pop('$')
     if parse_index == len(lexemes): print("... SYNTAX ANALYSIS DONE!\n")
@@ -450,15 +625,22 @@ def print_parse_tree():
     print_parse_tree_helper(parse_tree)
 
 def print_parse_tree_helper(parse_tree):
-    if not isinstance(parse_tree, str):
-        index = 1
-        print("------------------------------------------------")
-        print(f"[$]  {parse_tree}")
+    if not isinstance(parse_tree, str) and parse_tree != None:
+        index = 0
+        print("------------------------------------------------\n")
+        print(f"[$]  {parse_tree[0]}\n")
         for branch in parse_tree:
-            i = f"[{index}]".ljust(5)
-            print(f"{i}{branch}".replace("\n", "\\n"))
-            index +=1
-        print("\n")
+            if index != 0:
+                if branch == None: print(f"\tEPSILON")
+                elif isinstance(branch, str) and branch in lexeme_dictionary: print(f"\t{branch}".replace("\n", "\\n").ljust(5))
+                elif isinstance(branch, str): print(f"\t<{branch}>".ljust(5))
+                else:
+                    i = f"\t<{branch[0]}>".ljust(5)
+                    print(i + "\n")
+                    print(f"\t\t{branch[1:len(branch)]}".replace("\n", "\\n"))
+                
+                print("\n")
+            index += 1
         for branch in parse_tree:
             print_parse_tree_helper(branch)
 
@@ -478,8 +660,9 @@ ctl = 0
 def compare_tree_lexemes_helper(parse_tree, temp_lexemes):
     global ctl
     if not isinstance(parse_tree, str):
-        for branch in parse_tree:
-            compare_tree_lexemes_helper(branch, temp_lexemes)
+        if parse_tree != None:
+            for branch in parse_tree[1:len(parse_tree)]:
+                compare_tree_lexemes_helper(branch, temp_lexemes)
     else:
         print((f"[{ctl}]".ljust(7) + f"{parse_tree}".ljust(30) + f"{temp_lexemes[ctl]}").replace('\n','\\n'))
         ctl += 1
@@ -487,11 +670,11 @@ def compare_tree_lexemes_helper(parse_tree, temp_lexemes):
 # _______________________________________________________________________________________________________________ CALLS
 
 lexical_analyzer()
-# syntax_analyzer()
+syntax_analyzer()
 
 # delete_comments()
 # print_code()
 # print_lexemes_array()
-print_lexeme_dictionary()
-# print_parse_tree()
+# print_lexeme_dictionary()
+print_parse_tree()
 # compare_tree_lexemes()

@@ -196,35 +196,53 @@ def lexical_analyzer():
     for i in range(0,len(lexemes)):
         lexeme = lexemes[i+buffer_i]
         lexeme_type = get_lexeme_type(lexeme)
-        if lexeme not in lexeme_dictionary: 
-            if lexeme_type == "Unexpected Token Beside Multiline Comment (ERROR)":
-                lexeme = re.findall(r'\bOBTW[\s\S]*?TLDR\b|^.+(?=\bOBTW\b)|.+$', lexeme)
-                for j in lexeme:
-                    if not re.match(r"^OBTW[\s\S]*\n[\s\S]*TLDR$", j.strip()):
-                        if re.match(r"^OBTW[\s\S]*TLDR$", j.strip()):
-                            j = re.sub(r"^OBTW", "", j).strip()
-                        lexeme = j.strip()
-                        break
-                    lexemes.insert(i+buffer_i, j.strip())
-                    lexeme_dictionary[j.strip()] = "--- (ERROR)"
-                    buffer_i+=1
-            lexeme_dictionary[lexeme] = lexeme_type
-        lexemes[i+buffer_i] = lexeme 
+        if lexeme_type == "Yarn Literal":
+            lexemes.pop(i+buffer_i)
+            buffer_i -= 1
+            lexemes.insert(i+buffer_i, '"')
+            buffer_i+=1
+            lexemes.insert(i+buffer_i, lexeme[1:len(lexeme)-1])
+            buffer_i+=1
+            lexemes.insert(i+buffer_i, '"')
+            buffer_i+=1
+            if lexeme[1:len(lexeme)-1] not in lexeme_dictionary:
+                lexeme_dictionary[lexeme[1:len(lexeme)-1]] = "Yarn Literal"
+            if '"' not in lexeme_dictionary:
+                lexeme_dictionary['"'] = "Yarn Delimiter"
+        else:
+            if lexeme not in lexeme_dictionary: 
+                if lexeme_type == "Unexpected Token Beside Multiline Comment (ERROR)":
+                    lexeme = re.findall(r'\bOBTW[\s\S]*?TLDR\b|^.+(?=\bOBTW\b)|.+$', lexeme)
+                    for j in lexeme:
+                        if not re.match(r"^OBTW[\s\S]*\n[\s\S]*TLDR$", j.strip()):
+                            if re.match(r"^OBTW[\s\S]*TLDR$", j.strip()):
+                                j = re.sub(r"^OBTW", "", j).strip()
+                            lexeme = j.strip()
+                            break
+                        lexemes.insert(i+buffer_i, j.strip())
+                        lexeme_dictionary[j.strip()] = "--- (ERROR)"
+                        buffer_i+=1
+                lexeme_dictionary[lexeme] = lexeme_type
+            lexemes[i+buffer_i] = lexeme 
     lexeme_dictionary = dict(sorted(lexeme_dictionary.items()))     
 
     # ERROR DETECTION
     # LOOPS THE ARRAY-OF-LEXEMES, PRINTS ERROR IF A LEXEME HAS AN ERROR TYPE
     line = 1
+    error_free = True
     for lexeme in lexemes:
         if lexeme_dictionary[lexeme] == "New Line":
             line+=1
         elif lexeme_dictionary[lexeme] == "Unexpected Token (ERROR)":
+            error_free = False
             print(f"\nerror: unrecognized token '{lexeme}' at line {line}\n")
             exit()
         elif lexeme_dictionary[lexeme] == "Unterminated Comment (ERROR)":
+            error_free = False
             print(f"\nerror: unterminated comment '{lexeme}' at line {line}\n")
             exit()
         elif lexeme_dictionary[lexeme] == "Unexpected Token Beside Multiline Comment (ERROR)":
+            error_free = False
             print(f"\nerror: unexpected token '{lexeme}' beside a multi-line comment terminator at line {line}\n")
             exit()
         elif lexeme_dictionary[lexeme] == "Comment" or lexeme_dictionary[lexeme] == "--- (ERROR)":
@@ -238,6 +256,8 @@ def lexical_analyzer():
 
 # _______________________________________________________________________________________ EXTRAS
 
+lexemes.append("$")
+lexeme_dictionary["$"] = "Syntax Analyzer End"
 parse_index = 0
 parse_tree = []
 line = 1
@@ -274,25 +294,6 @@ def lookahead_compare(token):
     return False
 
 # _______________________________________________________________________________________ RECURSIVE DESCENT PARSER
-
-# KAT
-
-# JERICO
-
-# EIRENE
-# def concatop():
-#     consumed = literal()
-
-# def concat(parse_tree):
-#     if lookahead_compare("Concatenation Keyword"):
-#         match("Concatenation Keyword")
-#         parse_tree.append(lexemes[parse_index-1])
-#         a = []
-#         concatop(a)
-#         parse_tree.append(a)
-#         b = []
-#         concatext(b)
-#         parse_tree.append(b)
 
 def func(parse_tree):
     global expected
@@ -376,20 +377,18 @@ def mainend(parse_tree):
 def program(parse_tree):
     global parse_index
     a = []
-    global_env(a)
-    parse_tree.append(a)
     b = []
-    main(b)
-    parse_tree.append(b)
     c = []
+    global_env(a)
+    main(b)
     mainend(c)
+    parse_tree.append(a)
+    parse_tree.append(b)
     parse_tree.append(c)
 
 # _______________________________________________________________________________________ MAIN SECTION: SYNTAX ANALYZER
 
 def syntax_analyzer():
-    lexemes.append("$")
-    lexeme_dictionary["$"] = "Syntax Analyzer End"
     program(parse_tree)
     lexemes.pop()
     lexeme_dictionary.pop('$')
@@ -489,7 +488,7 @@ def compare_tree_lexemes_helper(parse_tree, temp_lexemes):
 lexical_analyzer()
 # syntax_analyzer()
 
-# delete_comments()
+delete_comments()
 # print_code()
 # print_lexemes_array()
 print_lexeme_dictionary()

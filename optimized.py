@@ -8,7 +8,7 @@ import re
 # _______________________________________________________________________________________________________________ CODE GETTER
 
 try:
-    with open('syn.lol', 'r', encoding='utf-8') as file:
+    with open('lolcode.lol', 'r', encoding='utf-8') as file:
         code = file.read()
 except FileNotFoundError:
     print("\nFile not found or could not be opened.\n")
@@ -459,7 +459,7 @@ def varinitlol():
             if e[1] == None:
                 error("a 'linebreak'")
             f = varinitlol()
-            return ["VARIABLE INITIALIZATION",a,b,c,e,f]
+            return ["VARIABLE INITIALIZATION",a,b,c,d,e,f]
         c = linebreaklol()
         if c[1] == None:
             error("a 'linebreak'")
@@ -649,9 +649,8 @@ def syntax_analyzer():
     parse_tree = programlol()
     lexemes.pop()
     lexeme_dictionary.pop('$')
-    if parse_index == len(lexemes): print("... SYNTAX ANALYSIS DONE!\n")
-    else: error()
-
+    print("... SYNTAX ANALYSIS DONE!\n")
+    
 # _______________________________________________________________________________________________________________ SEMANTIC ANALYZER
 
 

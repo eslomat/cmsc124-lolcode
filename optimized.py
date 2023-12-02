@@ -118,10 +118,6 @@ def get_lexeme_type(lexeme):
         lexeme_type = "Program Start Delimiter"
     elif re.match(r"^KTHXBYE$", lexeme):
         lexeme_type = "Program End Delimiter"
-    elif re.match(r"^PRODUKT OF$", lexeme):
-        lexeme_type = "Multiplication Keyword"
-    elif re.match(r"^BIGGR OF$", lexeme):
-        lexeme_type = "Maximum Keyword"
     elif re.match(r"^BOTH OF$", lexeme):
         lexeme_type = "Logical AND Keyword"
     elif re.match(r"^EITHER OF$", lexeme):
@@ -133,9 +129,7 @@ def get_lexeme_type(lexeme):
     elif re.match(r"^ALL OF$", lexeme):
         lexeme_type = "Infinite Arity AND Keyword"
     elif re.match(r"^ANY OF$", lexeme):
-        lexeme_type = "Infinite Arity OR Keyword"  
-    elif re.match(r"^DIFFRINT$", lexeme):
-        lexeme_type = "Inequality Keyword"
+        lexeme_type = "Infinite Arity OR Keyword" 
     elif re.match(r"^GIMMEH$", lexeme):
         lexeme_type = "Input Keyword"
     elif re.match(r"^VISIBLE$", lexeme):
@@ -389,14 +383,6 @@ def statementlol():
         if a[1] == None:
             a = notequallol()  
         if a[1] == None:
-            a = greatequallol()
-        if a[1] == None:
-            a = lessequallol()
-        if a[1] == None:
-            a = lesslol()
-        if a[1] == None:
-            a = greatlol()
-        if a[1] == None:
             a = typecastit()
         if a[1] == None:
             a = varssignlol()
@@ -511,45 +497,145 @@ def inforopext():
 
 # JERICO
 def sumlol():
+    if lookahead_compare("Sum Keyword"):
+        a = match("Sum Keyword", None)
+        b = operandlol()
+        if b[1] == None: error("an 'operand'")
+        c = match("Operand Connector", "an 'AN'")
+        d = operandlol()
+        if d[1] == None: error("an 'operand'")
+        return ["SUM", a, b, c, d]
     return ["SUM", None]
 
 def differencelol():
+    if lookahead_compare("Difference Keyword"):
+        a = match("Difference Keyword", None)
+        b = operandlol()
+        if b[1] == None: error("an 'operand'")
+        c = match("Operand Connector", "an 'AN'")
+        d = operandlol()
+        if d[1] == None: error("an 'operand'")
+        return ["DIFFERENCE", a, b, c, d]
     return ["DIFFERENCE", None]
 
 def productlol():
+    if lookahead_compare("Product Keyword"):
+        a = match("Product Keyword", None)
+        b = operandlol()
+        if b[1] == None: error("an 'operand'")
+        c = match("Operand Connector", "an 'AN'")
+        d = operandlol()
+        if d[1] == None: error("an 'operand'")
+        return ["PRODUCT", a, b, c, d]
     return ["PRODUCT", None]
 
 def quotientlol():
+    if lookahead_compare("Quotient Keyword"):
+        a = match("Quotient Keyword", None)
+        b = operandlol()
+        if b[1] == None: error("an 'operand'")
+        c = match("Operand Connector", "an 'AN'")
+        d = operandlol()
+        if d[1] == None: error("an 'operand'")
+        return ["QUOTIENT", a, b, c, d]
     return ["QUOTIENT", None]
 
 def modulolol():
+    if lookahead_compare("Modulo Keyword"):
+        a = match("Modulo Keyword", None)
+        b = operandlol()
+        if b[1] == None: error("an 'operand'")
+        c = match("Operand Connector", "an 'AN'")
+        d = operandlol()
+        if d[1] == None: error("an 'operand'")
+        return ["MODULO", a, b, c, d]
     return ["MODULO", None]
 
-def maxlol():
+def maxlol(): 
+    if lookahead_compare("Maximum Keyword"):
+        a = match("Maximum Keyword", None)
+        b = operandlol()
+        if b[1] == None: error("an 'operand'")
+        c = match("Operand Connector", "an 'AN'")
+        d = operandlol()
+        if d[1] == None: error("an 'operand'")
+        return ["MAX", a, b, c, d]
     return ["MAX", None]
 
 def minlol():
+    if lookahead_compare("Minimum Keyword"):
+        a = match("Minimum Keyword", None)
+        b = operandlol()
+        if b[1] == None: error("an 'operand'")
+        c = match("Operand Connector", "an 'AN'")
+        d = operandlol()
+        if d[1] == None: error("an 'operand'")
+        return ["MIN", a, b, c, d]
     return ["MIN", None]
 
 def equallol():
+    if lookahead_compare("Equal Keyword"):
+        a = match("Equal Keyword", None)
+        b = operandlol()
+        if b[1] == None: error("an 'operand'")
+        c = match("Operand Connector", "an 'AN'")
+        if lookahead_compare("Maximum Keyword"):
+            d = match("Maximum Keyword", None)
+            e = operandlol()
+            if e[1] == None: error("an 'operand'")
+            f = match("Operand Connector", "an 'AN'")
+            g = operandlol()
+            if g[1] == None: error("an 'operand'")
+            return ["GREATER OR EQUAL", a, b, c, d, e, f, g]
+        elif lookahead_compare("Minimum Keyword"):
+            d = match("Minimum Keyword", None)
+            e = operandlol()
+            if e[1] == None: error("an 'operand'")
+            f = match("Operand Connector", "an 'AN'")
+            g = operandlol()
+            if g[1] == None: error("an 'operand'")
+            return ["LESS OR EQUAL", a, b, c, d, e, f, g]
+        else:
+            d = operandlol()
+            if d[1] == None: error("an 'operand'")
+            return ["EQUAL", a, b, c, d]
     return ["EQUAL", None]
 
 def notequallol():
+    if lookahead_compare("Not equal Keyword"):
+        a = match("Not equal Keyword", None)
+        b = operandlol()
+        if b[1] == None: error("an 'operand'")
+        c = match("Operand Connector", "an 'AN'")
+        if lookahead_compare("Maximum Keyword"):
+            d = match("Maximum Keyword", None)
+            e = operandlol()
+            if e[1] == None: error("an 'operand'")
+            f = match("Operand Connector", "an 'AN'")
+            g = operandlol()
+            if g[1] == None: error("an 'operand'")
+            return ["LESS", a, b, c, d, e, f, g]
+        elif lookahead_compare("Minimum Keyword"):
+            d = match("Minimum Keyword", None)
+            e = operandlol()
+            if e[1] == None: error("an 'operand'")
+            f = match("Operand Connector", "an 'AN'")
+            g = operandlol()
+            if g[1] == None: error("an 'operand'")
+            return ["GREATER", a, b, c, d, e, f, g]
+        else:
+            d = operandlol()
+            if d[1] == None: error("an 'operand'")
+            return ["NOT EQUAL", a, b, c, d]
     return ["NOT EQUAL", None]
 
-def greatequallol():
-    return ["GREATER THAN OR EQUAL", None]
-
-def lessequallol():
-    return ["LESS THAN OR EQUAL", None]
-
-def greatlol():
-    return ["GREATER THAN", None]
-
-def lesslol():
-    return ["LESS THAN", None]
-
 def typecastit():
+    if lookahead_compare("Typecast It Keyword"):
+        a = match("Typecast It Keyword", None)
+        b = match("Identifier", "a variable")
+        c = match("Typecast It Connector", "an A")
+        d = match("Type Literal", "a type literal")
+        return ["VALUE TYPECAST", a, b, c, d]
     return ["VALUE TYPECAST", None]
 
 # EIRENE

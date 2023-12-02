@@ -8,7 +8,7 @@ import re
 # _______________________________________________________________________________________________________________ CODE GETTER
 
 try:
-    with open('lolcode.lol', 'r', encoding='utf-8') as file:
+    with open('syn.lol', 'r', encoding='utf-8') as file:
         code = file.read()
 except FileNotFoundError:
     print("\nFile not found or could not be opened.\n")
@@ -574,26 +574,79 @@ def minlol():
         return ["MIN", a, b, c, d]
     return ["MIN", None]
 
+def arithmeticExpression():
+    a = numberlol()
+    if a[1] != None:
+        return a
+    if a[1] == None:
+        a = sumlol()
+    if a[1] == None:
+        a = differencelol()
+    if a[1] == None:
+        a = productlol()
+    if a[1] == None:
+        a = quotientlol()
+    if a[1] == None:
+        a = modulolol()
+    if a[1] == None:
+        a = maxlol()
+    if a[1] == None:
+        a = minlol()
+    if a[1] == None:
+        return ["ARITHEMETIC EXPRESSION", None]
+    return ["ARITHMETIC EXPRESSION", a]
+
+def varident():
+    if lookahead_compare("Identifier"):
+        a = match("Identifier", None)
+        return ["Identifier", a]
+    return ["Identifier", None]
+
+# varident, number, arithmetic expr (Sum,...)
+def compop():
+    a = varident()
+    if a[1] == None:
+        a = numberlol()
+    if a[1] == None:
+        a = sumlol()
+    if a[1] == None:
+        a = differencelol()
+    if a[1] == None:
+        a = productlol()
+    if a[1] == None:
+        a = quotientlol()
+    if a[1] == None:
+        a = modulolol()
+    if a[1] == None:
+        a = maxlol()
+    if a[1] == None:
+        a = minlol()
+    if a[1] != None:
+        return a
+    else: 
+        return ["ARITHMETIC EXPRESSION", None]
+
 def equallol():
     if lookahead_compare("Equal Keyword"):
         a = match("Equal Keyword", None)
-        b = isNumberOrVarident()
-        if b[1] == None: error("an 'operand'")
+        b = compop()
         c = match("Operand Connector", "an 'AN'")
         if lookahead_compare("Maximum Keyword"):
             d = match("Maximum Keyword", None)
-            e = isA(b[0])
+            e = compop()
             f = match("Operand Connector", "an 'AN'")
-            g = isNumberOrVarident()
+            if b != e: error("THEY SHOULD BE EQUAL!") #! FIX THE ERROR MESSAGE
+            g = compop()
             return ["GREATER OR EQUAL", a, b, c, d, e, f, g]
         elif lookahead_compare("Minimum Keyword"):
             d = match("Minimum Keyword", None)
-            e = isA(b[0])
+            e = compop()
             f = match("Operand Connector", "an 'AN'")
-            g = isNumberOrVarident()
+            if b != e: error("THEY SHOULD BE EQUAL!") #! FIX THE ERROR MESSAGE
+            g = compop()
             return ["LESS OR EQUAL", a, b, c, d, e, f, g]
         else:
-            d = isNumberOrVarident()
+            d = compop()
             if d[1] == None: error("an 'operand'")
             return ["EQUAL", a, b, c, d]
     return ["EQUAL", None]
@@ -601,25 +654,26 @@ def equallol():
 def notequallol():
     if lookahead_compare("Not equal Keyword"):
         a = match("Not equal Keyword", None)
-        b = isNumberOrVarident()
-        if b[1] == None: error("an 'operand'")
+        b = compop()
         c = match("Operand Connector", "an 'AN'")
         if lookahead_compare("Maximum Keyword"):
             d = match("Maximum Keyword", None)
-            e = isA(b[0])
+            e = compop()
             f = match("Operand Connector", "an 'AN'")
-            g = isNumberOrVarident()
-            return ["GREATER OR EQUAL", a, b, c, d, e, f, g]
+            if b != e: error("THEY SHOULD BE EQUAL!") #! FIX THE ERROR MESSAGE
+            g = compop()
+            return ["LESS", a, b, c, d, e, f, g]
         elif lookahead_compare("Minimum Keyword"):
             d = match("Minimum Keyword", None)
-            e = isA(b[0])
+            e = compop()
             f = match("Operand Connector", "an 'AN'")
-            g = isNumberOrVarident()
-            return ["LESS OR EQUAL", a, b, c, d, e, f, g]
+            if b != e: error("THEY SHOULD BE EQUAL!") #! FIX THE ERROR MESSAGE
+            g = compop()
+            return ["GREATER", a, b, c, d, e, f, g]
         else:
-            d = isNumberOrVarident()
+            d = compop()
             if d[1] == None: error("an 'operand'")
-            return ["NOT EQUAL", a, b, c, d]
+            return ["LESS", a, b, c, d]
     return ["NOT EQUAL", None]
 
 def isA(token):

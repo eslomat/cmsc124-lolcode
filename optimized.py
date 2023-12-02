@@ -129,9 +129,7 @@ def get_lexeme_type(lexeme):
     elif re.match(r"^ALL OF$", lexeme):
         lexeme_type = "Infinite Arity AND Keyword"
     elif re.match(r"^ANY OF$", lexeme):
-        lexeme_type = "Infinite Arity OR Keyword"  
-    elif re.match(r"^DIFFRINT$", lexeme):
-        lexeme_type = "Inequality Keyword"
+        lexeme_type = "Infinite Arity OR Keyword" 
     elif re.match(r"^GIMMEH$", lexeme):
         lexeme_type = "Input Keyword"
     elif re.match(r"^VISIBLE$", lexeme):
@@ -319,6 +317,10 @@ def statementlol():
             a = maxlol()
         if a[1] == None:
             a = minlol()
+        if a[1] == None:
+            a = equallol()
+        if a[1] == None:
+            a = notequallol()
             
         if a[1] != None:
             b = linebreaklol()
@@ -449,9 +451,25 @@ def minlol():
     return ["MIN", None]
 
 def equallol():
+    if lookahead_compare("Equal Keyword"):
+        a = match("Equal Keyword", None)
+        b = operandlol()
+        if b[1] == None: error("an 'operand'")
+        c = match("Operand Connector", "an 'AN'")
+        d = operandlol()
+        if d[1] == None: error("an 'operand'")
+        return ["EQUAL", a, b, c, d]
     return ["EQUAL", None]
 
 def notequallol():
+    if lookahead_compare("Not equal Keyword"):
+        a = match("Not equal Keyword", None)
+        b = operandlol()
+        if b[1] == None: error("an 'operand'")
+        c = match("Operand Connector", "an 'AN'")
+        d = operandlol()
+        if d[1] == None: error("an 'operand'")
+        return ["NOT EQUAL", a, b, c, d]
     return ["NOT EQUAL", None]
 
 def greatequallol():

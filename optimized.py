@@ -522,27 +522,133 @@ def orlol():
     return ["OR", None]
 
 def xorlol():
+    if lookahead_compare("Logical XOR Keyword"):
+        a = match("Logical XOR Keyword", None)
+        b = operandlol()
+        c = match("Operand Connector", None)
+        d = operandlol()
+        return ["XOR", a, b, c, d]
     return ["XOR", None]
 
 def notlol():
+    if lookahead_compare("Logical NOT Keyword"):
+        a = match("Logical NOT Keyword", None)
+        b = operandlol()
+        return ["NOT", a, b]
     return ["NOT", None]
 
 def infand():
+    if lookahead_compare("Infinite Arity AND Keyword"):
+        a = match("Infinite Arity AND Keyword", None)
+        b = infandop()
+        c = infandopext()
+        return ["INFINITE ARITY AND", a, b, c]
     return ["INFINITE ARITY AND", None]
 
 def infandop():
-    return ["INFINITE ARITY AND OPERAND", None]
+    a = None
+    if lookahead_compare("Identifier"):
+        a = match("Identifier", None)
+    if a == None:
+        a = literallol()
+        if a[1] == None:
+            a = sumlol()
+        if a[1] == None:
+            a = differencelol()
+        if a[1] == None:
+            a = productlol()
+        if a[1] == None:
+            a = quotientlol()
+        if a[1] == None:
+            a = modulolol()
+        if a[1] == None:
+            a = maxlol()
+        if a[1] == None:
+            a = minlol()
+        if a[1] == None:
+            a = equallol()
+        if a[1] == None:
+            a = concatlol()
+        if a[1] == None:
+            a = andlol()
+        if a[1] == None:
+            a = orlol()
+        if a[1] == None:
+            a = xorlol()
+        if a[1] == None:
+            a = notlol()
+        if a[1] == None:
+            a = equallol()
+        if a[1] == None:
+            a = notequallol()
+        if a[1] == None:
+            a = None
+    if a == None: return ["INFINITE ARITY AND OPERAND", None]
+    else: return ["INFINITE ARITY AND OPERAND", a] 
 
 def infandopext():
+    if lookahead_compare("Operand Connector"):
+        a = match("Operand Connector", None)
+        b = infandop()
+        c = infandopext()
+        return ["INFINITE ARITY AND OPERAND EXTENSION", a, b, c]
     return ["INFINITE ARITY AND OPERAND EXTENSION", None]
 
 def infor():
+    if lookahead_compare("Infinite Arity OR Keyword"):
+        a = match("Infinite Arity OR Keyword", None)
+        b = inforop()
+        c = inforopext()
+        return ["INFINITE ARITY OR", a, b, c]
     return ["INFINITE ARITY OR", None]
 
 def inforop():
-    return ["INFINITE ARITY OR OPERAND", None]
+    a = None
+    if lookahead_compare("Identifier"):
+        a = match("Identifier", None)
+    if a == None:
+        a = literallol()
+        if a[1] == None:
+            a = sumlol()
+        if a[1] == None:
+            a = differencelol()
+        if a[1] == None:
+            a = productlol()
+        if a[1] == None:
+            a = quotientlol()
+        if a[1] == None:
+            a = modulolol()
+        if a[1] == None:
+            a = maxlol()
+        if a[1] == None:
+            a = minlol()
+        if a[1] == None:
+            a = equallol()
+        if a[1] == None:
+            a = concatlol()
+        if a[1] == None:
+            a = andlol()
+        if a[1] == None:
+            a = orlol()
+        if a[1] == None:
+            a = xorlol()
+        if a[1] == None:
+            a = notlol()
+        if a[1] == None:
+            a = equallol()
+        if a[1] == None:
+            a = notequallol()
+        if a[1] == None:
+            a = None
+    if a == None: return ["INFINITE ARITY OR OPERAND", None]
+    else: return ["INFINITE ARITY OR OPERAND", a]  
 
 def inforopext():
+    if lookahead_compare("Infinite Arity OR Keyword"):
+        a = match("Infinite Arity OR Keyword", None)
+        b = inforop()
+        c = infandopext()
+        return ["INFINITE ARITY OR OPERAND EXTENSION", a, b, c]
     return ["INFINITE ARITY OR OPERAND EXTENSION", None]
 
 # JERICO

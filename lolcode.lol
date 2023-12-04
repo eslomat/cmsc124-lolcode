@@ -51,11 +51,12 @@ HAI                                                                          BTW
 
     BOTH OF thing2 AN EITHER OF thing2 AN "WIN"                              BTW <and>
     EITHER OF thing2 AN 1                                                    BTW <or>
+OBTW    
     WON OF 3.14 AN thing2                                                    BTW <xor>
     NOT WIN                                                                  BTW <not>
     ALL OF thing2 AN thing2 AN thing2 MKAY                                   BTW <infand>           Inf arity AND
     ANY OF thing2 AN thing2 AN thing2 MKAY                                   BTW <infor>            Inf arity OR
-
+TLDR
     BOTH SAEM 1 AN 1                                                         BTW <equal>            x == y
     DIFFRINT 1.24 AN 1                                                       BTW <notequal>         x != y
     BOTH SAEM 1.24 AN BIGGR OF 1.24 AN 1                                     BTW <greatqual>        x >= y
@@ -65,13 +66,13 @@ HAI                                                                          BTW
 
     MAEK var1 A NUMBAR                                                       BTW <typecastit>       Result to   IT
     var1 IS NOW A NUMBAR                                                     BTW <typecastis>       Through     IS NOW A
-    number R MAEK number YARN                                                BTW <typecastas>       Through     ASSIGNNMENT
+    number R MAEK number A YARN                                                BTW <typecastas>       Through     ASSIGNNMENT
 
     thing R 124                                                              BTW <varassign>        <variable> R <literal>
     thing R number                                                           BTW                    <variable> R <variable>
     thing R SUM OF 1 AN 123                                                  BTW                    <variable> R <expression>
     thing R BOTH OF WIN AN WIN                                               BTW                    <variable> R <expression>
-
+OBTW
     O RLY?                                                                   BTW <ifelse>           Flow-Control Start (uses value of IT)
         YA RLY                                                               BTW <if>               If
             VISIBLE "YES"                                                    BTW                    Statements
@@ -100,5 +101,5 @@ HAI                                                                          BTW
 
     I IZ plusparam2 YR SUM OF 1 AN 1 AN YR SUM OF 1 AN 1                     BTW <funccall>         Function Call: 3 Parameters
     I IZ yayyparam0 MKAY                                                     BTW                    Function Call: 0 Parameter
-
+TLDR
 KTHXBYE                                                                      BTW                    Program End

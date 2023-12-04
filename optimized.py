@@ -455,6 +455,7 @@ def printlol():
     if lookahead_compare("Print Keyword"):
         a = match("Print Keyword", None)
         b = operandlol()
+        if b[1] == None: error("an 'operand'")
         c = printextlol()
         if lookahead_compare("Exclamation"):
             d = match("Exclamation", None)
@@ -466,25 +467,30 @@ def printextlol():
     if lookahead_compare("Print Operand Connector"):
         a = match("Print Opearand Connector", None)
         b = operandlol()
+        if b[1] == None: error("an 'operand'")
         c = printextlol()
         return ["PRINT EXTENSION", a, b, c]
     return ["PRINT EXTENSION", None]
 
 def andlol():
     if lookahead_compare("Logical AND Keyword"):
-        a = match("Logical AND Keyword")
+        a = match("Logical AND Keyword", None)
         b = operandlol()
-        c = match("Operand Connector")
+        if b[1] == None: error("an 'operand'")
+        c = match("Operand Connector", None)
         d = operandlol()
+        if d[1] == None: error("an 'operand'")
         return ["AND", a, b, c, d]
     return ["AND", None]
 
 def orlol():
     if lookahead_compare("Logical OR Keyword"):
-        a = match("Logical OR Keyword")
+        a = match("Logical OR Keyword", None)
         b = operandlol()
-        c = match("Operand Connector")
+        if b[1] == None: error("an 'operand'")
+        c = match("Operand Connector", None)
         d = operandlol()
+        if d[1] == None: error("an 'operand'")
         return ["AND", a,b ]
     return ["OR", None]
 
@@ -492,8 +498,10 @@ def xorlol():
     if lookahead_compare("Logical XOR Keyword"):
         a = match("Logical XOR Keyword", None)
         b = operandlol()
+        if b[1] == None: error("an 'operand'")
         c = match("Operand Connector", None)
         d = operandlol()
+        if d[1] == None: error("an 'operand'")
         return ["XOR", a, b, c, d]
     return ["XOR", None]
 
@@ -501,6 +509,7 @@ def notlol():
     if lookahead_compare("Logical NOT Keyword"):
         a = match("Logical NOT Keyword", None)
         b = operandlol()
+        if b[1] == None: error("an 'operand'")
         return ["NOT", a, b]
     return ["NOT", None]
 

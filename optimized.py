@@ -58,7 +58,7 @@ def get_lexeme_type(lexeme):
         lexeme_type = "Parameter Operand Connector"
     elif re.match(r"^-?(0|[1-9][0-9]*)$", lexeme):
         lexeme_type = "Numbr Literal"
-    elif re.match(r"^-?(|0|[1-9][0-9]*).[0-9]+$", lexeme):
+    elif re.match(r"^-?(|0|[1-9][0-9]*)\.[0-9]+$", lexeme):
         lexeme_type = "Numbar Literal"
     elif re.match(r'^".*"$', lexeme):
         lexeme_type = "Yarn Literal"
@@ -239,6 +239,24 @@ line = 1
 
 # _______________________________________________________________________________________ HELPERS
 
+def exhaustline(direction, start_index):
+    global parse_index
+    linecode = ""
+    orig_parse_index = parse_index
+    parse_index += start_index
+    while lexemes[parse_index] != "\n" and lexemes[parse_index] != "," and lexemes[parse_index] != "$" and parse_index >= 0:
+        linecode += f"{lexemes[parse_index]} "
+        parse_index += direction
+    if direction < 0:
+        linecode = ""
+        parse_index -= direction
+        while parse_index <= (orig_parse_index + start_index):
+            linecode += f"{lexemes[parse_index]} "
+            parse_index -= direction
+    parse_index = orig_parse_index
+    return linecode.strip()
+
+
 def error(expected):
     lexeme_to_match = lexemes[parse_index].replace("\n", "new line character")
     err = ""
@@ -247,24 +265,33 @@ def error(expected):
         prev_lexeme = lexemes[parse_index-1].replace("\n", "new line character")
 
     if expected == "HAI" and lexeme_to_match == "$":
-        err = f"error: missing section, main program not found\n\n\tshould be:\n\t\t    ->  HAI\n\t\t\t.\n\t\t\t.\n\t\t    ->  KTHXBYE\n"
+        err = f"error: syntax error, missing main section\n\tshould be:\n\t\t    ->  HAI\n\t\t\t.\n\t\t\t.\n\t\t    ->  KTHXBYE\n"
     elif expected == "HAI":
         err = f"error: syntax error at line {line}, expected the main section but found '{lexeme_to_match}'\n\n\tshould be:\n\t\t    ->  HAI\n\t\t\t.\n\t\t\t.\n\t\t    ->  KTHXBYE\n"
-    elif expected == "WAZZUP" and lexeme_to_match == "KTHXBYE":
-        err = f"error: missing section, variable declaration section not found\n\n\tshould be:\n\t\t\tHAI\n\t\t    ->  WAZZUP\n\t\t\t.\n\t\t\t.\n\t\t    ->  BUHBYE\n\t\t\t.\n\t\t\t.\n\t\t\tKTHXBYE\n"
+    elif expected == "WAZZUP" and (lexeme_to_match == "KTHXBYE" or lexeme_to_match == "$"):
+        err = f"error: syntax error, missing variable declaration section\n\n\tshould be:\n\t\t\tHAI\n\t\t    ->  WAZZUP\n\t\t\t.\n\t\t\t.\n\t\t    ->  BUHBYE\n\t\t\t.\n\t\t\t.\n\t\t\tKTHXBYE\n"
     elif expected == "WAZZUP":
         err = f"error: syntax error at line {line}, expected the variable declaration section but found '{lexeme_to_match}'\n\n\tshould be:\n\t\t\tHAI\n\t\t    ->  WAZZUP\n\t\t\t.\n\t\t\t.\n\t\t    ->  BUHBYE\n\t\t\t.\n\t\t\t.\n\t\t\tKTHXBYE\n"
+    elif expected == "BUHBYE" and (lexeme_to_match == "KTHXBYE" or lexeme_to_match == "$"):
+        err = f"error: syntax error, unterminated variable declaration section\n\n\tshould be:\n\t\t\tHAI\n\t\t        WAZZUP\n\t\t\t.\n\t\t\t.\n\t\t    ->  BUHBYE\n\t\t\t.\n\t\t\t.\n\t\t\tKTHXBYE\n"
+    elif expected == "BUHBYE":
+        err = f"error: syntax error at line {line}, expected a 'variable declaration or variable initialization' but found '{lexeme_to_match}'\n"
+    elif expected == "KTHXBYE" and lexeme_to_match == "$":
+        err = f"error: syntax error, unterminated main section\n\n\tshould be:\n\t\t        HAI\n\t\t\t.\n\t\t\t.\n\t\t    ->  KTHXBYE\n"
+    elif expected == "line break" and lexeme_to_match == "$":
+        err = f"error: syntax error at line {line}, expected a new line character or ',' after '{exhaustline(-1,-1)}'\n\n\tshould be:\n\t\t\t{exhaustline(-1,-1)}\n\t\t     -> {exhaustline(1,0)}\n\n\tor should be:\n\t\t     -> {exhaustline(-1,-1)}, {exhaustline(1,0)}\n"
+    elif expected == "line break":
+        err = f"error: syntax error at line {line}, '{exhaustline(1,0)}' should be on a separate line, or preceded by ','\n\n\tshould be:\n\t\t\t{exhaustline(-1,-1)}\n\t\t     -> {exhaustline(1,0)}\n\n\tor should be:\n\t\t     -> {exhaustline(-1,-1)}, {exhaustline(1,0)}\n"
     elif expected == None:
         if parse_index == 0: err = f"error: syntax error at line {line}, unexpected '{lexeme_to_match}'\n"
         else: 
-            if prev_lexeme != "new line character" and lexeme_dictionary[prev_lexeme] == "Identifier": err = f"error: syntax error at line {line}, unexpected '{lexeme_to_match}' after the identifier '{prev_lexeme}'\n"
-            elif prev_lexeme != "new line character": err = f"error: syntax error at line {line}, unexpected '{lexeme_to_match}' after '{prev_lexeme}'\n"
+            if prev_lexeme != "new line character" and lexeme_dictionary[prev_lexeme] == "Identifier": err = f"error: syntax error at line {line}, unexpected '{lexeme_to_match}' after the identifier '{exhaustline(-1,-1)}'\n"
+            elif prev_lexeme != "new line character": err = f"error: syntax error at line {line}, unexpected '{lexeme_to_match}' after '{exhaustline(-1,-1)}'\n"
             else: err = f"error: syntax error at line {line}, unexpected '{lexeme_to_match}'\n"
     else:
-        if parse_index == 0: err = f"error: syntax error at line {line}, expected '{expected}', but found '{lexeme_to_match}'\n"
+        if parse_index == 0: err = f"error: syntax error at line {line}, expected '{expected}' but found '{lexeme_to_match}'\n"
         else: 
-            if prev_lexeme != "new line character" and lexeme_dictionary[prev_lexeme] == "Identifier": err = f"error: syntax error at line {line}, expected '{expected}' after the identifier '{prev_lexeme}', but found '{lexeme_to_match}'\n"
-            elif prev_lexeme != "new line character": err = f"error: syntax error at line {line}, expected '{expected}' after '{prev_lexeme}', but found '{lexeme_to_match}'\n"
+            if prev_lexeme != "new line character": err = f"error: syntax error at line {line}, expected '{expected}' after '{exhaustline(-1,-1)}' but found '{lexeme_to_match}'\n"
             else: err = f"error: syntax error at line {line}, unexpected '{lexeme_to_match}'\n"
         
     print(err)
@@ -428,7 +455,7 @@ def statementlol():
             a = funcallol()
         if a[1] != None:
             b = linebreaklol()
-            if a[1] == None:
+            if b[1] == None:
                 error("line break")
             c = statementlol()
             return ["STATEMENT",a,b,c]
@@ -896,12 +923,12 @@ def varinitlol():
                 error("operand")
             e = linebreaklol()
             if e[1] == None:
-                error("linebreak")
+                error("line break")
             f = varinitlol()
             return ["VARIABLE INITIALIZATION",a,b,c,d,e,f]
         c = linebreaklol()
         if c[1] == None:
-            error("linebreak")
+            error("line break")
         d = varinitlol()
         return ["VARIABLE INITIALIZATION",a,b,c,d]
     return ["VARIABLE INITIALIZATION", None]
@@ -930,7 +957,7 @@ def iflol():
         a = match("If Keyword")
         b = linebreaklol()
         if b[1] == None:
-            error("linebreak")
+            error("line break")
         c = statementlol()
         return ["IF BLOCK",a,b,c]
     return ["IF BLOCK", None]
@@ -943,7 +970,7 @@ def elseiflol():
             error("expression")
         c = linebreaklol()
         if c[1] == None:
-            error("linebreak")
+            error("line break")
         d = statementlol()
         return ["ELSE IF BLOCK",a,b,c,d]
     return ["ELSE IF BLOCK", None]
@@ -953,7 +980,7 @@ def elselol():
         a = match("Else Keyword")
         b = linebreaklol()
         if b[1] == None:
-            error("linebreak")
+            error("line break")
         c = statementlol()
         return ["ELSE BLOCK",a,b,c]
     return ["ELSE BLOCK", None]
@@ -1085,7 +1112,7 @@ def mainlol():
     if d[1] == None:
         error("line break")
     e = statementlol()
-    f = match("Program End Delimiter", None)
+    f = match("Program End Delimiter", "KTHXBYE")
     return ["MAIN",a,b,c,d,e,f]
 
 def mainendlol():

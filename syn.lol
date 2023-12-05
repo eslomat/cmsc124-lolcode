@@ -3,10 +3,10 @@ HAI
     WAZZUP
         I HAS A thing1
         I HAS A thing2
-        I HAS A result ITZ 0003
+        I HAS A result ITZ 3
     BUHBYE
-    thing1 R 3
+    MAEK kat NUMBAR
     GIMMEH thing2
     result R SUM OF thing1 AN thing
-    VISIBLE "thing1 + thing2 = " + result
+    VISIBLE "thing1 + thing2 = " + result, VISIBLE result + 1 
 KTHXBYE

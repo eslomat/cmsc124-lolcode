@@ -8,7 +8,7 @@ import re
 # _______________________________________________________________________________________________________________ CODE GETTER
 
 try:
-    with open('syn.lol', 'r', encoding='utf-8') as file:
+    with open('lolcode.lol', 'r', encoding='utf-8') as file:
         code = file.read()
 except FileNotFoundError:
     print("\nFile not found or could not be opened.\n")
@@ -185,7 +185,7 @@ def get_lexeme_type(lexeme):
 def lexical_analyzer():
     global lexeme_dictionary
     # LOOPS THE ARRAY-OF-LEXEMES, IDENTIFIES THE TYPE OF EACH LEXEME
-    # LEXEMES[0] = LEXEME, LEXEMES[1] = TYPE, LEXEME_DICTIONARY[LEXEME] = TYPE
+    # LEXEME_DICTIONARY[LEXEME] = TYPE
     buffer_i = 0 # THIS VARIABLE IS A BUFFER FOR MULTI-LINE COMMENT ERROR
     for i in range(0,len(lexemes)):
         lexeme = lexemes[i+buffer_i]
@@ -1217,8 +1217,7 @@ def print_parse_tree_helper(parse_tree):
                 index += 1
         for branch in parse_tree:
             print_parse_tree_helper(branch)
-
-
+            
 def compare_tree_lexemes():
     global parse_tree
     temp_lexemes = []

@@ -8,5 +8,5 @@ HAI
     MAEK kat NUMBAR
     GIMMEH thing2
     result R SUM OF thing1 AN thing
-    VISIBLE "thing1 + thing2 = " + result, VISIBLE result + 1 
+    VISIBLE "thing1 + thing2 = " + result, VISIBLE result +  
 KTHXBYE

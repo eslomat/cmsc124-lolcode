@@ -905,7 +905,7 @@ def syntax_analyzer(lexemes_p, lexeme_dictionary_p):
     lexeme_dictionary = lexeme_dictionary_p
     lexemes.append("$")
     lexeme_dictionary["$"] = "Syntax Analyzer End"
-    parse_tree = programlol()
+    parse_tree = ["START", programlol()]
     lexemes.pop()
     lexeme_dictionary.pop('$')
     if parse_index == len(lexemes): print("... SYNTAX ANALYSIS DONE!\n")

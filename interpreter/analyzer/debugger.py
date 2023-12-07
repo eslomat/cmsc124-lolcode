@@ -1,3 +1,5 @@
+from anytree import Node, RenderTree
+
 # PRINT CODE
 def print_code(lexemes):
     print("\n")
@@ -44,7 +46,7 @@ def delete_comments(lexemes, lexeme_dictionary):
 
 # PRINTS THE PARSE TREE (FOR DRAWING)
 def print_parse_tree(parse_tree, lexeme_dictionary):
-    with open('../../debugger.txt', 'w') as file: 
+    with open('debugger.txt', 'w') as file: 
         file.write("----------------------------------------------------------------------- PARSE TREE PRINTING\n")
     print_parse_tree_helper(parse_tree, lexeme_dictionary)
     print("... Successfully written the parse tree to debugger.txt!\n")
@@ -69,6 +71,26 @@ def print_parse_tree_helper(parse_tree, lexeme_dictionary):
                 index += 1
         for branch in parse_tree:
             print_parse_tree_helper(branch, lexeme_dictionary)
+
+# PRINTS THE VISUALIZATION OF PARSE TREE
+def visualize_parse_tree(parse_tree):
+    root = Node(parse_tree[0])
+    build_tree(parse_tree[1], parent=root)
+    with open("debugger.txt", "w", encoding="utf-8") as file:
+        for pre, fill, node in RenderTree(root):
+            if node.name != None:
+                node.name = node.name.replace("\n","\\n")
+            file.write(f"{pre}{node.name}\n")
+    print("... Successfully written the visualization of parse tree to debugger.txt!\n")
+
+def build_tree(node_list, parent=None):
+    current_node, *children = node_list
+    node = Node(current_node, parent=parent)
+    for child in children:
+        if isinstance(child, list):
+            build_tree(child, parent=node)
+        else:
+            Node(child, parent=node)
 
 # COMPARES THE TERMINAL NODES OF PARSE THE ARRAY-OF-LEXEMES VERSION OF THE CODE
 def compare_tree_lexemes(lexemes, lexeme_dictionary, parse_tree):

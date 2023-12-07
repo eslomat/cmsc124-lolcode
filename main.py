@@ -3,6 +3,7 @@
 from interpreter.lolcodeinterpreter import lolcodeinterpreter
 from interpreter.analyzer.debugger import print_code, print_lexemes_array, print_lexeme_dictionary
 from interpreter.analyzer.debugger import delete_comments, print_parse_tree, compare_tree_lexemes
+from interpreter.analyzer.debugger import visualize_parse_tree
 
 # _____________________________________________________________________________ INTERPRETER
 
@@ -17,5 +18,6 @@ lci = lolcodeinterpreter("./testcases/syn.lol")
 # print_lexemes_array(lci["lexemes"], lci["lexeme_dictionary"])
 # print_lexeme_dictionary(lci["lexeme_dictionary"])
 # print_parse_tree(lci["parse_tree"], lci["lexeme_dictionary"])
+# visualize_parse_tree(lci["parse_tree"])
 
 # compare_tree_lexemes(lci["lexemes"], lci["lexeme_dictionary"], lci["parse_tree"])

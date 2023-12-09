@@ -1,3 +1,6 @@
+from .debugger import write_on_error
+import numpy
+
 #__________________________________________________________________________________ HELPER FUNCTIONS
 
 def exhaustline(direction, start_index):
@@ -5,7 +8,7 @@ def exhaustline(direction, start_index):
     linecode = ""
     orig_parse_index = parse_index
     parse_index += start_index
-    while lexemes[parse_index] != "\n" and lexemes[parse_index] != "," and lexemes[parse_index] != "$" and parse_index >= 0:
+    while lexemes[parse_index] != "\n" and lexemes[parse_index] != "$" and parse_index >= 0:
         linecode += f"{lexemes[parse_index]} "
         parse_index += direction
     if direction < 0:
@@ -20,6 +23,7 @@ def exhaustline(direction, start_index):
 
 def error(expected):
     lexeme_to_match = lexemes[parse_index].replace("\n", "new line character")
+
     err = ""
     prev_lexeme = None
     if parse_index != 0:
@@ -36,9 +40,12 @@ def error(expected):
     elif expected == "BUHBYE" and (lexeme_to_match == "KTHXBYE" or lexeme_to_match == "$"):
         err = f"error: syntax error, unterminated variable declaration section\n\n\tshould be:\n\t\t\tHAI\n\t\t        WAZZUP\n\t\t\t.\n\t\t\t.\n\t\t    ->  BUHBYE\n\t\t\t.\n\t\t\t.\n\t\t\tKTHXBYE\n"
     elif expected == "BUHBYE":
-        err = f"error: syntax error at line {line}, expected a 'variable declaration or variable initialization' but found '{lexeme_to_match}'\n"
+        err = f"error: syntax error at line {line}, expected a 'I HAS A' but found '{lexeme_to_match}'\n"
     elif expected == "KTHXBYE" and lexeme_to_match == "$":
         err = f"error: syntax error, unterminated main section\n\n\tshould be:\n\t\t        HAI\n\t\t\t.\n\t\t\t.\n\t\t    ->  KTHXBYE\n"
+    elif expected == "KTHXBYE":
+        if prev_lexeme != "new line character": err = f"error: syntax error at line {line}, unexpected '{lexeme_to_match}' after '{exhaustline(-1,-1)}'\n"
+        else: err = f"error: syntax error at line {line}, unexpected '{lexeme_to_match}'\n"
     elif expected == "line break" and lexeme_to_match == "$":
         err = f"error: syntax error at line {line}, expected a new line character or ',' after '{exhaustline(-1,-1)}'\n\n\tshould be:\n\t\t\t{exhaustline(-1,-1)}\n\t\t     -> {exhaustline(1,0)}\n\n\tor should be:\n\t\t     -> {exhaustline(-1,-1)}, {exhaustline(1,0)}\n"
     elif expected == "line break":
@@ -55,6 +62,7 @@ def error(expected):
             else: err = f"error: syntax error at line {line}, expected '{expected}'\n"
             
     print(err)
+    write_on_error(lexemes_e, lexeme_dictionary_e, None, None)
     exit()
 
 def match(token, expected):
@@ -68,10 +76,6 @@ def match(token, expected):
 
 def lookahead_compare(token):
     global parse_index, line
-    while(lexeme_dictionary[lexemes[parse_index]] == "Comment"):
-        for char in lexemes[parse_index]:
-            if char == "\n": line += 1
-        parse_index += 1
     if lexeme_dictionary[lexemes[parse_index]] == token: return True
     return False
 
@@ -81,16 +85,16 @@ def lookahead_compare(token):
 def literallol():
     if lookahead_compare("Numbr Literal"):
         a = match("Numbr Literal", None)
-        return ["NUMBR LITERAL", a]
+        return ["LITERAL", a]
     elif lookahead_compare("Numbar Literal"):
         b = match("Numbar Literal", None)
-        return ["NUMBAR LITERAL", b]
+        return ["LITERAL", b]
     elif lookahead_compare("Yarn Literal"):
         c = match("Yarn Literal", None)
-        return ["YARN LITERAL", c]
+        return ["LITERAL", c]
     elif lookahead_compare("Troof Literal"):
         d = match("Troof Literal", None)
-        return ["TROOF LITERAL", d]
+        return ["LITERAL", d]
     else:
         return ["LITERAL", None]
 
@@ -139,7 +143,7 @@ def funcallol():
     if lookahead_compare("Function Call Keyword"):
         a = match("Function Call Keyword", None)
         b = match("Identifier", "identifier")
-        c = fcparamextlol()
+        c = fcparam()
         return ["FUNCTION CALL", a, b, c]
     return ["FUNCTION CALL", None]
 
@@ -147,15 +151,19 @@ def fcparam():
     if lookahead_compare("Parameter Operand Connector"):
         a = match("Parameter Operand Connector", None)
         b = expressionlol()
+        if b[1] == None:
+            error("expression")
         c = fcparamextlol()
-        return ["FUNCTION CALL PARAMETER EXTENSION", a, b, c]
-    return ["FUNCTION CALL PARAMETER EXTENSION", None]
+        return ["FUNCTION CALL PARAMETER", a, b, c]
+    return ["FUNCTION CALL PARAMETER", None]
 
 def fcparamextlol():
     if lookahead_compare("Operand Connector"):
         a = match("Operand Connector", None)
         b = match("Parameter Operand Connector", None)
         c = expressionlol()
+        if c[1] == None:
+            error("expression")
         d = fcparamextlol()
         return ["FUNCTION CALL PARAMETER EXTENSION", a, b, c, d]
     return ["FUNCTION CALL PARAMETER EXTENSION", None]
@@ -170,43 +178,9 @@ def statementlol():
         if a[1] == None:
             a = inputlol()
         if a[1] == None:
-            a = concatlol()
-        if a[1] == None:
-            a = sumlol()
-        if a[1] == None:
-            a = differencelol()
-        if a[1] == None:
-            a = productlol()
-        if a[1] == None:
-            a = quotientlol()
-        if a[1] == None:
-            a = modulolol()
-        if a[1] == None:
-            a = minlol()
-        if a[1] == None:
-            a = maxlol()
-        if a[1] == None:
-            a = andlol()
-        if a[1] == None:
-            a = orlol()
-        if a[1] == None:
-            a = xorlol()
-        if a[1] == None:
-            a = notlol()
-        if a[1] == None:
-            a = infand()
-        if a[1] == None:
-            a = infor()
-        if a[1] == None:
-            a = equallol()
-        if a[1] == None:
-            a = notequallol()  
-        if a[1] == None:
-            a = typecastit()
+            a = expressionlol()
         if a[1] == None:
             a = varssignlol()
-        if a[1] == None:
-            a = ifelselol()
         if a[1] == None:
             a = caselol()
         if a[1] == None:
@@ -222,6 +196,58 @@ def statementlol():
     return ["STATEMENT", None]
 
 def expressionlol():
+    global parse_index, line
+    a = sumlol()
+    if a[1] == None:
+        a = differencelol()
+    if a[1] == None:
+        a = productlol()
+    if a[1] == None:
+        a = quotientlol()
+    if a[1] == None:
+        a = modulolol()
+    if a[1] == None:
+        a = maxlol()
+    if a[1] == None:
+        a = minlol()
+    if a[1] == None:
+        a = equallol()
+    if a[1] == None:
+        a = concatlol()
+    if a[1] == None:
+        a = andlol()
+    if a[1] == None:
+        a = orlol()
+    if a[1] == None:
+        a = xorlol()
+    if a[1] == None:
+        a = notlol()
+    if a[1] == None:
+        a = infand()
+    if a[1] == None:
+        a = infor()
+    if a[1] == None:
+        a = equallol()
+    if a[1] == None:
+        a = notequallol()
+    if a[1] == None:
+        a = typecastit() 
+    if a[1] == None:
+        a = None  
+    if a == None: return ["EXPRESSION", None]
+    b = linebreaklol()
+    if b[1] != None and lookahead_compare("Conditional Statement Start Delimiter"):
+        return ifelselol(a,b)
+    else: 
+        parse_index -= 1
+        while (lexemes[parse_index] == "\n" or lexemes[parse_index] == ","):
+            if lexemes[parse_index] == "\n": line -= 1
+            parse_index -= 1
+        parse_index += 1
+    return ["EXPRESSION", a]
+
+def mebbeexpressionlol():
+    global parse_index
     a = sumlol()
     if a[1] == None:
         a = differencelol()
@@ -709,12 +735,31 @@ def varssignlol():
         else: error("R / IS NOW A")
     return ["VARIABLE ASSIGNMENT", None]
 
-def ifelselol():
+def ifelselol(expression, linebreak):
+    if lookahead_compare("Conditional Statement Start Delimiter"):
+        a = match("Conditional Statement Start Delimiter", None)
+        b = linebreaklol()
+        if b[1] == None:
+            error("line break")
+        c = iflol()
+        if c[1] == None:
+            error("YA RLY block")
+        d = elseiflol()
+        if d[1] == None:
+            error("MEBBE block")
+        e = elselol()
+        if e[1] == None:
+            error("NO WAI block")
+        f = match("Control Flow End Delimiter", "OIC")
+        if f[1] == None:
+            error("OIC")
+        return ["CONDITIONAL STATEMENT",expression,linebreak,a,b,c,d,e,f]
+    
     return ["CONDITIONAL STATEMENT", None]
 
 def iflol():
     if lookahead_compare("If Keyword"):
-        a = match("If Keyword")
+        a = match("If Keyword", None)
         b = linebreaklol()
         if b[1] == None:
             error("line break")
@@ -724,8 +769,8 @@ def iflol():
 
 def elseiflol():
     if lookahead_compare("Else If Keyword"):
-        a = match("Else If Keyword")
-        b = expressionlol()
+        a = match("Else If Keyword", None)
+        b = mebbeexpressionlol()
         if b[1] == None:
             error("expression")
         c = linebreaklol()
@@ -737,7 +782,7 @@ def elseiflol():
 
 def elselol():
     if lookahead_compare("Else Keyword"):
-        a = match("Else Keyword")
+        a = match("Else Keyword", None)
         b = linebreaklol()
         if b[1] == None:
             error("line break")
@@ -746,21 +791,91 @@ def elselol():
     return ["ELSE BLOCK", None]
 
 def caselol():
+    if lookahead_compare("Switch Statement Start Delimiter"):
+        a = match("Switch Statement Start Delimiter", None)
+        b = linebreaklol()
+        if b[1] == None:
+            error("line break")
+        c = acaselol()
+        if c[1] == None:
+            error("OMG block")
+        d = defcaselol()
+        if d[1] == None:
+            error("OMGWTF block")
+        e = match("Control Flow End Delimiter", "OIC")
+        if e[1] == None:
+            error("OIC")
+        return["CASE STATEMENT",a,b,c,d,e]
     return ["CASE STATEMENT", None]
 
 def acaselol():
+    if lookahead_compare("Case Keyword"):
+        a = match("Case Keyword", None)
+        b = literallol()
+        if b[1] == None:
+            error("literal")
+        c = linebreaklol()
+        if c[1] == None:
+            error("line break")
+        d = statementlol()
+        if lookahead_compare("Case Keyword"):
+            e = acaselol()
+            return ["CASE",a,b,c,d,e]
+        return ["CASE",a,b,c,d]
     return ["CASE", None]
 
 def defcaselol():
+    if lookahead_compare("Default Case Keyword"):
+        a = match("Default Case Keyword", None)
+        b = linebreaklol()
+        if b[1] == None:
+            error("line break")
+        c = statementlol()
+        return ["DEFAULT CASE",a,b,c]
     return ["DEFAULT CASE", None]
 
 def looplol():
+    if lookahead_compare("Loop Statement Start Delimiter"):
+        a = match("Loop Statement Start Delimiter", None)
+        b = match("Parameter Operand Connector", "YR")
+        c = match("Identifier", "identifier")
+        d = loopchangelol()
+        if d[1] == None:
+            error("UPPIN / NERFIN")
+        e = match("Parameter Operand Connector", "YR")
+        f = match("Identifier", "identifier")
+        g = loopcondlol()
+        if g[1] == None:
+            error("TILL / WILE")
+        h = expressionlol()
+        if h[1] == None:
+            error("expression")
+        i = linebreaklol()
+        if i[1] == None:
+            error("line break")
+        j = statementlol()
+        k = match("Loop Statement End Delimiter", "IM OUTTA")
+        l = match("Parameter Operand Connector", "YR")
+        m = match("Identifier", "identifier")
+        return ["LOOP",a,b,c,d,e,f,g,h,i,j,k,l,m]
     return ["LOOP", None]
 
 def loopchangelol():
+    if lookahead_compare("Increment Keyword"):
+        a = match("Increment Keyword", None)
+        return ["LOOP CHANGE", a]
+    if lookahead_compare("Decrement Keyword"):
+        b = match("Decrement Keyword", None)
+        return ["LOOP CHANGE", b]
     return ["LOOP CHANGE", None]
 
 def loopcondlol():
+    if lookahead_compare("Until Loop Condition Keyword"):
+        a = match("Until Loop Condition Keyword", None)
+        return ["LOOP CONDITION", a]
+    if lookahead_compare("While Loop Condition Keyword"):
+        b = match("While Loop Condition Keyword", None)
+        return ["LOOP CONDITION", b]
     return ["LOOP CONDITION", None]
 
 def concatextlol():
@@ -771,6 +886,8 @@ def concatextlol():
             error("concatenation operand")
         c = concatextlol()
         return ["CONCATENATION EXTENSION",a,b,c]
+    elif not lookahead_compare("New Line Character") and not lookahead_compare("Comma"):
+        error("AN")
     return ["CONCATENATION EXTENSION", None]
 
 def concatoplol():
@@ -896,11 +1013,15 @@ parse_index = 0
 line = 1
 lexeme = None
 lexeme_dictionary = None
+lexemes_e = None
+lexeme_dictionary_e = None
 
 #__________________________________________________________________________________ SYNTAX ANALYZER
 
 def syntax_analyzer(lexemes_p, lexeme_dictionary_p):
-    global lexemes, lexeme_dictionary
+    global lexemes, lexeme_dictionary, lexemes_e, lexeme_dictionary_e
+    lexemes_e = numpy.copy(lexemes_p)
+    lexeme_dictionary_e = lexeme_dictionary_p.copy()
     lexemes = lexemes_p
     lexeme_dictionary = lexeme_dictionary_p
     lexemes.append("$")
@@ -908,6 +1029,5 @@ def syntax_analyzer(lexemes_p, lexeme_dictionary_p):
     parse_tree = ["START", programlol()]
     lexemes.pop()
     lexeme_dictionary.pop('$')
-    if parse_index == len(lexemes): print("... SYNTAX ANALYSIS DONE!\n")
-    else: error(None)
+    if parse_index != len(lexemes): error(None)
     return parse_tree

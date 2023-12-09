@@ -2,8 +2,8 @@
 
 from interpreter.lolcodeinterpreter import lolcodeinterpreter
 from interpreter.analyzer.debugger import print_code, print_lexemes_array, print_lexeme_dictionary
-from interpreter.analyzer.debugger import delete_comments, print_parse_tree, compare_tree_lexemes
-from interpreter.analyzer.debugger import visualize_parse_tree
+from interpreter.analyzer.debugger import print_parse_tree, compare_tree_lexemes
+from interpreter.analyzer.debugger import visualize_parse_tree, print_symbol_table
 
 # _____________________________________________________________________________ INTERPRETER
 
@@ -12,12 +12,15 @@ lci = lolcodeinterpreter("./testcases/syn.lol")
 
 # _____________________________________________________________________________ DEBUGGER
 
-# delete_comments(lci["lexemes"],lci["lexeme_dictionary"])
+with open('debugger.txt', 'w') as file: 
+    file.write("")
 
-# print_code(lci["lexemes"])
+# __________________________________________________________________ UNCOMMENT A DEBUGGER
+
+# print_code(lci["lexemes"], lci["lexeme_dictionary"])
 # print_lexemes_array(lci["lexemes"], lci["lexeme_dictionary"])
 # print_lexeme_dictionary(lci["lexeme_dictionary"])
 # print_parse_tree(lci["parse_tree"], lci["lexeme_dictionary"])
-# visualize_parse_tree(lci["parse_tree"])
-
+# print_symbol_table(lci["symbol_table"])
 # compare_tree_lexemes(lci["lexemes"], lci["lexeme_dictionary"], lci["parse_tree"])
+# visualize_parse_tree(lci["parse_tree"])

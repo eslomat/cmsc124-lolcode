@@ -115,10 +115,10 @@ def operandlol():
 def numberlol():
     if lookahead_compare("Numbr Literal"):
         a = match("Numbr Literal", None)
-        return ["NUMBR LITERAL", a]
+        return ["NUMBER", a]
     elif lookahead_compare("Numbar Literal"):
         b = match("Numbar Literal", None)
-        return ["NUMBAR LITERAL", b]
+        return ["NUMBER", b]
     else:
         return ["NUMBER", None]
 
@@ -360,116 +360,86 @@ def notlol():
 def infand():
     if lookahead_compare("Infinite Arity AND Keyword"):
         a = match("Infinite Arity AND Keyword", None)
-        b = infandop()
-        c = infandopext()
-        return ["INFINITE ARITY AND", a, b, c]
+        b = infarityop()
+        if b[1] == None:
+            error("valid operand")
+        c = infarityopext()
+        d = match("Infinite Arity End Keyword", "MKAY")
+        return ["INFINITE ARITY AND", a, b, c, d]
     return ["INFINITE ARITY AND", None]
-
-def infandop():
-    a = None
-    if lookahead_compare("Identifier"):
-        a = match("Identifier", None)
-    if a == None:
-        a = literallol()
-        if a[1] == None:
-            a = sumlol()
-        if a[1] == None:
-            a = differencelol()
-        if a[1] == None:
-            a = productlol()
-        if a[1] == None:
-            a = quotientlol()
-        if a[1] == None:
-            a = modulolol()
-        if a[1] == None:
-            a = maxlol()
-        if a[1] == None:
-            a = minlol()
-        if a[1] == None:
-            a = equallol()
-        if a[1] == None:
-            a = concatlol()
-        if a[1] == None:
-            a = andlol()
-        if a[1] == None:
-            a = orlol()
-        if a[1] == None:
-            a = xorlol()
-        if a[1] == None:
-            a = notlol()
-        if a[1] == None:
-            a = equallol()
-        if a[1] == None:
-            a = notequallol()
-        if a[1] == None:
-            a = None
-    if a == None: return ["INFINITE ARITY AND OPERAND", None]
-    else: return ["INFINITE ARITY AND OPERAND", a] 
-
-def infandopext():
-    if lookahead_compare("Operand Connector"):
-        a = match("Operand Connector", None)
-        b = infandop()
-        c = infandopext()
-        return ["INFINITE ARITY AND OPERAND EXTENSION", a, b, c]
-    return ["INFINITE ARITY AND OPERAND EXTENSION", None]
 
 def infor():
     if lookahead_compare("Infinite Arity OR Keyword"):
         a = match("Infinite Arity OR Keyword", None)
-        b = inforop()
-        c = inforopext()
-        return ["INFINITE ARITY OR", a, b, c]
+        b = infarityop()
+        if b[1] == None:
+            error("valid operand")
+        c = infarityopext()
+        d = match("Infinite Arity End Keyword", "MKAY")
+        return ["INFINITE ARITY OR", a, b, c, d]
     return ["INFINITE ARITY OR", None]
 
-def inforop():
+def infarityop():
     a = None
     if lookahead_compare("Identifier"):
         a = match("Identifier", None)
     if a == None:
         a = literallol()
         if a[1] == None:
-            a = sumlol()
-        if a[1] == None:
-            a = differencelol()
-        if a[1] == None:
-            a = productlol()
-        if a[1] == None:
-            a = quotientlol()
-        if a[1] == None:
-            a = modulolol()
-        if a[1] == None:
-            a = maxlol()
-        if a[1] == None:
-            a = minlol()
-        if a[1] == None:
-            a = equallol()
-        if a[1] == None:
-            a = concatlol()
-        if a[1] == None:
-            a = andlol()
-        if a[1] == None:
-            a = orlol()
-        if a[1] == None:
-            a = xorlol()
-        if a[1] == None:
-            a = notlol()
-        if a[1] == None:
-            a = equallol()
-        if a[1] == None:
-            a = notequallol()
+            a = infarityexpressionlol()
         if a[1] == None:
             a = None
-    if a == None: return ["INFINITE ARITY OR OPERAND", None]
-    else: return ["INFINITE ARITY OR OPERAND", a]  
 
-def inforopext():
-    if lookahead_compare("Infinite Arity OR Keyword"):
-        a = match("Infinite Arity OR Keyword", None)
-        b = inforop()
-        c = infandopext()
-        return ["INFINITE ARITY OR OPERAND EXTENSION", a, b, c]
-    return ["INFINITE ARITY OR OPERAND EXTENSION", None]
+    if a == None: return ["INFINITE ARITY OPERAND", None]
+    else: return ["INFINITE ARITY OPERAND", a] 
+
+def infarityexpressionlol():
+    global parse_index
+    a = sumlol()
+    if a[1] == None:
+        a = differencelol()
+    if a[1] == None:
+        a = productlol()
+    if a[1] == None:
+        a = quotientlol()
+    if a[1] == None:
+        a = modulolol()
+    if a[1] == None:
+        a = maxlol()
+    if a[1] == None:
+        a = minlol()
+    if a[1] == None:
+        a = equallol()
+    if a[1] == None:
+        a = concatlol()
+    if a[1] == None:
+        a = andlol()
+    if a[1] == None:
+        a = orlol()
+    if a[1] == None:
+        a = xorlol()
+    if a[1] == None:
+        a = notlol()
+    if a[1] == None:
+        a = equallol()
+    if a[1] == None:
+        a = notequallol()
+    if a[1] == None:
+        a = typecastit() 
+    if a[1] == None:
+        a = None  
+    if a == None: return ["EXPRESSION", None]
+    else: return ["EXPRESSION", a]
+
+def infarityopext():
+    if lookahead_compare("Operand Connector"):
+        a = match("Operand Connector", None)
+        b = infarityop()
+        if b[1] == None:
+            error("valid operand")
+        c = infarityopext()
+        return ["INFINITE ARITY OPERAND EXTENSION", a, b, c]
+    return ["INFINITE ARITY OPERAND EXTENSION", None]
 
 # JERICO
 def sumlol():
@@ -883,34 +853,71 @@ def concatextlol():
         a = match("Operand Connector", None)
         b = concatoplol()
         if b[1] == None:
-            error("concatenation operand")
+            error("valid operand")
         c = concatextlol()
         return ["CONCATENATION EXTENSION",a,b,c]
-    elif not lookahead_compare("New Line Character") and not lookahead_compare("Comma"):
-        error("AN")
     return ["CONCATENATION EXTENSION", None]
 
 def concatoplol():
     a = None
     if lookahead_compare("Identifier"):
         a = match("Identifier", None)
-
     if a == None:
         a = literallol()
         if a[1] == None:
-            a = sumlol() 
+            a = concatexpressionlol()
         if a[1] == None:
             a = None
 
     if a == None: return ["CONCATENATION OPERAND", None]
     else: return ["CONCATENATION OPERAND", a]
 
+def concatexpressionlol():
+    global parse_index
+    a = sumlol()
+    if a[1] == None:
+        a = differencelol()
+    if a[1] == None:
+        a = productlol()
+    if a[1] == None:
+        a = quotientlol()
+    if a[1] == None:
+        a = modulolol()
+    if a[1] == None:
+        a = maxlol()
+    if a[1] == None:
+        a = minlol()
+    if a[1] == None:
+        a = equallol()
+    if a[1] == None:
+        a = andlol()
+    if a[1] == None:
+        a = orlol()
+    if a[1] == None:
+        a = xorlol()
+    if a[1] == None:
+        a = notlol()
+    if a[1] == None:
+        a = infand()
+    if a[1] == None:
+        a = infor()
+    if a[1] == None:
+        a = equallol()
+    if a[1] == None:
+        a = notequallol()
+    if a[1] == None:
+        a = typecastit() 
+    if a[1] == None:
+        a = None  
+    if a == None: return ["EXPRESSION", None]
+    else: return ["EXPRESSION", a]
+
 def concatlol():
     if lookahead_compare("Concatenation Keyword"):
         a = match("Concatenation Keyword", None)
         b = concatoplol()
         if b[1] == None:
-            error("concatenation operand")
+            error("valid operand")
         c = concatextlol()
         return ["CONCATENATION",a,b,c]
     return ["CONCATENATION", None]

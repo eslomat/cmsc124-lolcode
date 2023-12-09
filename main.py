@@ -21,6 +21,6 @@ with open('debugger.txt', 'w') as file:
 # print_lexemes_array(lci["lexemes"], lci["lexeme_dictionary"])
 # print_lexeme_dictionary(lci["lexeme_dictionary"])
 # print_parse_tree(lci["parse_tree"], lci["lexeme_dictionary"])
-# print_symbol_table(lci["symbol_table"])
+print_symbol_table(lci["symbol_table"])
 # compare_tree_lexemes(lci["lexemes"], lci["lexeme_dictionary"], lci["parse_tree"])
-# visualize_parse_tree(lci["parse_tree"])
+visualize_parse_tree(lci["parse_tree"])

@@ -38,6 +38,7 @@ HAI
     VISIBLE "\nSign ito na mag-ccode ka na, " + name + ".\n"
     I IZ birthdaymo YR SMOOSH "Eirene"
     I IZ void   
+    SMOOSH ALL OF SMOOSH ALL OF 1 AN 2 MKAY MKAY
 KTHXBYE
 
 HOW IZ I plusparam2 YR x AN YR y

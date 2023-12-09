@@ -14,7 +14,6 @@ def exhaustline(parse_tree):
         return 1 + exhaustline(parse_tree[2])
     else: return 0
 
-
 def evaluate_operand(parse_tree, lexeme_dictionary):
     if parse_tree[1][0] == "LITERAL":
         return parse_tree[1][1]
@@ -68,11 +67,6 @@ def execute_gimmeh(parse_tree, lexeme_dictionary):
         error(f"{parse_tree[2]} is not declared")
 
 def function_call(lexemes, parse_tree, lexeme_dictionary):
-    # `````````````````` UNCOMMENT THIS SECTION TO VIEW PARSE TREE (DELETE THIS SECTION WHEN DONE)
-    basis = ""
-    # basis =  f"PARSE TREE: {parse_tree}" + "\n"
-    # print(basis)
-    # ``````````````````````````````````````````````````````````````````````````````````````````
     global line
     func_exec = function_table[parse_tree[2]]
     execute_function(lexemes, func_exec[0][5], lexeme_dictionary, line, func_exec[1], func_exec[2], func_exec[3])

@@ -1,4 +1,5 @@
 import re
+from .debugger import write_on_error
 
 # FUNCTION FOR CLASSIFICATION
 def get_lexeme_type(lexeme):
@@ -138,7 +139,6 @@ def get_lexeme_type(lexeme):
     return lexeme_type
 
 def lexical_analyzer(lexemes):
-
     lexeme_dictionary = {}
 
     # LOOPS THE ARRAY-OF-LEXEMES, IDENTIFIES THE TYPE OF EACH LEXEME
@@ -163,7 +163,26 @@ def lexical_analyzer(lexemes):
                     buffer_i+=1
             lexeme_dictionary[lexeme] = lexeme_type
         lexemes[i+buffer_i] = lexeme 
-    lexeme_dictionary = dict(sorted(lexeme_dictionary.items()))     
+
+    # DELETE COMMENTS
+    # LOOPS THE ARRAY-OF-LEXEMES, DELETES IF LEXEME HAS A TYPE OF 'COMMENT'
+    new_lexemes = []
+    for lexeme in lexemes:
+        if lexeme_dictionary[lexeme] == "Comment":     
+            for i in lexeme:
+                if i == "\n": 
+                    new_lexemes.append("\n")
+                    if "\n" not in lexeme_dictionary: lexeme_dictionary["\n"] = "New Line Character"
+        else:
+            new_lexemes.append(lexeme)
+
+    new_lexeme_dictionary = {}
+    for lexeme in lexeme_dictionary:
+        if lexeme_dictionary[lexeme] != "Comment":
+            new_lexeme_dictionary[lexeme] = lexeme_dictionary[lexeme]
+
+    lexemes = new_lexemes
+    lexeme_dictionary = dict(sorted(new_lexeme_dictionary.items()))     
 
     # ERROR DETECTION
     # LOOPS THE ARRAY-OF-LEXEMES, PRINTS ERROR IF A LEXEME HAS AN ERROR TYPE
@@ -175,17 +194,18 @@ def lexical_analyzer(lexemes):
             line+=1
         elif lexeme_dictionary[lexeme] == "Unexpected Token (ERROR)":
             print(f"\nerror: unrecognized token '{lexeme}' at line {line}\n")
+            write_on_error(lexemes, lexeme_dictionary, None, None)
             exit()
         elif lexeme_dictionary[lexeme] == "Unterminated Comment (ERROR)":
             print(f"\nerror: unterminated comment '{lexeme}' at line {line}\n")
+            write_on_error(lexemes, lexeme_dictionary, None, None)
             exit()
         elif lexeme_dictionary[lexeme] == "Unexpected Token Beside Multiline Comment (ERROR)":
             print(f"\nerror: unexpected token '{lexeme}' beside a multi-line comment terminator at line {line}\n")
+            write_on_error(lexemes, lexeme_dictionary, None, None)
             exit()
-        elif lexeme_dictionary[lexeme] == "Comment" or lexeme_dictionary[lexeme] == "--- (ERROR)":
+        elif lexeme_dictionary[lexeme] == "--- (ERROR)":
             for char in lexeme:
                 if char == "\n":
                     line+=1
-
-    print("\n... LEXICAL ANALYSIS DONE!\n")
-    return lexeme_dictionary
+    return [lexeme_dictionary, lexemes]

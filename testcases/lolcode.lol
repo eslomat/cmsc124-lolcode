@@ -1,14 +1,3 @@
-OBTW -------------------------------------->
-
-        NOTES:
-                    1. OPERATIONS <expr> include Arithmetic, Boolean, and Comparison.
-                    2. NOT STATEMENTS: <program>, <func>, <ret>, <main>, <if>, <else>, <acase>, <defcase>, <vardec>, <linebreak>, <varinit>
-                    4. Result of an OPERATION or a FUNCTION is stored in an implicit variable called 'IT'. 
-
-<-------------------------------------- TLDR 
-
-BTW _________________________________________________________________________________________________________________________________ MAIN
-
 HOW IZ I yayyparam0                                                          BTW <func>             Function Declaration Start
     VISIBLE "YAY!"                                                           BTW                    Statements
 IF U SAY SO                                                                  BTW                    Function Declaration End
@@ -51,12 +40,10 @@ HAI                                                                          BTW
 
     BOTH OF thing2 AN EITHER OF thing2 AN "WIN"                              BTW <and>
     EITHER OF thing2 AN 1                                                    BTW <or>
-OBTW    
-    WON OF 3.14 AN thing2                                                    BTW <xor>
-    NOT WIN                                                                  BTW <not>
-    ALL OF thing2 AN thing2 AN thing2 MKAY                                   BTW <infand>           Inf arity AND
-    ANY OF thing2 AN thing2 AN thing2 MKAY                                   BTW <infor>            Inf arity OR
-TLDR
+    BTW a
+    BTW ab
+    BTW ac
+    BTW ad
     BOTH SAEM 1 AN 1                                                         BTW <equal>            x == y
     DIFFRINT 1.24 AN 1                                                       BTW <notequal>         x != y
     BOTH SAEM 1.24 AN BIGGR OF 1.24 AN 1                                     BTW <greatqual>        x >= y
@@ -65,7 +52,7 @@ TLDR
     DIFFRINT 1 AN BIGGR OF 1 AN 1                                            BTW <great>            x > y
 
     MAEK var1 A NUMBAR                                                       BTW <typecastit>       Result to   IT
-    var1 IS NOW A NUMBAR                                                     BTW <typecastis>       Through     IS NOW A
+    var1 IS NOW A NUMBAR                                                     BTW <typecastis>       Through     IS NOW A   
     number R MAEK number A YARN                                                BTW <typecastas>       Through     ASSIGNNMENT
 
     thing R 124                                                              BTW <varassign>        <variable> R <literal>

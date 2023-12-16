@@ -50,13 +50,31 @@ def to_digit(x):
     try: return int(x)
     except ValueError: return Decimal(x)
 
+troofs = { "WIN": True, "FAIL": False }
 def boolean_yielding(operation, expression):
-    # `````````````````` UNCOMMENT THIS SECTION TO VIEW PARSE TREE (DELETE THIS SECTION WHEN DONE)
-    basis = ""
-    # basis =  f"PARSE TREE: {expression}" + "\n"
-    # print(basis)
-    # ``````````````````````````````````````````````````````````````````````````````````````````
-    return f"{operation} - {expression}"
+    global lexeme_dictionary_e
+    match operation:
+        case "NOT": return "WIN" if evaluate_operand(expression[2], lexeme_dictionary_e) == "FAIL" else "FAIL"
+        case "AND": 
+            x = evaluate_operand(expression[2], lexeme_dictionary_e)
+            y = evaluate_operand(expression[4], lexeme_dictionary_e)
+            return "WIN" if troofs[x] and troofs[y] else "FAIL"
+        case "OR":
+            x = evaluate_operand(expression[2], lexeme_dictionary_e)
+            y = evaluate_operand(expression[4], lexeme_dictionary_e)
+            return "WIN" if troofs[x] or troofs[y] else "FAIL"
+        case "INFINITE ARITY AND":
+            result = evaluate_operand(expression[2], lexeme_dictionary_e) and recursive_arity(expression[3], "AND")
+            return "WIN" if result else "FAIL"
+        case "INFINITE ARITY OR":
+            result = evaluate_operand(expression[2], lexeme_dictionary_e) and recursive_arity(expression[3], "OR")
+            return "WIN" if result else "FAIL"
+
+def recursive_arity(exp, connector):
+    global lexeme_dictionary_e
+    if exp[3][1] == None: return troofs[evaluate_operand(exp[2], lexeme_dictionary_e)]
+    if connector == "AND": return troofs[evaluate_operand(exp[2], lexeme_dictionary_e)] and recursive_arity(exp[3], connector)
+    elif connector == "OR": return troofs[evaluate_operand(exp[2], lexeme_dictionary_e)] or recursive_arity(exp[3], connector)
 
 def comparison_yielding(operation, expression):
     x = expression[2][1]

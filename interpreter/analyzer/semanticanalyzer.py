@@ -1,5 +1,5 @@
 from .debugger import write_on_error
-
+from decimal import Decimal
 #__________________________________________________________________________________ IMPLMENTATION FUNCTIONS
 
 def error(message):
@@ -35,12 +35,20 @@ def alteration_yielding(operation, expression):
     return f"{operation} - {expression}"
 
 def arithmetic_yielding(operation, expression):
-    # `````````````````` UNCOMMENT THIS SECTION TO VIEW PARSE TREE (DELETE THIS SECTION WHEN DONE)
-    basis = ""
-    # basis =  f"PARSE TREE: {expression}" + "\n"
-    # print(basis)
-    # ``````````````````````````````````````````````````````````````````````````````````````````
-    return f"{operation} - {expression}"
+    global lexeme_dictionary_e
+    x = to_digit(evaluate_operand(expression[2], lexeme_dictionary_e))
+    y = to_digit(evaluate_operand(expression[4], lexeme_dictionary_e))
+    match operation:
+        case "SUM": ans = x + y
+        case "DIFFERENCE": ans = x - y
+        case "PRODUCT": ans = x * y 
+        case "QUOTIENT": ans = x / y
+    return str(ans)
+
+def to_digit(x):
+    x = x.replace('"',"")
+    try: return int(x)
+    except ValueError: return Decimal(x)
 
 def boolean_yielding(operation, expression):
     # `````````````````` UNCOMMENT THIS SECTION TO VIEW PARSE TREE (DELETE THIS SECTION WHEN DONE)

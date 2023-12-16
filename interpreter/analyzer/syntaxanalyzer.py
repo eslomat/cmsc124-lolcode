@@ -620,7 +620,7 @@ def notequallol():
         else:
             d = compop()
             if d[1] == None: error("operand")
-            return ["LESS", a, b, c, d]
+            return ["NOT EQUAL", a, b, c, d]
     return ["NOT EQUAL", None]
 
 def isA(token):

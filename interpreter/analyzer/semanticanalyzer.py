@@ -59,12 +59,15 @@ def boolean_yielding(operation, expression):
     return f"{operation} - {expression}"
 
 def comparison_yielding(operation, expression):
-    # `````````````````` UNCOMMENT THIS SECTION TO VIEW PARSE TREE (DELETE THIS SECTION WHEN DONE)
-    basis = ""
-    # basis =  f"PARSE TREE: {expression}" + "\n"
-    # print(basis)
-    # ``````````````````````````````````````````````````````````````````````````````````````````
-    return f"{operation} - {expression}"
+    x = expression[2][1]
+    match operation:
+        case "EQUAL": ans = x == expression[4][1]
+        case "NOT EQUAL": ans = x != expression[4][1]
+        case "GREATER OR EQUAL": ans = x >= expression[5][1]
+        case "LESS OR EQUAL": ans = x <= expression[5][1]
+        case "GREATER": ans = x > expression[5][1]
+        case "LESS": ans = x < expression[5][1]
+    return "WIN" if ans else "FAIL"
 
 # EIRENE
 

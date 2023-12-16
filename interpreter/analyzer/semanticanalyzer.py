@@ -1,5 +1,6 @@
 from .debugger import write_on_error
 from decimal import Decimal
+import re
 #__________________________________________________________________________________ IMPLMENTATION FUNCTIONS
 
 def error(message):
@@ -24,15 +25,28 @@ def evaluate_operand(parse_tree, lexeme_dictionary):
     else: 
         error(f"{parse_tree[1]} is not declared")
 
-# JERICO
-    
+# JERICO 
+def changeDataType(value, dataType):
+    match dataType:
+        case "TROOF":
+            if value in ['""', "0"]: return "FAIL"
+            return "WIN"
+        case "NUMBR":
+            try: return str(int(float(value.replace('"',""))))
+            except: error(f"{value} cannot be typecasted to NUMBR")
+        case "NUMBAR":
+            try: return str(float(value.replace('"',"")))
+            except: error(f"{value} cannot be typecasted to NUMBR")
+        case "YARN":
+            return value
+    return "ERR"
+
 def alteration_yielding(operation, expression):
-    # `````````````````` UNCOMMENT THIS SECTION TO VIEW PARSE TREE (DELETE THIS SECTION WHEN DONE)
-    basis = ""
-    # basis =  f"PARSE TREE: {expression}" + "\n"
-    # print(basis)
-    # ``````````````````````````````````````````````````````````````````````````````````````````
-    return f"{operation} - {expression}"
+    return changeDataType(symbol_table[expression[2]], expression[4])
+    
+def typecast_as(parse_tree, lexeme_dictionary):
+    varName = parse_tree[1]
+    symbol_table[varName] = changeDataType(symbol_table[varName], parse_tree[3])
 
 def arithmetic_yielding(operation, expression):
     global lexeme_dictionary_e
@@ -259,6 +273,7 @@ def symbol_table_and_type_identifier(lexemes, parse_tree, lexeme_dictionary):
         if parse_tree[1] != None:
             if parse_tree[0] == "VARIABLE INITIALIZATION": variable_initialization(parse_tree, lexeme_dictionary)
             if parse_tree[0] == "FUNCTION": function_declaration(parse_tree, lexeme_dictionary)
+            if parse_tree[0] == "VARIABLE TYPECAST": typecast_as(parse_tree, lexeme_dictionary)
         if parse_tree[0] != "FUNCTION":
             for branch in parse_tree:
                 symbol_table_and_type_identifier(lexemes, branch, lexeme_dictionary)

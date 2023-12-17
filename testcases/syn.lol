@@ -37,7 +37,8 @@ HAI
     GIMMEH name
     VISIBLE "\nSign ito na mag-ccode ka na, " + name + ".\n"
     I IZ birthdaymo YR SMOOSH "Eirene"
-    I IZ void   
+    I IZ void
+    I IZ plusparam2 YR SUM OF 1 AN 1 AN YR SUM OF 2 AN 2
     SMOOSH ALL OF SMOOSH ALL OF 1 AN 2 MKAY MKAY
 KTHXBYE
 

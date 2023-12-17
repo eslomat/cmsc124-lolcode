@@ -24,7 +24,13 @@ HAI
     BUHBYE
     VISIBLE ANY OF FAIL AN FAIL AN BOTH SAEM 1 AN 1 AN FAIL MKAY
 
-
+    VISIBLE "Enter your name: " !
+    GIMMEH name
+    VISIBLE "\nSign ito na mag-ccode ka na, " + name + ".\n"
+    I IZ birthdaymo YR SMOOSH "Eirene"
+    I IZ void
+    I IZ plusparam2 YR SUM OF 1 AN 1 AN YR SUM OF 2 AN 2
+    SMOOSH ALL OF SMOOSH ALL OF 1 AN 2 MKAY MKAY
 KTHXBYE
 
 HOW IZ I plusparam2 YR x AN YR y

@@ -109,10 +109,23 @@ def execute_gimmeh(parse_tree, lexeme_dictionary):
     else:
         error(f"{parse_tree[2]} is not declared")
 
+def get_parameters(parse_tree, parameters, variables):
+    if parse_tree[0] == "FUNCTION CALL PARAMETER" and parse_tree[1] != None:
+        parameters[variables[0]] = evaluate_expression(parse_tree[2])
+        variables.pop(0)
+        get_parameters(parse_tree[3], parameters, variables)
+    elif parse_tree[0] == "FUNCTION CALL PARAMETER EXTENSION" and parse_tree[1] != None:
+        parameters[variables[0]] = evaluate_expression(parse_tree[3])
+        variables.pop(0)
+        get_parameters(parse_tree[4], parameters, variables)
+
 def function_call(lexemes, parse_tree, lexeme_dictionary):
     global line
     func_exec = function_table[parse_tree[2]]
-    execute_function(lexemes, func_exec[0][5], lexeme_dictionary, line, func_exec[1], func_exec[2], func_exec[3])
+    parameters = func_exec[2]
+    variables = list(parameters.keys())
+    get_parameters(parse_tree[3], parameters, variables)
+    execute_function(lexemes, func_exec[0][5], lexeme_dictionary, line, func_exec[1], parameters, func_exec[3])
 
 def controlflow_conditional(parse_tree, lexeme_dictionary):
     # `````````````````` UNCOMMENT THIS SECTION TO VIEW PARSE TREE (DELETE THIS SECTION WHEN DONE)
@@ -225,7 +238,7 @@ def execute_function(lexemes, parse_tree, lexeme_dictionary, currline, funcline,
     global symbol_table, line
     save_symbol_table = symbol_table.copy()
     symbol_table = variables
-    symbol_table["IT"] = "NOOB"
+    symbol_table["IT"] = save_symbol_table["IT"]
     line = funcline
     execute_parse_tree(lexemes, parse_tree, lexeme_dictionary)
     if ret[1] == None or ret[1] == "GTFO":

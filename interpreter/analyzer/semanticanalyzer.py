@@ -1,5 +1,6 @@
 from .debugger import write_on_error
-
+from decimal import Decimal
+import re
 #__________________________________________________________________________________ IMPLMENTATION FUNCTIONS
 
 def error(message):
@@ -24,39 +25,81 @@ def evaluate_operand(parse_tree, lexeme_dictionary):
     else: 
         error(f"{parse_tree[1]} is not declared")
 
-# JERICO
-    
+# JERICO 
+def changeDataType(value, dataType):
+    match dataType:
+        case "TROOF":
+            if value in ['""', "0"]: return "FAIL"
+            return "WIN"
+        case "NUMBR":
+            try: return str(int(float(value.replace('"',""))))
+            except: error(f"{value} cannot be typecasted to NUMBR")
+        case "NUMBAR":
+            try: return str(float(value.replace('"',"")))
+            except: error(f"{value} cannot be typecasted to NUMBR")
+        case "YARN":
+            return value
+    return "ERR"
+
 def alteration_yielding(operation, expression):
-    # `````````````````` UNCOMMENT THIS SECTION TO VIEW PARSE TREE (DELETE THIS SECTION WHEN DONE)
-    basis = ""
-    # basis =  f"PARSE TREE: {expression}" + "\n"
-    # print(basis)
-    # ``````````````````````````````````````````````````````````````````````````````````````````
-    return f"{operation} - {expression}"
+    return changeDataType(symbol_table[expression[2]], expression[4])
+    
+def typecast_as(parse_tree, lexeme_dictionary):
+    varName = parse_tree[1]
+    symbol_table[varName] = changeDataType(symbol_table[varName], parse_tree[3])
 
 def arithmetic_yielding(operation, expression):
-    # `````````````````` UNCOMMENT THIS SECTION TO VIEW PARSE TREE (DELETE THIS SECTION WHEN DONE)
-    basis = ""
-    # basis =  f"PARSE TREE: {expression}" + "\n"
-    # print(basis)
-    # ``````````````````````````````````````````````````````````````````````````````````````````
-    return f"{operation} - {expression}"
+    global lexeme_dictionary_e
+    x = to_digit(evaluate_operand(expression[2], lexeme_dictionary_e))
+    y = to_digit(evaluate_operand(expression[4], lexeme_dictionary_e))
+    match operation:
+        case "SUM": ans = x + y
+        case "DIFFERENCE": ans = x - y
+        case "PRODUCT": ans = x * y 
+        case "QUOTIENT": ans = x / y
+    return str(ans)
 
+def to_digit(x):
+    x = x.replace('"',"")
+    try: return int(x)
+    except ValueError: return Decimal(x)
+
+troofs = { "WIN": True, "FAIL": False }
 def boolean_yielding(operation, expression):
-    # `````````````````` UNCOMMENT THIS SECTION TO VIEW PARSE TREE (DELETE THIS SECTION WHEN DONE)
-    basis = ""
-    # basis =  f"PARSE TREE: {expression}" + "\n"
-    # print(basis)
-    # ``````````````````````````````````````````````````````````````````````````````````````````
-    return f"{operation} - {expression}"
+    global lexeme_dictionary_e
+    match operation:
+        case "NOT": return "WIN" if evaluate_operand(expression[2], lexeme_dictionary_e) == "FAIL" else "FAIL"
+        case "AND": 
+            x = evaluate_operand(expression[2], lexeme_dictionary_e)
+            y = evaluate_operand(expression[4], lexeme_dictionary_e)
+            return "WIN" if troofs[x] and troofs[y] else "FAIL"
+        case "OR":
+            x = evaluate_operand(expression[2], lexeme_dictionary_e)
+            y = evaluate_operand(expression[4], lexeme_dictionary_e)
+            return "WIN" if troofs[x] or troofs[y] else "FAIL"
+        case "INFINITE ARITY AND":
+            result = evaluate_operand(expression[2], lexeme_dictionary_e) and recursive_arity(expression[3], "AND")
+            return "WIN" if result else "FAIL"
+        case "INFINITE ARITY OR":
+            result = evaluate_operand(expression[2], lexeme_dictionary_e) and recursive_arity(expression[3], "OR")
+            return "WIN" if result else "FAIL"
+
+def recursive_arity(exp, connector):
+    global lexeme_dictionary_e
+    if exp[3][1] == None: return troofs[evaluate_operand(exp[2], lexeme_dictionary_e)]
+    if connector == "AND": return troofs[evaluate_operand(exp[2], lexeme_dictionary_e)] and recursive_arity(exp[3], connector)
+    elif connector == "OR": return troofs[evaluate_operand(exp[2], lexeme_dictionary_e)] or recursive_arity(exp[3], connector)
 
 def comparison_yielding(operation, expression):
-    # `````````````````` UNCOMMENT THIS SECTION TO VIEW PARSE TREE (DELETE THIS SECTION WHEN DONE)
-    basis = ""
-    # basis =  f"PARSE TREE: {expression}" + "\n"
-    # print(basis)
-    # ``````````````````````````````````````````````````````````````````````````````````````````
-    return f"{operation} - {expression}"
+    x = expression[2][1]
+    match operation:
+        case "EQUAL": ans = x == expression[4][1]
+        case "NOT EQUAL": ans = x != expression[4][1]
+        case "GREATER OR EQUAL": ans = x >= expression[5][1]
+        case "LESS OR EQUAL": ans = x <= expression[5][1]
+        case "GREATER": ans = x > expression[5][1]
+        case "LESS": ans = x < expression[5][1]
+    return "WIN" if ans else "FAIL"
 
 # EIRENE
 
@@ -230,6 +273,7 @@ def symbol_table_and_type_identifier(lexemes, parse_tree, lexeme_dictionary):
         if parse_tree[1] != None:
             if parse_tree[0] == "VARIABLE INITIALIZATION": variable_initialization(parse_tree, lexeme_dictionary)
             if parse_tree[0] == "FUNCTION": function_declaration(parse_tree, lexeme_dictionary)
+            if parse_tree[0] == "VARIABLE TYPECAST": typecast_as(parse_tree, lexeme_dictionary)
         if parse_tree[0] != "FUNCTION":
             for branch in parse_tree:
                 symbol_table_and_type_identifier(lexemes, branch, lexeme_dictionary)

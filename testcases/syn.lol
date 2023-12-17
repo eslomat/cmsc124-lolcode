@@ -27,10 +27,28 @@ HAI
     VISIBLE "Enter your name: " !
     GIMMEH name
     VISIBLE "\nSign ito na mag-ccode ka na, " + name + ".\n"
-    I IZ birthdaymo YR SMOOSH "Eirene"
     I IZ void
     I IZ plusparam2 YR SUM OF 1 AN 1 AN YR SUM OF 2 AN 2
+
+    BTW --------------------------------------------------------------------------- NEEDS TO BE FIXED
+
     SMOOSH ALL OF SMOOSH ALL OF 1 AN 2 MKAY MKAY
+    I IZ birthdaymo YR SMOOSH "CMSC 124"
+
+    name R 1
+    VISIBLE name 
+    
+    name R MAEK two A YARN                                              BTW should support yung may 'A' at walang 'A'
+    name R MAEK two YARN                                                BTW pwedeng wag na isama yung 'A' sa parse_tree madaling i-parse
+    VISIBLE "AFTER VARIABLE TYPECAST NUMBR TO YARN"
+    VISIBLE name
+    
+    name IS NOW A TROOF
+    VISIBLE "AFTER VARIABLE TYPECAST YARN TO TROOF"
+    VISIBLE name
+    
+    MAEK name A YARN
+    VISIBLE "AFTER VALUE TYPECAST, PRINTING IT (WIN TO 'WIN') -> " + IT
 KTHXBYE
 
 HOW IZ I plusparam2 YR x AN YR y

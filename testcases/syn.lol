@@ -22,16 +22,7 @@ HAI
         I HAS A x BTW FSFSF
         I HAS A y
     BUHBYE
-    x R 5
-    y R 10
-    thing2 R thing3
-    thing3 R SUM OF thing1 AN thing2
-    x R BOTH OF DIFF OF 1 AN 1 AN 0
-    VISIBLE "Hello in Main :>"
-    VISIBLE SUM OF 1 AN 1
-    VISIBLE y
-    VISIBLE "Hello" + " " + "World" + "! " !
-    VISIBLE "Kumusta" !, SMOOSH " " AN "Mundo!", VISIBLE IT
+    VISIBLE ANY OF FAIL AN FAIL AN BOTH SAEM 1 AN 1 AN FAIL MKAY
 
     VISIBLE "Enter your name: " !
     GIMMEH name

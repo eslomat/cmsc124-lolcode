@@ -1,7 +1,7 @@
 from .debugger import write_on_error
 from decimal import Decimal
 import re
-#__________________________________________________________________________________ IMPLMENTATION FUNCTIONS
+#__________________________________________________________________________________ IMPLEMENTATION FUNCTIONS
 
 def error(message):
     global line
@@ -107,6 +107,19 @@ def execute_gimmeh(parse_tree, lexeme_dictionary):
     else:
         error(f"{parse_tree[2]} is not declared")
 
+def execute_function(lexemes, parse_tree, lexeme_dictionary, currline, funcline, variables):
+    global symbol_table, line, function_return
+    save_symbol_table = symbol_table.copy()
+    symbol_table = variables
+    symbol_table["IT"] = save_symbol_table["IT"]
+    line = funcline
+    save_function_return = function_return
+    function_return = False
+    execute_function_parse_tree(lexemes, parse_tree, lexeme_dictionary, save_symbol_table)
+    function_return = save_function_return
+    symbol_table = save_symbol_table
+    line = currline
+
 def get_parameters(parse_tree, parameters, variables):
     if parse_tree[0] == "FUNCTION CALL PARAMETER" and parse_tree[1] != None:
         parameters[variables[0]] = evaluate_expression(parse_tree[2])
@@ -123,44 +136,100 @@ def function_call(lexemes, parse_tree, lexeme_dictionary):
     parameters = func_exec[2]
     variables = list(parameters.keys())
     get_parameters(parse_tree[3], parameters, variables)
-    execute_function(lexemes, func_exec[0][5], lexeme_dictionary, line, func_exec[1], parameters, func_exec[3])
+    execute_function(lexemes, func_exec[0][5], lexeme_dictionary, line, func_exec[1], parameters)
+
+def execute_else_if(lexemes, parse_tree, lexeme_dictionary):
+    if changeDataType(evaluate_expression(parse_tree[2]), "TROOF") == "WIN":
+        execute_parse_tree(lexemes, parse_tree[4], lexeme_dictionary)
+        return True
+    
+    if parse_tree[5][1] != None:
+        return execute_else_if(lexemes, parse_tree[5], lexeme_dictionary)
+    else:
+        return False
+
+def controlflow_conditional(lexemes, parse_tree, lexeme_dictionary):
+    symbol_table["IT"] = changeDataType(evaluate_expression(parse_tree[1]), "TROOF")
+    if symbol_table["IT"] == "WIN":
+        execute_parse_tree(lexemes, parse_tree[5][3], lexeme_dictionary)
+        return 
+    else: 
+        if execute_else_if(lexemes, parse_tree[6], lexeme_dictionary): return
+    execute_parse_tree(lexemes, parse_tree[7][3], lexeme_dictionary)
 
 
-def controlflow_conditional(parse_tree, lexeme_dictionary):
-    # `````````````````` UNCOMMENT THIS SECTION TO VIEW PARSE TREE (DELETE THIS SECTION WHEN DONE)
-    basis = ""
-    # basis =  f"PARSE TREE: {parse_tree}" + "\n"
-    # print(basis)
-    # ``````````````````````````````````````````````````````````````````````````````````````````
+def execute_case(lexemes, parse_tree, lexeme_dictionary, case_break):
+    case_break[0] = True
+    if parse_tree[2][1] == symbol_table["IT"]:
+        execute_caseloop_parse_tree(lexemes, parse_tree, lexeme_dictionary)
+    else:
+        if len(parse_tree) == 6:
+            execute_case(lexemes, parse_tree[5], lexeme_dictionary, case_break)
 
-def controlflow_case(parse_tree, lexeme_dictionary):
-    # `````````````````` UNCOMMENT THIS SECTION TO VIEW PARSE TREE (DELETE THIS SECTION WHEN DONE)
-    basis = ""
-    # basis =  f"PARSE TREE: {parse_tree}" + "\n"
-    # print(basis)
-    # ``````````````````````````````````````````````````````````````````````````````````````````
+def controlflow_case(lexemes, parse_tree, lexeme_dictionary):
+    global caseloop_return
+    case_break = [False]
+    save_case_return = caseloop_return
+    caseloop_return = False
+    execute_case(lexemes, parse_tree[3], lexeme_dictionary, case_break)
+    if parse_tree[4][1] != None:
+        execute_caseloop_parse_tree(lexemes, parse_tree[4][3], lexeme_dictionary)
+    caseloop_return = save_case_return
 
-def controlflow_loop(lexemes, parse_tree, lexeme_dictionary):
-    global line
+def controlflow_infloop(lexemes, parse_tree, lexeme_dictionary):
+    global line, caseloop_return
     if parse_tree[6] not in symbol_table:
         error(f"'{parse_tree[6]}' is not declared")
-    if parse_tree[3] != parse_tree[13]:
-        error(f"'{parse_tree[3]}' has a different loop terminator label, found '{parse_tree[13]}'")
+    if parse_tree[3] != parse_tree[11]:
+        error(f"'{parse_tree[3]}' has a different loop terminator label, found '{parse_tree[11]}'")
+    if parse_tree[3] in loops or parse_tree[3] in symbol_table:
+        error(f"'{parse_tree[3]}' is already declared")
+    loops.append(parse_tree[3])
     symbol_table[parse_tree[6]] = changeDataType(symbol_table[parse_tree[6]], "NUMBR")
     save_line = line
+    save_case_return = caseloop_return
+    caseloop_return = False
     while True:
         line = save_line
+        exhaust_parse_tree(lexemes, parse_tree[7], lexeme_dictionary)
+        execute_caseloop_parse_tree(lexemes, parse_tree[8], lexeme_dictionary)
+        if caseloop_return: break
+    loops.remove(parse_tree[3])
+    caseloop_return = save_case_return
+    line = save_line
+    exhaust_parse_tree(lexemes, parse_tree, lexeme_dictionary)
 
+def controlflow_loop(lexemes, parse_tree, lexeme_dictionary):
+    global line, caseloop_return
+    if parse_tree[3] in loops or parse_tree[3] in symbol_table:
+        error(f"'{parse_tree[3]}' is already declared")
+    if parse_tree[3] != parse_tree[13]:
+        error(f"'{parse_tree[3]}' has a different loop terminator label, found '{parse_tree[13]}'")
+    if parse_tree[6] not in symbol_table:
+        error(f"'{parse_tree[6]}' is not declared")
+    loops.append(parse_tree[3])
+    symbol_table[parse_tree[6]] = changeDataType(symbol_table[parse_tree[6]], "NUMBR")
+    save_line = line
+    save_case_return = caseloop_return
+    caseloop_return = False
+    while True:
+        line = save_line
+        exhaust_parse_tree(lexemes, parse_tree[9], lexeme_dictionary)
+        
         if parse_tree[7][1] == "TIL":
             if evaluate_expression(parse_tree[8]) == "WIN": break
         else:
             if evaluate_expression(parse_tree[8]) == "FAIL": break
+        execute_caseloop_parse_tree(lexemes, parse_tree[10], lexeme_dictionary)
+        if caseloop_return: break
 
-        execute_parse_tree(lexemes, parse_tree[10], lexeme_dictionary)
-
-        if parse_tree[4][1] == "UPPIN": 
-            symbol_table[parse_tree[6]] = str(int(symbol_table[parse_tree[6]]) + 1)
+        if parse_tree[4][1] == "UPPIN": symbol_table[parse_tree[6]] = str(int(symbol_table[parse_tree[6]]) + 1)
         else: symbol_table[parse_tree[6]] =  int(symbol_table[parse_tree[6]]) - 1
+    
+    loops.remove(parse_tree[3])
+    caseloop_return = save_case_return
+    line = save_line
+    exhaust_parse_tree(lexemes, parse_tree, lexeme_dictionary)
 
 def evaluate_expression(parse_tree):
     if parse_tree[1][0] == "LITERAL":
@@ -218,7 +287,7 @@ def function_declaration(parse_tree, lexeme_dictionary):
         if parse_tree[3][1] != None:
             variables[parse_tree[3][2]] = "NOOB"
             function_get_paramext(variables, parse_tree[3][3])
-        function_table[parse_tree[2]] = [parse_tree, line + exhaustline(parse_tree[4]), variables, parse_tree[6]]
+        function_table[parse_tree[2]] = [parse_tree, line + exhaustline(parse_tree[4]), variables]
     else:
         if lexeme_dictionary[parse_tree[2]] == "Variable Identifier":
             error(f"'{parse_tree[2]}' is already declared as a variable")
@@ -252,19 +321,54 @@ def execute_visible(parse_tree, lexeme_dictionary):
 
 #__________________________________________________________________________________ PARSE TREE TRAVERSAL
 
-def execute_function(lexemes, parse_tree, lexeme_dictionary, currline, funcline, variables, ret):
-    global symbol_table, line
-    save_symbol_table = symbol_table.copy()
-    symbol_table = variables
-    symbol_table["IT"] = save_symbol_table["IT"]
-    line = funcline
-    execute_parse_tree(lexemes, parse_tree, lexeme_dictionary)
-    if ret[1] == None or ret[1] == "GTFO":
-        save_symbol_table["IT"] = "NOOB"
-    else:
-        save_symbol_table["IT"] = evaluate_expression(ret[3])
-    symbol_table = save_symbol_table
-    line = currline
+def execute_function_parse_tree(lexemes, parse_tree, lexeme_dictionary, save_symbol_table):
+    global line, void, function_return 
+
+    if not isinstance(parse_tree, str) and parse_tree != None and not function_return:
+        if parse_tree[1] != None:
+            if parse_tree[0] == "PRINT": execute_visible(parse_tree, lexeme_dictionary)
+            elif parse_tree[0] == "INPUT": execute_gimmeh(parse_tree, lexeme_dictionary)
+            elif parse_tree[0] == "VARIABLE ASSIGNMENT": variable_assignment(parse_tree, lexeme_dictionary)
+            elif parse_tree[0] == "EXPRESSION": evaluate_expression_it(parse_tree)
+            elif parse_tree[0] == "CONDITIONAL STATEMENT": controlflow_conditional(lexemes, parse_tree, lexeme_dictionary)
+            elif parse_tree[0] == "CASE STATEMENT": controlflow_case(lexemes, parse_tree, lexeme_dictionary)
+            elif parse_tree[0] == "LOOP": controlflow_loop(lexemes, parse_tree, lexeme_dictionary)
+            elif parse_tree[0] == "INFLOOP": controlflow_infloop(lexemes, parse_tree, lexeme_dictionary)
+            elif parse_tree[0] == "FUNCTION CALL": function_call(lexemes, parse_tree, lexeme_dictionary)
+            elif parse_tree[0] == "RETURN":
+                if parse_tree[1] == None or parse_tree[1] == "GTFO":
+                    save_symbol_table["IT"] = "NOOB"
+                else:
+                    save_symbol_table["IT"] = evaluate_expression(parse_tree[3])
+                function_return = True
+            else:
+                for branch in parse_tree:
+                    execute_function_parse_tree(lexemes, branch, lexeme_dictionary, save_symbol_table)
+
+    elif parse_tree == "\n":
+        line += 1
+
+def execute_caseloop_parse_tree(lexemes, parse_tree, lexeme_dictionary):
+    global line, void, caseloop_return 
+
+    if not isinstance(parse_tree, str) and parse_tree != None and not caseloop_return:
+        if parse_tree[1] != None:
+            if parse_tree[0] == "PRINT": execute_visible(parse_tree, lexeme_dictionary)
+            elif parse_tree[0] == "INPUT": execute_gimmeh(parse_tree, lexeme_dictionary)
+            elif parse_tree[0] == "VARIABLE ASSIGNMENT": variable_assignment(parse_tree, lexeme_dictionary)
+            elif parse_tree[0] == "EXPRESSION": evaluate_expression_it(parse_tree)
+            elif parse_tree[0] == "CONDITIONAL STATEMENT": controlflow_conditional(lexemes, parse_tree, lexeme_dictionary)
+            elif parse_tree[0] == "CASE STATEMENT": controlflow_case(lexemes, parse_tree, lexeme_dictionary)
+            elif parse_tree[0] == "LOOP": controlflow_loop(lexemes, parse_tree, lexeme_dictionary)
+            elif parse_tree[0] == "INFLOOP": controlflow_infloop(lexemes, parse_tree, lexeme_dictionary)
+            elif parse_tree[0] == "FUNCTION CALL": function_call(lexemes, parse_tree, lexeme_dictionary)
+            elif parse_tree[0] == "VOID": caseloop_return = True
+            else:
+                for branch in parse_tree:
+                    execute_caseloop_parse_tree(lexemes, branch, lexeme_dictionary)
+
+    elif parse_tree == "\n":
+        line += 1
 
 def exhaust_parse_tree(lexemes, parse_tree, lexeme_dictionary):
     global line
@@ -277,15 +381,17 @@ def exhaust_parse_tree(lexemes, parse_tree, lexeme_dictionary):
     
 def execute_parse_tree(lexemes, parse_tree, lexeme_dictionary):
     global line
+
     if not isinstance(parse_tree, str) and parse_tree != None and parse_tree[0] != "FUNCTION":
         if parse_tree[1] != None:
             if parse_tree[0] == "PRINT": execute_visible(parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "INPUT": execute_gimmeh(parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "VARIABLE ASSIGNMENT": variable_assignment(parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "EXPRESSION": evaluate_expression_it(parse_tree)
-            elif parse_tree[0] == "CONDITIONAL STATEMENT": controlflow_conditional(parse_tree, lexeme_dictionary)
-            elif parse_tree[0] == "CASE STATEMENT": controlflow_case(parse_tree, lexeme_dictionary)
+            elif parse_tree[0] == "CONDITIONAL STATEMENT": controlflow_conditional(lexemes, parse_tree, lexeme_dictionary)
+            elif parse_tree[0] == "CASE STATEMENT": controlflow_case(lexemes, parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "LOOP": controlflow_loop(lexemes, parse_tree, lexeme_dictionary)
+            elif parse_tree[0] == "INFLOOP": controlflow_infloop(lexemes, parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "FUNCTION CALL": function_call(lexemes, parse_tree, lexeme_dictionary)
             else:
                 for branch in parse_tree:
@@ -318,8 +424,13 @@ def symbol_table_and_type_identifier(lexemes, parse_tree, lexeme_dictionary):
 
 line = 1
 symbol_table = {}
+
 function_table = {}
-function_stack = []
+function_return = False
+
+loops = []
+caseloop_return = False
+
 lexemes_e = None
 lexeme_dictionary_e = None
 parse_tree_e = None

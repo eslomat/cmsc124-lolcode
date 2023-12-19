@@ -29,9 +29,11 @@ HAI
     VISIBLE "\nSign ito na mag-ccode ka na, " + name + ".\n"
     I IZ void
     I IZ plusparam2 YR SUM OF 1 AN 1 AN YR SUM OF 2 AN 2
+    VISIBLE IT
 
     BTW --------------------------------------------------------------------------- NEEDS TO BE FIXED
 
+    OBTW
     SMOOSH ALL OF SMOOSH ALL OF 1 AN 2 MKAY MKAY
     I IZ birthdaymo YR SMOOSH "CMSC 124"
 
@@ -49,10 +51,20 @@ HAI
 
     MAEK name A NUMBR
     VISIBLE "AFTER VALUE TYPECAST, PRINTING IT (WIN TO 'WIN') -> " + IT
+    
+    TLDR
 KTHXBYE
 
 HOW IZ I plusparam2 YR x AN YR y
+    I IZ plusparam3 YR 5 AN YR 5
+    VISIBLE "MWAH2"
+    VISIBLE x + " + " + IT + " = " !
+    FOUND YR SUM OF x AN IT
+IF U SAY SO
+
+HOW IZ I plusparam3 YR x AN YR y
     FOUND YR SUM OF x AN y
+    VISIBLE "MWAH3"
 IF U SAY SO
 
 HOW IZ I void

@@ -8,7 +8,7 @@ from interpreter.analyzer.debugger import visualize_parse_tree, print_symbol_tab
 # _____________________________________________________________________________ INTERPRETER
 
 # Returns a dictionary with keys: lexemes, lexeme_dictionary, parse_tree
-lci = lolcodeinterpreter("./testcases/syn.lol")
+lci = lolcodeinterpreter("./testcases/loop.lol")
 
 # _____________________________________________________________________________ DEBUGGER
 

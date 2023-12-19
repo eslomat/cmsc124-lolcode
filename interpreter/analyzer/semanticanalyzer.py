@@ -140,12 +140,27 @@ def controlflow_case(parse_tree, lexeme_dictionary):
     # print(basis)
     # ``````````````````````````````````````````````````````````````````````````````````````````
 
-def controlflow_loop(parse_tree, lexeme_dictionary):
-    # `````````````````` UNCOMMENT THIS SECTION TO VIEW PARSE TREE (DELETE THIS SECTION WHEN DONE)
-    basis = ""
-    # basis =  f"PARSE TREE: {parse_tree}" + "\n"
-    # print(basis)
-    # ``````````````````````````````````````````````````````````````````````````````````````````
+def controlflow_loop(lexemes, parse_tree, lexeme_dictionary):
+    global line
+    if parse_tree[6] not in symbol_table:
+        error(f"'{parse_tree[6]}' is not declared")
+    if parse_tree[3] != parse_tree[13]:
+        error(f"'{parse_tree[3]}' has a different loop terminator label, found '{parse_tree[13]}'")
+    symbol_table[parse_tree[6]] = changeDataType(symbol_table[parse_tree[6]], "NUMBR")
+    save_line = line
+    while True:
+        line = save_line
+
+        if parse_tree[7][1] == "TIL":
+            if evaluate_expression(parse_tree[8]) == "WIN": break
+        else:
+            if evaluate_expression(parse_tree[8]) == "FAIL": break
+
+        execute_parse_tree(lexemes, parse_tree[10], lexeme_dictionary)
+
+        if parse_tree[4][1] == "UPPIN": 
+            symbol_table[parse_tree[6]] = str(int(symbol_table[parse_tree[6]]) + 1)
+        else: symbol_table[parse_tree[6]] =  int(symbol_table[parse_tree[6]]) - 1
 
 def evaluate_expression(parse_tree):
     if parse_tree[1][0] == "LITERAL":
@@ -270,7 +285,7 @@ def execute_parse_tree(lexemes, parse_tree, lexeme_dictionary):
             elif parse_tree[0] == "EXPRESSION": evaluate_expression_it(parse_tree)
             elif parse_tree[0] == "CONDITIONAL STATEMENT": controlflow_conditional(parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "CASE STATEMENT": controlflow_case(parse_tree, lexeme_dictionary)
-            elif parse_tree[0] == "LOOP": controlflow_loop(parse_tree, lexeme_dictionary)
+            elif parse_tree[0] == "LOOP": controlflow_loop(lexemes, parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "FUNCTION CALL": function_call(lexemes, parse_tree, lexeme_dictionary)
             else:
                 for branch in parse_tree:

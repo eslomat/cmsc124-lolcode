@@ -104,9 +104,7 @@ def operandlol():
         a = match("Identifier", None)
 
     if a == None:
-        a = literallol()
-        if a[1] == None:
-            a = expressionlol()
+        a = expressionlol()
         if a[1] == None:
             a = None
     if a == None: return ["OPERAND", None]
@@ -197,7 +195,9 @@ def statementlol():
 
 def expressionlol():
     global parse_index, line
-    a = sumlol()
+    a = literallol()
+    if a[1] == None:
+        a = sumlol()
     if a[1] == None:
         a = differencelol()
     if a[1] == None:
@@ -248,7 +248,9 @@ def expressionlol():
 
 def mebbeexpressionlol():
     global parse_index
-    a = sumlol()
+    a = literallol()
+    if a[1] == None:
+        a = sumlol()
     if a[1] == None:
         a = differencelol()
     if a[1] == None:
@@ -384,9 +386,7 @@ def infarityop():
     if lookahead_compare("Identifier"):
         a = match("Identifier", None)
     if a == None:
-        a = literallol()
-        if a[1] == None:
-            a = infarityexpressionlol()
+        a = infarityexpressionlol()
         if a[1] == None:
             a = None
 
@@ -395,7 +395,9 @@ def infarityop():
 
 def infarityexpressionlol():
     global parse_index
-    a = sumlol()
+    a = literallol()
+    if a[1] == None:
+        a = sumlol()
     if a[1] == None:
         a = differencelol()
     if a[1] == None:
@@ -863,9 +865,7 @@ def concatoplol():
     if lookahead_compare("Identifier"):
         a = match("Identifier", None)
     if a == None:
-        a = literallol()
-        if a[1] == None:
-            a = concatexpressionlol()
+        a = concatexpressionlol()
         if a[1] == None:
             a = None
 
@@ -874,7 +874,9 @@ def concatoplol():
 
 def concatexpressionlol():
     global parse_index
-    a = sumlol()
+    a = literallol()
+    if a[1] == None:
+        a = sumlol()
     if a[1] == None:
         a = differencelol()
     if a[1] == None:

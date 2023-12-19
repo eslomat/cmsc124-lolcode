@@ -16,9 +16,7 @@ def exhaustline(parse_tree):
     else: return 0
 
 def evaluate_operand(parse_tree, lexeme_dictionary):
-    if parse_tree[1][0] == "LITERAL":
-        return parse_tree[1][1]
-    elif parse_tree[1][0] == "EXPRESSION":
+    if parse_tree[1][0] == "EXPRESSION":
         return evaluate_expression(parse_tree[1])
     elif parse_tree[1] in symbol_table:
         return symbol_table[parse_tree[1]]
@@ -150,6 +148,8 @@ def controlflow_loop(parse_tree, lexeme_dictionary):
     # ``````````````````````````````````````````````````````````````````````````````````````````
 
 def evaluate_expression(parse_tree):
+    if parse_tree[1][0] == "LITERAL":
+        return parse_tree[1][1]
     if parse_tree[1][0] in arithmetic_expression:
         return arithmetic_yielding(parse_tree[1][0], parse_tree[1])
     if parse_tree[1][0] in boolean_expression:
@@ -160,6 +160,8 @@ def evaluate_expression(parse_tree):
         return alteration_yielding(parse_tree[1][0], parse_tree[1])
 
 def evaluate_expression_it(parse_tree):
+    if parse_tree[1][0] == "LITERAL":
+        symbol_table["IT"] = parse_tree[1][1]
     if parse_tree[1][0] in arithmetic_expression:
         symbol_table["IT"] =  arithmetic_yielding(parse_tree[1][0], parse_tree[1])
     if parse_tree[1][0] in boolean_expression:

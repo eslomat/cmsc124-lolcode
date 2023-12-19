@@ -166,6 +166,65 @@ def fcparamextlol():
         return ["FUNCTION CALL PARAMETER EXTENSION", a, b, c, d]
     return ["FUNCTION CALL PARAMETER EXTENSION", None]
 
+def statementfunclol():
+    a = linebreaklol()
+    if a[1] != None:
+        b = statementfunclol()
+        return ["STATEMENTFUNC",a,b]
+    else:
+        a = printlol()
+        if a[1] == None:
+            a = inputlol()
+        if a[1] == None:
+            a = expressionlol()
+        if a[1] == None:
+            a = varssignlol()
+        if a[1] == None:
+            a = caselol()
+        if a[1] == None:
+            a = looplol()
+        if a[1] == None:
+            a = funcallol()
+        if a[1] == None:
+            a = retlol()
+        if a[1] != None:
+            b = linebreaklol()
+            if b[1] == None:
+                error("line break")
+            c = statementfunclol()
+            return ["STATEMENTFUNC",a,b,c]
+    return ["STATEMENTFUNC", None]
+
+def statementvoidlol():
+    a = linebreaklol()
+    if a[1] != None:
+        b = statementvoidlol()
+        return ["STATEMENTVOID",a,b]
+    else:
+        a = printlol()
+        if a[1] == None:
+            a = inputlol()
+        if a[1] == None:
+            a = expressionlol()
+        if a[1] == None:
+            a = varssignlol()
+        if a[1] == None:
+            a = caselol()
+        if a[1] == None:
+            a = looplol()
+        if a[1] == None:
+            a = funcallol()
+        if a[1] == None and lookahead_compare("Void Keyword"):
+            a = match("Void Keyword", None)
+            a = ["VOID", a]
+        if a[1] != None:
+            b = linebreaklol()
+            if b[1] == None:
+                error("line break")
+            c = statementvoidlol()
+            return ["STATEMENTVOID",a,b,c]
+    return ["STATEMENTVOID", None]
+
 def statementlol():
     a = linebreaklol()
     if a[1] != None:
@@ -237,7 +296,7 @@ def expressionlol():
     if a == None: return ["EXPRESSION", None]
     b = linebreaklol()
     if b[1] != None and lookahead_compare("Conditional Statement Start Delimiter"):
-        return ifelselol(a,b)
+        return ifelselol(["EXPRESSION", a], b)
     else: 
         parse_index -= 1
         while (lexemes[parse_index] == "\n" or lexemes[parse_index] == ","):
@@ -717,8 +776,6 @@ def ifelselol(expression, linebreak):
         if c[1] == None:
             error("YA RLY block")
         d = elseiflol()
-        if d[1] == None:
-            error("MEBBE block")
         e = elselol()
         if e[1] == None:
             error("NO WAI block")
@@ -749,7 +806,7 @@ def elseiflol():
         if c[1] == None:
             error("line break")
         d = statementlol()
-        return ["ELSE IF BLOCK",a,b,c,d]
+        return ["ELSE IF BLOCK",a,b,c,d,elseiflol()]
     return ["ELSE IF BLOCK", None]
 
 def elselol():
@@ -772,8 +829,6 @@ def caselol():
         if c[1] == None:
             error("OMG block")
         d = defcaselol()
-        if d[1] == None:
-            error("OMGWTF block")
         e = match("Control Flow End Delimiter", "OIC")
         if e[1] == None:
             error("OIC")
@@ -789,7 +844,7 @@ def acaselol():
         c = linebreaklol()
         if c[1] == None:
             error("line break")
-        d = statementlol()
+        d = statementvoidlol()
         if lookahead_compare("Case Keyword"):
             e = acaselol()
             return ["CASE",a,b,c,d,e]
@@ -817,18 +872,18 @@ def looplol():
         e = match("Parameter Operand Connector", "YR")
         f = match("Identifier", "identifier")
         g = loopcondlol()
-        if g[1] == None:
-            error("TILL / WILE")
-        h = expressionlol()
-        if h[1] == None:
-            error("expression")
+        if g[1] != None:
+            h = expressionlol()
+            if h[1] == None:
+                error("expression")
         i = linebreaklol()
         if i[1] == None:
             error("line break")
-        j = statementlol()
+        j = statementvoidlol()
         k = match("Loop Statement End Delimiter", "IM OUTTA")
         l = match("Parameter Operand Connector", "YR")
         m = match("Identifier", "identifier")
+        if g[1] == None: return ["INFLOOP",a,b,c,d,e,f,i,j,k,l,m]
         return ["LOOP",a,b,c,d,e,f,g,h,i,j,k,l,m]
     return ["LOOP", None]
 
@@ -931,17 +986,11 @@ def retlol():
         c = expressionlol()
         if c[1] == None:
             error("expression")
-        d = linebreaklol()
-        if d[1] == None:
-            error("line break")
-        return ["RETURN", a, b, c, d]
+        return ["RETURN", a, b, c]
 
-    if lookahead_compare("Void Return Keyword"):
-        a = match("Void Return Keyword", None)
-        b = linebreaklol()
-        if b[1] == None:
-            error("line break")
-        return ["RETURN", a, b]
+    if lookahead_compare("Void Keyword"):
+        a = match("Void Keyword", None)
+        return ["RETURN", a]
     
     return ["RETURN", None]
 
@@ -953,10 +1002,9 @@ def funclol():
         d = linebreaklol()
         if d[1] == None:
             error("line break")
-        e = statementlol()
-        f = retlol()
-        g = match("Function Declaration Delimiter", "IF U SAY SO")
-        return ["FUNCTION",a,b,c,d,e,f,g]
+        e = statementfunclol()
+        f = match("Function Declaration Delimiter", "IF U SAY SO")
+        return ["FUNCTION",a,b,c,d,e,f]
     return ["FUNCTION", None]
 
 def linebreaklol():

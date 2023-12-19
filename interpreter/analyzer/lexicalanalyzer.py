@@ -99,7 +99,7 @@ def get_lexeme_type(lexeme):
     elif re.match(r"^HOW IZ I$", lexeme):
         lexeme_type = "Function Declaration Keyword"
     elif re.match(r"^GTFO$", lexeme):
-        lexeme_type = "Void Return Keyword"
+        lexeme_type = "Void Keyword"
     elif re.match(r"^FOUND$", lexeme):
         lexeme_type = "Value Return Keyword"
     elif re.match(r"^IF U SAY SO$", lexeme):

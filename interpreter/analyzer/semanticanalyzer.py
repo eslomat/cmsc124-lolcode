@@ -20,7 +20,7 @@ def evaluate_operand(parse_tree, lexeme_dictionary):
         return parse_tree[1][1]
     elif parse_tree[1][0] == "EXPRESSION":
         return evaluate_expression(parse_tree[1])
-    elif lexeme_dictionary[parse_tree[1]] == "Variable Identifier" and parse_tree[1] in symbol_table:
+    elif parse_tree[1] in symbol_table:
         return symbol_table[parse_tree[1]]
     else: 
         error(f"{parse_tree[1]} is not declared")
@@ -78,17 +78,17 @@ def boolean_yielding(operation, expression):
             y = evaluate_operand(expression[4], lexeme_dictionary_e)
             return "WIN" if troofs[x] or troofs[y] else "FAIL"
         case "INFINITE ARITY AND":
-            result = evaluate_operand(expression[2], lexeme_dictionary_e) and recursive_arity(expression[3], "AND")
+            result = changeDataType(evaluate_operand(expression[2], lexeme_dictionary_e), "TROOF") and recursive_arity(expression[3], "AND")
             return "WIN" if result else "FAIL"
         case "INFINITE ARITY OR":
-            result = evaluate_operand(expression[2], lexeme_dictionary_e) and recursive_arity(expression[3], "OR")
+            result = changeDataType(evaluate_operand(expression[2], lexeme_dictionary_e), "TROOF") or recursive_arity(expression[3], "OR")
             return "WIN" if result else "FAIL"
 
 def recursive_arity(exp, connector):
     global lexeme_dictionary_e
-    if exp[3][1] == None: return troofs[evaluate_operand(exp[2], lexeme_dictionary_e)]
-    if connector == "AND": return troofs[evaluate_operand(exp[2], lexeme_dictionary_e)] and recursive_arity(exp[3], connector)
-    elif connector == "OR": return troofs[evaluate_operand(exp[2], lexeme_dictionary_e)] or recursive_arity(exp[3], connector)
+    if exp[3][1] == None: return troofs[changeDataType(evaluate_operand(exp[2], lexeme_dictionary_e), "TROOF")]
+    if connector == "AND": return troofs[changeDataType(evaluate_operand(exp[2], lexeme_dictionary_e), "TROOF")] and recursive_arity(exp[3], connector)
+    elif connector == "OR": return troofs[changeDataType(evaluate_operand(exp[2], lexeme_dictionary_e), "TROOF")] or recursive_arity(exp[3], connector)
 
 def comparison_yielding(operation, expression):
     x = expression[2][1]
@@ -104,7 +104,7 @@ def comparison_yielding(operation, expression):
 # EIRENE
 
 def execute_gimmeh(parse_tree, lexeme_dictionary):
-    if parse_tree[2] in lexeme_dictionary and lexeme_dictionary[parse_tree[2]] == "Variable Identifier" and parse_tree[2] in symbol_table:
+    if parse_tree[2] in symbol_table:
         symbol_table[parse_tree[2]] = '"' + input() + '"'
     else:
         error(f"{parse_tree[2]} is not declared")
@@ -126,6 +126,7 @@ def function_call(lexemes, parse_tree, lexeme_dictionary):
     variables = list(parameters.keys())
     get_parameters(parse_tree[3], parameters, variables)
     execute_function(lexemes, func_exec[0][5], lexeme_dictionary, line, func_exec[1], parameters, func_exec[3])
+
 
 def controlflow_conditional(parse_tree, lexeme_dictionary):
     # `````````````````` UNCOMMENT THIS SECTION TO VIEW PARSE TREE (DELETE THIS SECTION WHEN DONE)
@@ -209,7 +210,7 @@ def function_declaration(parse_tree, lexeme_dictionary):
 
 def variable_assignment(parse_tree, lexeme_dictionary):
     global symbol_table, arithmetic_expression
-    if lexeme_dictionary[parse_tree[1]] == "Variable Identifier" and parse_tree[1] in symbol_table:
+    if parse_tree[1] in symbol_table:
         symbol_table[parse_tree[1]] = evaluate_operand(parse_tree[3], lexeme_dictionary)
     else:
         error(f"'{parse_tree[1]}' is not declared")
@@ -262,16 +263,16 @@ def execute_parse_tree(lexemes, parse_tree, lexeme_dictionary):
     if not isinstance(parse_tree, str) and parse_tree != None and parse_tree[0] != "FUNCTION":
         if parse_tree[1] != None:
             if parse_tree[0] == "PRINT": execute_visible(parse_tree, lexeme_dictionary)
-            if parse_tree[0] == "INPUT": execute_gimmeh(parse_tree, lexeme_dictionary)
-            if parse_tree[0] == "VARIABLE ASSIGNMENT": variable_assignment(parse_tree, lexeme_dictionary)
-            if parse_tree[0] == "EXPRESSION": evaluate_expression_it(parse_tree)
-            if parse_tree[0] == "CONDITIONAL STATEMENT": controlflow_conditional(parse_tree, lexeme_dictionary)
-            if parse_tree[0] == "CASE STATEMENT": controlflow_case(parse_tree, lexeme_dictionary)
-            if parse_tree[0] == "LOOP": controlflow_loop(parse_tree, lexeme_dictionary)
-            if parse_tree[0] == "FUNCTION CALL": function_call(lexemes, parse_tree, lexeme_dictionary)
-
-        for branch in parse_tree:
-            execute_parse_tree(lexemes, branch, lexeme_dictionary)
+            elif parse_tree[0] == "INPUT": execute_gimmeh(parse_tree, lexeme_dictionary)
+            elif parse_tree[0] == "VARIABLE ASSIGNMENT": variable_assignment(parse_tree, lexeme_dictionary)
+            elif parse_tree[0] == "EXPRESSION": evaluate_expression_it(parse_tree)
+            elif parse_tree[0] == "CONDITIONAL STATEMENT": controlflow_conditional(parse_tree, lexeme_dictionary)
+            elif parse_tree[0] == "CASE STATEMENT": controlflow_case(parse_tree, lexeme_dictionary)
+            elif parse_tree[0] == "LOOP": controlflow_loop(parse_tree, lexeme_dictionary)
+            elif parse_tree[0] == "FUNCTION CALL": function_call(lexemes, parse_tree, lexeme_dictionary)
+            else:
+                for branch in parse_tree:
+                    execute_parse_tree(lexemes, branch, lexeme_dictionary)
     
     elif not isinstance(parse_tree, str) and parse_tree != None and parse_tree[0] == "FUNCTION":
         for branch in parse_tree:

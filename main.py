@@ -9,10 +9,7 @@ from interpreter.analyzer.debugger import print_code, print_lexemes_array, print
 from interpreter.analyzer.debugger import print_parse_tree, compare_tree_lexemes
 from interpreter.analyzer.debugger import visualize_parse_tree, print_symbol_table
 
-# _____________________________________________________________________________ INTERPRETER
-
-# Returns a dictionary with keys: lexemes, lexeme_dictionary, parse_tree
-lci = lolcodeinterpreter("./testcases/project-testcases/03_arith.lol")
+# _________________________________________________________s____________________ INTERPRETER
 
 class LOLCODEInterpreterGUI:
     def __init__(self, master):

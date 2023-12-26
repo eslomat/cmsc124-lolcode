@@ -19,7 +19,7 @@ HAI
         IM IN YR print11 UPPIN YR temp
             VISIBLE SUM OF temp AN 2
             GTFO
-        IM OUTTA YR print11
+        IM OUTTA YR print11s
         GTFO
     IM OUTTA YR print10
 

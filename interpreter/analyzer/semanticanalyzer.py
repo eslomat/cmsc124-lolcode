@@ -435,7 +435,7 @@ lexemes_e = None
 lexeme_dictionary_e = None
 parse_tree_e = None
 
-arithmetic_expression = ["SUM", "DIFFERENCE", "PRODUCT", "QUOTIENT", "MAX", "MIN"]
+arithmetic_expression = ["SUM", "DIFFERENCE", "PRODUCT", "QUOTIENT", "MODULO","MAX", "MIN"]
 boolean_expression = ["AND", "OR", "XOR", "NOT", "INFINITE ARITY AND", "INFINITE ARITY OR"]
 comparison_expression = ["EQUAL", "NOT EQUAL", "GREATER OR EQUAL", "LESS OR EQUAL", "GREATER", "LESS"]
 alteration_expression = ["VALUE TYPECAST", "VARIABLE TYPECAST", "CONCATENATION"]

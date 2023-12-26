@@ -9,7 +9,7 @@ from interpreter.analyzer.debugger import print_code, print_lexemes_array, print
 from interpreter.analyzer.debugger import print_parse_tree, compare_tree_lexemes
 from interpreter.analyzer.debugger import visualize_parse_tree, print_symbol_table
 
-# _____________________________________________________________________________ INTERPRETER
+# _________________________________________________________s____________________ INTERPRETER
 
 class LOLCODEInterpreterGUI:
     def __init__(self, master):

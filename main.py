@@ -2,6 +2,7 @@
 
 import tkinter as tk
 from tkinter import filedialog, scrolledtext, ttk
+from tkinter import simpledialog
 
 from interpreter.lolcodeinterpreter import lolcodeinterpreter
 from interpreter.analyzer.debugger import print_code, print_lexemes_array, print_lexeme_dictionary
@@ -66,6 +67,15 @@ class LOLCODEInterpreterGUI:
         self.console_text = scrolledtext.ScrolledText(master, wrap=tk.WORD, width=100, height=5)
         self.console_text.grid(row=6, column=0, columnspan=2, pady=10)
 
+        # user input entry
+        self.user_input_label = tk.Label(master, text="User Input:")
+        self.user_input_label.grid(row=7, column=0, pady=10)
+        self.user_input_entry = tk.Entry(master, width=40)
+        self.user_input_entry.grid(row=8, column=0, pady=10)
+        # get user input button
+        self.get_input_button = tk.Button(master, text="Get User Input", command=self.get_user_input)
+        self.get_input_button.grid(row=8, column=1, pady=10)
+    
     def select_file(self):
         self.file_path = filedialog.askopenfilename(title="Select LOLCODE File", filetypes=[("LOLCODE Files", "*.lol")])
         if self.file_path:
@@ -73,6 +83,13 @@ class LOLCODEInterpreterGUI:
                 code_content = file.read()
                 self.text_editor.delete(1.0, tk.END)
                 self.text_editor.insert(tk.END, code_content)
+
+    def get_user_input(self):
+        # open a dialog box to get user input
+        user_input = simpledialog.askstring("User Input", "Enter your input:")
+        
+        # display the user input in the console
+        self.console_text.insert(tk.END, f"User Input: {user_input}\n")
 
     def run_code(self):
         # check if a file has been selected
@@ -94,6 +111,11 @@ class LOLCODEInterpreterGUI:
                 symbol_table = lci.get("symbol_table", {})
                 for identifier, value in symbol_table.items():
                     self.symbol_table_tree.insert("", "end", values=(identifier, value))
+                
+                # console
+                user_input = "Sample user input"
+                # display user input in the console
+                self.console_text.insert(tk.END, f"User Input: {user_input}\n")
 
             except Exception as e:
                 # handle exceptions that might occur during lolcode interpretation

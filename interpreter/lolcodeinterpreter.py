@@ -3,7 +3,7 @@ from .analyzer.lexicalanalyzer import lexical_analyzer
 from .analyzer.syntaxanalyzer import syntax_analyzer
 from .analyzer.semanticanalyzer import semantic_analyzer
 
-def lolcodeinterpreter(path):
+def lolcodeinterpreter(path, console):
 
     # _____________________________________________________________________________ READ CODE
     
@@ -22,7 +22,7 @@ def lolcodeinterpreter(path):
     lexeme_dictionary = lexical_analyzer_value[0]
     lexemes = lexical_analyzer_value[1]
     parse_tree = syntax_analyzer(lexemes, lexeme_dictionary)
-    symbol_table = semantic_analyzer(lexemes, lexeme_dictionary, parse_tree)
+    symbol_table = semantic_analyzer(lexemes, lexeme_dictionary, parse_tree, console)
 
     return {"lexemes": lexemes, 
             "lexeme_dictionary": lexeme_dictionary, 

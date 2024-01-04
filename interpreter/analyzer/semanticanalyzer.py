@@ -1,6 +1,8 @@
 from .debugger import write_on_error
 from decimal import Decimal
 import re
+import tkinter as tk
+
 #__________________________________________________________________________________ IMPLEMENTATION FUNCTIONS
 
 def error(message):
@@ -318,6 +320,7 @@ def execute_visible(parse_tree, lexeme_dictionary):
     to_print = evaluate_visible(parse_tree, lexeme_dictionary)
     to_print = to_print.replace("\\n", "\n").replace("\\t", "\t")
     print(to_print, end="")
+    console.console_text.insert(tk.END, to_print)
 
 #__________________________________________________________________________________ PARSE TREE TRAVERSAL
 
@@ -424,6 +427,7 @@ def symbol_table_and_type_identifier(lexemes, parse_tree, lexeme_dictionary):
 
 line = 1
 symbol_table = {}
+console = None
 
 function_table = {}
 function_return = False
@@ -442,11 +446,12 @@ alteration_expression = ["VALUE TYPECAST", "VARIABLE TYPECAST", "CONCATENATION"]
 
 #__________________________________________________________________________________ SEMANTIC ANALYZER
 
-def semantic_analyzer(lexemes, lexeme_dictionary, parse_tree):
-    global symbol_table, line, lexemes_e, lexeme_dictionary_e, parse_tree_e
+def semantic_analyzer(lexemes, lexeme_dictionary, parse_tree, cons):
+    global symbol_table, line, lexemes_e, lexeme_dictionary_e, parse_tree_e, console
     lexemes_e = lexemes
     lexeme_dictionary_e = lexeme_dictionary
     parse_tree_e = parse_tree
+    console = cons
 
     symbol_table["IT"] = "NOOB"
     lexeme_dictionary["IT"] = "Variable Identifier"

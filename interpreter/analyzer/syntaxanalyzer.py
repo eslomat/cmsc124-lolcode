@@ -1,5 +1,6 @@
 from .debugger import write_on_error
 import numpy
+import tkinter as tk
 
 #__________________________________________________________________________________ HELPER FUNCTIONS
 
@@ -61,9 +62,10 @@ def error(expected):
             if prev_lexeme != "new line character": err = f"error: syntax error at line {line}, expected '{expected}' after '{exhaustline(-1,-1)}'\n"
             else: err = f"error: syntax error at line {line}, expected '{expected}'\n"
             
-    print(err)
+    # print(err)
+    console.console_text.insert(tk.END, err)
     write_on_error(lexemes_e, lexeme_dictionary_e, None, None)
-    exit()
+    # exit()
 
 def match(token, expected):
     global parse_index, line
@@ -72,7 +74,7 @@ def match(token, expected):
         return lexemes[parse_index-1]
     else:
         error(expected)
-        exit()
+        # exit()
 
 def lookahead_compare(token):
     global parse_index, line
@@ -1121,12 +1123,14 @@ lexeme = None
 lexeme_dictionary = None
 lexemes_e = None
 lexeme_dictionary_e = None
+console = None
 
 #__________________________________________________________________________________ SYNTAX ANALYZER
 
-def syntax_analyzer(lexemes_p, lexeme_dictionary_p):
-    global lexemes, lexeme_dictionary, lexemes_e, lexeme_dictionary_e
+def syntax_analyzer(lexemes_p, lexeme_dictionary_p, cons):
+    global lexemes, lexeme_dictionary, lexemes_e, lexeme_dictionary_e, console
     lexemes_e = numpy.copy(lexemes_p)
+    console = cons
     lexeme_dictionary_e = lexeme_dictionary_p.copy()
     lexemes = lexemes_p
     lexeme_dictionary = lexeme_dictionary_p

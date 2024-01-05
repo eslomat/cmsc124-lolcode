@@ -134,4 +134,4 @@ from interpreter.analyzer.debugger import visualize_parse_tree, print_symbol_tab
 #     gui = LOLCODEInterpreterGUI(root)
 #     root.mainloop()
 
-lci = lolcodeinterpreter("./testcases/project-testcases/10_functions.lol")
+lci = lolcodeinterpreter("./testcases/project-testcases-fixed/10_functions.lol", None)

@@ -29,7 +29,7 @@ def evaluate_operand(parse_tree, lexeme_dictionary):
 def changeDataType(value, dataType):
     match dataType:
         case "TROOF":
-            if value in ['""', "0"]: return "FAIL"
+            if value in ['""', "0", "FAIL"]: return "FAIL"
             return "WIN"
         case "NUMBR":
             try: return str(int(float(value.replace('"',""))))
@@ -122,30 +122,30 @@ def execute_function(lexemes, parse_tree, lexeme_dictionary, currline, funcline,
     symbol_table = save_symbol_table
     line = currline
 
-def get_parameters(parse_tree, parameters, variables):
+def get_parameters(parse_tree, parameters, variables, lexeme_dictionary):
     if parse_tree[0] == "FUNCTION CALL PARAMETER" and parse_tree[1] != None:
-        parameters[variables[0]] = evaluate_expression(parse_tree[2])
+        parameters[variables[0]] = evaluate_operand(parse_tree[2], lexeme_dictionary)
         variables.pop(0)
-        get_parameters(parse_tree[3], parameters, variables)
+        get_parameters(parse_tree[3], parameters, variables, lexeme_dictionary)
     elif parse_tree[0] == "FUNCTION CALL PARAMETER EXTENSION" and parse_tree[1] != None:
-        parameters[variables[0]] = evaluate_expression(parse_tree[3])
+        parameters[variables[0]] = evaluate_operand(parse_tree[3], lexeme_dictionary)
         variables.pop(0)
-        get_parameters(parse_tree[4], parameters, variables)
+        get_parameters(parse_tree[4], parameters, variables, lexeme_dictionary)
 
 def function_call(lexemes, parse_tree, lexeme_dictionary):
     global line
     func_exec = function_table[parse_tree[2]]
     parameters = func_exec[2]
     variables = list(parameters.keys())
-    get_parameters(parse_tree[3], parameters, variables)
+    get_parameters(parse_tree[3], parameters, variables, lexeme_dictionary)
     execute_function(lexemes, func_exec[0][5], lexeme_dictionary, line, func_exec[1], parameters)
 
 def execute_else_if(lexemes, parse_tree, lexeme_dictionary):
-    if changeDataType(evaluate_expression(parse_tree[2]), "TROOF") == "WIN":
+    if parse_tree[1] != None and changeDataType(evaluate_expression(parse_tree[2]), "TROOF") == "WIN":
         execute_parse_tree(lexemes, parse_tree[4], lexeme_dictionary)
         return True
     
-    if parse_tree[5][1] != None:
+    if parse_tree[1] != None and parse_tree[5][1] != None:
         return execute_else_if(lexemes, parse_tree[5], lexeme_dictionary)
     else:
         return False
@@ -169,13 +169,14 @@ def execute_case(lexemes, parse_tree, lexeme_dictionary, case_break):
             execute_case(lexemes, parse_tree[5], lexeme_dictionary, case_break)
 
 def controlflow_case(lexemes, parse_tree, lexeme_dictionary):
+    symbol_table["IT"] = evaluate_expression(parse_tree[1])
     global caseloop_return
     case_break = [False]
     save_case_return = caseloop_return
     caseloop_return = False
-    execute_case(lexemes, parse_tree[3], lexeme_dictionary, case_break)
+    execute_case(lexemes, parse_tree[5], lexeme_dictionary, case_break)
     if parse_tree[4][1] != None:
-        execute_caseloop_parse_tree(lexemes, parse_tree[4][3], lexeme_dictionary)
+        execute_caseloop_parse_tree(lexemes, parse_tree[6][3], lexeme_dictionary)
     caseloop_return = save_case_return
 
 def controlflow_infloop(lexemes, parse_tree, lexeme_dictionary):
@@ -236,6 +237,9 @@ def controlflow_loop(lexemes, parse_tree, lexeme_dictionary):
 def evaluate_expression(parse_tree):
     if parse_tree[1][0] == "LITERAL":
         return parse_tree[1][1]
+    if parse_tree[1][0] == "IDENTIFIER":
+        if parse_tree[1][1] in symbol_table: return symbol_table[parse_tree[1][1]]
+        else: error(f"'{parse_tree[1][1]}' is not declared")
     if parse_tree[1][0] in arithmetic_expression:
         return arithmetic_yielding(parse_tree[1][0], parse_tree[1])
     if parse_tree[1][0] in boolean_expression:
@@ -320,12 +324,12 @@ def execute_visible(parse_tree, lexeme_dictionary):
     to_print = evaluate_visible(parse_tree, lexeme_dictionary)
     to_print = to_print.replace("\\n", "\n").replace("\\t", "\t")
     print(to_print, end="")
-    console.console_text.insert(tk.END, to_print)
+    # console.console_text.insert(tk.END, to_print)
 
 #__________________________________________________________________________________ PARSE TREE TRAVERSAL
 
 def execute_function_parse_tree(lexemes, parse_tree, lexeme_dictionary, save_symbol_table):
-    global line, void, function_return 
+    global line, function_return 
 
     if not isinstance(parse_tree, str) and parse_tree != None and not function_return:
         if parse_tree[1] != None:
@@ -333,6 +337,7 @@ def execute_function_parse_tree(lexemes, parse_tree, lexeme_dictionary, save_sym
             elif parse_tree[0] == "INPUT": execute_gimmeh(parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "VARIABLE ASSIGNMENT": variable_assignment(parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "EXPRESSION": evaluate_expression_it(parse_tree)
+            elif parse_tree[0] == "VARIABLE TYPECAST": typecast_as(parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "CONDITIONAL STATEMENT": controlflow_conditional(lexemes, parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "CASE STATEMENT": controlflow_case(lexemes, parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "LOOP": controlflow_loop(lexemes, parse_tree, lexeme_dictionary)
@@ -360,6 +365,7 @@ def execute_caseloop_parse_tree(lexemes, parse_tree, lexeme_dictionary):
             elif parse_tree[0] == "INPUT": execute_gimmeh(parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "VARIABLE ASSIGNMENT": variable_assignment(parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "EXPRESSION": evaluate_expression_it(parse_tree)
+            elif parse_tree[0] == "VARIABLE TYPECAST": typecast_as(parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "CONDITIONAL STATEMENT": controlflow_conditional(lexemes, parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "CASE STATEMENT": controlflow_case(lexemes, parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "LOOP": controlflow_loop(lexemes, parse_tree, lexeme_dictionary)
@@ -391,6 +397,7 @@ def execute_parse_tree(lexemes, parse_tree, lexeme_dictionary):
             elif parse_tree[0] == "INPUT": execute_gimmeh(parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "VARIABLE ASSIGNMENT": variable_assignment(parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "EXPRESSION": evaluate_expression_it(parse_tree)
+            elif parse_tree[0] == "VARIABLE TYPECAST": typecast_as(parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "CONDITIONAL STATEMENT": controlflow_conditional(lexemes, parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "CASE STATEMENT": controlflow_case(lexemes, parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "LOOP": controlflow_loop(lexemes, parse_tree, lexeme_dictionary)
@@ -413,7 +420,6 @@ def symbol_table_and_type_identifier(lexemes, parse_tree, lexeme_dictionary):
         if parse_tree[1] != None:
             if parse_tree[0] == "VARIABLE INITIALIZATION": variable_initialization(parse_tree, lexeme_dictionary)
             if parse_tree[0] == "FUNCTION": function_declaration(parse_tree, lexeme_dictionary)
-            if parse_tree[0] == "VARIABLE TYPECAST": typecast_as(parse_tree, lexeme_dictionary)
         if parse_tree[0] != "FUNCTION":
             for branch in parse_tree:
                 symbol_table_and_type_identifier(lexemes, branch, lexeme_dictionary)
@@ -442,7 +448,7 @@ parse_tree_e = None
 arithmetic_expression = ["SUM", "DIFFERENCE", "PRODUCT", "QUOTIENT", "MODULO","MAX", "MIN"]
 boolean_expression = ["AND", "OR", "XOR", "NOT", "INFINITE ARITY AND", "INFINITE ARITY OR"]
 comparison_expression = ["EQUAL", "NOT EQUAL", "GREATER OR EQUAL", "LESS OR EQUAL", "GREATER", "LESS"]
-alteration_expression = ["VALUE TYPECAST", "VARIABLE TYPECAST", "CONCATENATION"]
+alteration_expression = ["VALUE TYPECAST", "CONCATENATION"]
 
 #__________________________________________________________________________________ SEMANTIC ANALYZER
 

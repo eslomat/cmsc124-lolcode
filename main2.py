@@ -65,7 +65,7 @@ class LOLCODEInterpreterGUI:
         # console
         self.console_label = tk.Label(master, text="Console")
         self.console_label.grid(row=5, column=0, pady=10)
-        self.console_text = scrolledtext.ScrolledText(master, wrap=tk.WORD, width=100, height=5)
+        self.console_text = scrolledtext.ScrolledText(master, wrap=tk.WORD, width=100, height=10)
         self.console_text.grid(row=6, column=0, columnspan=2, pady=10)
 
         # # user input entry

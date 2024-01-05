@@ -64,10 +64,14 @@ def arithmetic_yielding(operation, expression):
         case "DIFFERENCE": ans = x - y
         case "PRODUCT": ans = x * y 
         case "QUOTIENT": ans = x / y
+        case "MODULO": ans = x % y
+        case "MAX": ans = max(x, y)
+        case "MIN": ans = min(x, y)
     return str(ans)
 
 def to_digit(x):
     x = x.replace('"',"")
+    if x in ["WIN","FAIL"]: return 1 if x == "WIN" else 0
     try: return int(x)
     except ValueError: return Decimal(x)
 
@@ -320,7 +324,7 @@ lexemes_e = None
 lexeme_dictionary_e = None
 parse_tree_e = None
 
-arithmetic_expression = ["SUM", "DIFFERENCE", "PRODUCT", "QUOTIENT", "MAX", "MIN"]
+arithmetic_expression = ["SUM", "DIFFERENCE", "PRODUCT", "QUOTIENT", "MODULO", "MAX", "MIN"]
 boolean_expression = ["AND", "OR", "XOR", "NOT", "INFINITE ARITY AND", "INFINITE ARITY OR"]
 comparison_expression = ["EQUAL", "NOT EQUAL", "GREATER OR EQUAL", "LESS OR EQUAL", "GREATER", "LESS"]
 alteration_expression = ["VALUE TYPECAST", "VARIABLE TYPECAST", "CONCATENATION"]

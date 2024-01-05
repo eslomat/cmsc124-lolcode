@@ -138,7 +138,11 @@ def get_lexeme_type(lexeme):
         lexeme_type = "Identifier"
     return lexeme_type
 
-def lexical_analyzer(lexemes):
+console = None
+def lexical_analyzer(lexemes, cons):
+    global console
+    console = cons
+    
     lexeme_dictionary = {}
 
     # LOOPS THE ARRAY-OF-LEXEMES, IDENTIFIES THE TYPE OF EACH LEXEME
@@ -193,15 +197,21 @@ def lexical_analyzer(lexemes):
         if lexeme_dictionary[lexeme] == "New Line Character":
             line+=1
         elif lexeme_dictionary[lexeme] == "Unexpected Token (ERROR)":
-            print(f"\nerror: unrecognized token '{lexeme}' at line {line}\n")
+            #print(f"\nerror: unrecognized token '{lexeme}' at line {line}\n")
+            err = f"\nerror: unrecognized token '{lexeme}' at line {line}\n"
+            console.console_text.insert(tk.END, err)
             write_on_error(lexemes, lexeme_dictionary, None, None)
             exit()
         elif lexeme_dictionary[lexeme] == "Unterminated Comment (ERROR)":
-            print(f"\nerror: unterminated comment '{lexeme}' at line {line}\n")
+            #print(f"\nerror: unterminated comment '{lexeme}' at line {line}\n")
+            err = f"\nerror: unterminated comment '{lexeme}' at line {line}\n"
+            console.console_text.insert(tk.END, err)
             write_on_error(lexemes, lexeme_dictionary, None, None)
             exit()
         elif lexeme_dictionary[lexeme] == "Unexpected Token Beside Multiline Comment (ERROR)":
-            print(f"\nerror: unexpected token '{lexeme}' beside a multi-line comment terminator at line {line}\n")
+            #print(f"\nerror: unexpected token '{lexeme}' beside a multi-line comment terminator at line {line}\n")
+            err = f"\nerror: unexpected token '{lexeme}' beside a multi-line comment terminator at line {line}\n"
+            console.console_text.insert(tk.END, err)
             write_on_error(lexemes, lexeme_dictionary, None, None)
             exit()
         elif lexeme_dictionary[lexeme] == "--- (ERROR)":

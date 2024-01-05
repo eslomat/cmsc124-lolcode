@@ -198,23 +198,23 @@ def lexical_analyzer(lexemes, cons):
         if lexeme_dictionary[lexeme] == "New Line Character":
             line+=1
         elif lexeme_dictionary[lexeme] == "Unexpected Token (ERROR)":
-            #print(f"\nerror: unrecognized token '{lexeme}' at line {line}\n")
+            # print(f"\nerror: unrecognized token '{lexeme}' at line {line}\n")
             err = f"\nerror: unrecognized token '{lexeme}' at line {line}\n"
             console.console_text.insert(tk.END, err)
             write_on_error(lexemes, lexeme_dictionary, None, None)
-            exit()
+            # exit()
         elif lexeme_dictionary[lexeme] == "Unterminated Comment (ERROR)":
-            #print(f"\nerror: unterminated comment '{lexeme}' at line {line}\n")
+            # print(f"\nerror: unterminated comment '{lexeme}' at line {line}\n")
             err = f"\nerror: unterminated comment '{lexeme}' at line {line}\n"
             console.console_text.insert(tk.END, err)
             write_on_error(lexemes, lexeme_dictionary, None, None)
-            exit()
+            # exit()
         elif lexeme_dictionary[lexeme] == "Unexpected Token Beside Multiline Comment (ERROR)":
             #print(f"\nerror: unexpected token '{lexeme}' beside a multi-line comment terminator at line {line}\n")
             err = f"\nerror: unexpected token '{lexeme}' beside a multi-line comment terminator at line {line}\n"
             console.console_text.insert(tk.END, err)
             write_on_error(lexemes, lexeme_dictionary, None, None)
-            exit()
+            # exit()
         elif lexeme_dictionary[lexeme] == "--- (ERROR)":
             for char in lexeme:
                 if char == "\n":

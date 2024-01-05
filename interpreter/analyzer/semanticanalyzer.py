@@ -11,7 +11,7 @@ def error(message):
     # print(err)
     console.console_text.insert(tk.END, err)
     write_on_error(lexemes_e, lexeme_dictionary_e, parse_tree_e, symbol_table)
-    exit()
+    # exit()
 
 def exhaustline(parse_tree):
     if parse_tree[1] != None:

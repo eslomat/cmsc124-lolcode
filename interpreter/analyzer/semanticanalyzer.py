@@ -8,7 +8,8 @@ import tkinter as tk
 def error(message):
     global line
     err = f"\nerror: at line {line}, " + message
-    print(err)
+    # print(err)
+    console.console_text.insert(tk.END, err)
     write_on_error(lexemes_e, lexeme_dictionary_e, parse_tree_e, symbol_table)
     exit()
 
@@ -323,8 +324,8 @@ def evaluate_visible(parse_tree, lexeme_dictionary):
 def execute_visible(parse_tree, lexeme_dictionary):
     to_print = evaluate_visible(parse_tree, lexeme_dictionary)
     to_print = to_print.replace("\\n", "\n").replace("\\t", "\t")
-    print(to_print, end="")
-    # console.console_text.insert(tk.END, to_print)
+    # print(to_print, end="")
+    console.console_text.insert(tk.END, to_print)
 
 #__________________________________________________________________________________ PARSE TREE TRAVERSAL
 

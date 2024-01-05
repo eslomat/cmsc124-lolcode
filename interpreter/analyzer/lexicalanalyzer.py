@@ -17,7 +17,6 @@ usage:
 """
 
 import re
-import tkinter as tk
 from .debugger import write_on_error
 
 # FUNCTION FOR CLASSIFICATION

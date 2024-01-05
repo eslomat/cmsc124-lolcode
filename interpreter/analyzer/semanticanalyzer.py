@@ -29,10 +29,6 @@ implementation details:
 """
 from .debugger import write_on_error
 from decimal import Decimal
-import re
-import tkinter as tk
-from tkinter import simpledialog
-import time
 
 #__________________________________________________________________________________ IMPLEMENTATION FUNCTIONS
 

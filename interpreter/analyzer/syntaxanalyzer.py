@@ -8,7 +8,6 @@ logical and arithmetic operations, and more.
 """
 from .debugger import write_on_error
 import numpy
-import tkinter as tk
 
 #__________________________________________________________________________________ HELPER FUNCTIONS
 

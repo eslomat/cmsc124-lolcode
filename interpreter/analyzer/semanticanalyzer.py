@@ -88,6 +88,10 @@ def boolean_yielding(operation, exp):
             x = evaluate_boolean(exp[2])
             y = evaluate_boolean(exp[4]) 
             return "WIN" if (x or y) else "FAIL"
+        case "XOR":    
+            x = evaluate_boolean(exp[2])
+            y = evaluate_boolean(exp[4]) 
+            return "WIN" if (x ^ y) else "FAIL"
         case "INFINITE ARITY AND":
             result = evaluate_boolean(exp[2]) and recursive_arity(exp[3], "AND")
             return "WIN" if result else "FAIL"

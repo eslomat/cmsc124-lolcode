@@ -6,176 +6,21 @@ _______________________________________________________________________ SYMBOL T
 
 _______________________________________________________________________ DICTIONARY OF LEXEMES
 
-[1]       \n : New Line Character
-[2]       "Hello, " : Yarn Literal
-[3]       + : Print Operand Connector
-[4]       2 : Numbr Literal
-[5]       AN : Operand Connector
-[6]       BUHBYE : Variable Declaration End Delimiter
-[7]       FOUND : Value Return Keyword
-[8]       GIMMEH : Input Keyword
-[9]       GTFO : Void Keyword
-[10]      HAI : Program Start Delimiter
-[11]      HOW IZ I : Function Declaration Keyword
-[12]      I HAS A : Variable Declaration Keyword
-[13]      I IZ : Function Call Keyword
-[14]      IF U SAY SO : Function Declaration Delimiter
-[15]      IT : Identifier
-[16]      KTHXBYE : Program End Delimiter
-[17]      SUM OF : Sum Keyword
-[18]      VISIBLE : Print Keyword
-[19]      WAZZUP : Variable Declaration Start Delimiter
-[20]      YR : Parameter Operand Connector
-[21]      addNuM : Identifier
-[22]      addNum : Identifier
-[23]      an : Identifier
-[24]      name : Identifier
-[25]      num1 : Identifier
-[26]      num2 : Identifier
-[27]      person : Identifier
-[28]      printName : Identifier
-[29]      printNum : Identifier
-[30]      x : Identifier
-[31]      y : Identifier
+[1]       &variable : Unexpected Token (ERROR)
+[2]       A : Typecast It Connector
+[3]       HAVE : Identifier
+[4]       I : Identifier
 
 
 _______________________________________________________________________ CODE PRINTING
 
- HAI 
- 
- HOW IZ I addNum x y 
- FOUND YR SUM OF x an y 
- IF U SAY SO 
- 
- HOW IZ I printName person 
- VISIBLE "Hello, " + person 
- GTFO 
- IF U SAY SO 
- 
- HOW IZ I printNum x 
- FOUND YR x 
- IF U SAY SO 
- 
- 
- WAZZUP 
- I HAS A name 
- I HAS A num1 
- I HAS A num2 
- BUHBYE 
- 
- GIMMEH num1 
- GIMMEH num2 
- 
- I IZ addNuM num1 num2 
- VISIBLE IT 
- 
- GIMMEH name 
- I IZ printName name 
- VISIBLE IT 
- 
- I IZ printNum SUM OF x AN 2 
- VISIBLE IT 
- 
- KTHXBYE
+ I HAVE A &variable
 _______________________________________________________________________ ARRAY OF LEXEMES PRINTING
 
-[1]	HAI : Program Start Delimiter
-[2]	\n : New Line Character
-[3]	\n : New Line Character
-[4]	HOW IZ I : Function Declaration Keyword
-[5]	addNum : Identifier
-[6]	x : Identifier
-[7]	y : Identifier
-[8]	\n : New Line Character
-[9]	FOUND : Value Return Keyword
-[10]	YR : Parameter Operand Connector
-[11]	SUM OF : Sum Keyword
-[12]	x : Identifier
-[13]	an : Identifier
-[14]	y : Identifier
-[15]	\n : New Line Character
-[16]	IF U SAY SO : Function Declaration Delimiter
-[17]	\n : New Line Character
-[18]	\n : New Line Character
-[19]	HOW IZ I : Function Declaration Keyword
-[20]	printName : Identifier
-[21]	person : Identifier
-[22]	\n : New Line Character
-[23]	VISIBLE : Print Keyword
-[24]	"Hello, " : Yarn Literal
-[25]	+ : Print Operand Connector
-[26]	person : Identifier
-[27]	\n : New Line Character
-[28]	GTFO : Void Keyword
-[29]	\n : New Line Character
-[30]	IF U SAY SO : Function Declaration Delimiter
-[31]	\n : New Line Character
-[32]	\n : New Line Character
-[33]	HOW IZ I : Function Declaration Keyword
-[34]	printNum : Identifier
-[35]	x : Identifier
-[36]	\n : New Line Character
-[37]	FOUND : Value Return Keyword
-[38]	YR : Parameter Operand Connector
-[39]	x : Identifier
-[40]	\n : New Line Character
-[41]	IF U SAY SO : Function Declaration Delimiter
-[42]	\n : New Line Character
-[43]	\n : New Line Character
-[44]	\n : New Line Character
-[45]	WAZZUP : Variable Declaration Start Delimiter
-[46]	\n : New Line Character
-[47]	I HAS A : Variable Declaration Keyword
-[48]	name : Identifier
-[49]	\n : New Line Character
-[50]	I HAS A : Variable Declaration Keyword
-[51]	num1 : Identifier
-[52]	\n : New Line Character
-[53]	I HAS A : Variable Declaration Keyword
-[54]	num2 : Identifier
-[55]	\n : New Line Character
-[56]	BUHBYE : Variable Declaration End Delimiter
-[57]	\n : New Line Character
-[58]	\n : New Line Character
-[59]	GIMMEH : Input Keyword
-[60]	num1 : Identifier
-[61]	\n : New Line Character
-[62]	GIMMEH : Input Keyword
-[63]	num2 : Identifier
-[64]	\n : New Line Character
-[65]	\n : New Line Character
-[66]	I IZ : Function Call Keyword
-[67]	addNuM : Identifier
-[68]	num1 : Identifier
-[69]	num2 : Identifier
-[70]	\n : New Line Character
-[71]	VISIBLE : Print Keyword
-[72]	IT : Identifier
-[73]	\n : New Line Character
-[74]	\n : New Line Character
-[75]	GIMMEH : Input Keyword
-[76]	name : Identifier
-[77]	\n : New Line Character
-[78]	I IZ : Function Call Keyword
-[79]	printName : Identifier
-[80]	name : Identifier
-[81]	\n : New Line Character
-[82]	VISIBLE : Print Keyword
-[83]	IT : Identifier
-[84]	\n : New Line Character
-[85]	\n : New Line Character
-[86]	I IZ : Function Call Keyword
-[87]	printNum : Identifier
-[88]	SUM OF : Sum Keyword
-[89]	x : Identifier
-[90]	AN : Operand Connector
-[91]	2 : Numbr Literal
-[92]	\n : New Line Character
-[93]	VISIBLE : Print Keyword
-[94]	IT : Identifier
-[95]	\n : New Line Character
-[96]	\n : New Line Character
-[97]	KTHXBYE : Program End Delimiter
+[1]	I : Identifier
+[2]	HAVE : Identifier
+[3]	A : Typecast It Connector
+[4]	&variable : Unexpected Token (ERROR)
 
 _______________________________________________________________________ PARSE TREE AND LEXEMES EQUALITY CHECKER
 

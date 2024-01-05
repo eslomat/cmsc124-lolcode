@@ -19,6 +19,8 @@ class LOLCODEInterpreterGUI:
         # initialize file_path attribute
         self.file_path = None  
 
+        self.executing_file = False
+
         # load the png file
         icon_file = "program-icon.png"
         try:
@@ -67,42 +69,41 @@ class LOLCODEInterpreterGUI:
         self.console_label.grid(row=5, column=0, pady=10)
         self.console_text = scrolledtext.ScrolledText(master, wrap=tk.WORD, width=100, height=10)
         self.console_text.grid(row=6, column=0, columnspan=2, pady=10)
-
-        # # user input entry
-        # self.user_input_label = tk.Label(master, text="User Input:")
-        # self.user_input_label.grid(row=7, column=0, pady=10)
-        # self.user_input_entry = tk.Entry(master, width=40)
-        # self.user_input_entry.grid(row=8, column=0, pady=10)
-        # # get user input button
-        # self.get_input_button = tk.Button(master, text="Get User Input", command=self.get_user_input)
-        # self.get_input_button.grid(row=8, column=1, pady=10)
     
     def select_file(self):
-        self.file_path = filedialog.askopenfilename(title="Select LOLCODE File", filetypes=[("LOLCODE Files", "*.lol")])
-        if self.file_path:
-            with open(self.file_path, 'r') as file:
-                code_content = file.read()
-                self.text_editor.delete(1.0, tk.END)
-                self.text_editor.insert(tk.END, code_content)
+        # disable the "Select File" button during execution
+        if not self.executing_file:
+            self.file_path = filedialog.askopenfilename(title="Select LOLCODE File", filetypes=[("LOLCODE Files", "*.lol")])
+            if self.file_path:
+                # reset the GUI state when a new file is selected
+                self.reset_gui_state()
+                with open(self.file_path, 'r') as file:
+                    code_content = file.read()
+                    self.text_editor.delete(1.0, tk.END)
+                    self.text_editor.insert(tk.END, code_content)
 
-    # def get_user_input(self):
-    #     # open a dialog box to get user input
-    #     user_input = simpledialog.askstring("User Input", "Enter your input:")
-        
-    #     # display the user input in the console
-    #     self.console_text.insert(tk.END, f"User Input: {user_input}\n")
+    def reset_gui_state(self):
+        # clear existing content in treeviews
+        self.tokens_tree.delete(*self.tokens_tree.get_children())
+        self.symbol_table_tree.delete(*self.symbol_table_tree.get_children())
+        # clear console text
+        self.console_text.delete(1.0, tk.END)
 
     def run_code(self):
-        # check if a file has been selected
-        if self.file_path:                  
+        if not self.executing_file and self.file_path:
             try:
+                # set the executing_file flag
+                self.executing_file = True
+
+                # disable the "execute/run" button during execution
+                self.execute_button["state"] = tk.DISABLED
+
+                # clear existing content in treeviews and console
+                self.reset_gui_state()
+
                 # run lolcode interpreter with the selected file path
                 lci = lolcodeinterpreter(self.file_path, self)
-                
-                # clear existing content in treeviews
-                self.tokens_tree.delete(*self.tokens_tree.get_children())
-                self.symbol_table_tree.delete(*self.symbol_table_tree.get_children())
-                
+
                 # update lexemes treeview
                 lexeme_dictionary = lci.get("lexeme_dictionary", {})
                 for lexeme, classification in lexeme_dictionary.items():
@@ -112,24 +113,19 @@ class LOLCODEInterpreterGUI:
                 symbol_table = lci.get("symbol_table", {})
                 for identifier, value in symbol_table.items():
                     self.symbol_table_tree.insert("", "end", values=(identifier, value))
-                
-                # console
-                # execute the visible statement and get the output
-                # print("here")
-                # visible_output = execute_visible(lci.get("parse_tree", {}), lci.get("lexeme_dictionary", {}))
-                # print("aa")
-                # self.console_text.insert(tk.END, "hi")
-               
+
             except Exception as e:
                 # handle exceptions that might occur during lolcode interpretation
                 error_message = f"Error during LOLCODE interpretation: {str(e)}"
                 self.console_text.insert(tk.END, error_message)
 
             finally:
+                # reset the executing_file flag
+                self.executing_file = False
                 # re-enable the "execute/run" button even if an error occurs
                 self.execute_button["state"] = tk.NORMAL
-        else:
-            # inform the user that no lolcode file has been selected
+
+        elif not self.file_path:
             self.console_text.insert(tk.END, "No LOLCODE file selected.")
 
 if __name__ == "__main__":

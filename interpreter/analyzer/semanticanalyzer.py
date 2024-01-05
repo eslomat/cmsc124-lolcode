@@ -68,27 +68,32 @@ troofs = { "WIN": True, "FAIL": False }
 def boolean_yielding(operation, expression):
     global lexeme_dictionary_e
     match operation:
-        case "NOT": return "WIN" if evaluate_operand(expression[2], lexeme_dictionary_e) == "FAIL" else "FAIL"
+        case "NOT": return "WIN" if changeDataType(evaluate_operand(expression[2], lexeme_dictionary_e), "TROOF") == "FAIL" else "FAIL"
         case "AND": 
-            x = evaluate_operand(expression[2], lexeme_dictionary_e)
-            y = evaluate_operand(expression[4], lexeme_dictionary_e)
-            return "WIN" if troofs[x] and troofs[y] else "FAIL"
+            x = evaluate_boolean(expression[2], lexeme_dictionary_e)
+            y = evaluate_boolean(expression[4], lexeme_dictionary_e) 
+            return "WIN" if (x and y) else "FAIL"
         case "OR":
-            x = evaluate_operand(expression[2], lexeme_dictionary_e)
-            y = evaluate_operand(expression[4], lexeme_dictionary_e)
-            return "WIN" if troofs[x] or troofs[y] else "FAIL"
+            x = evaluate_boolean(expression[2], lexeme_dictionary_e)
+            y = evaluate_boolean(expression[4], lexeme_dictionary_e) 
+            return "WIN" if (x or y) else "FAIL"
         case "INFINITE ARITY AND":
-            result = evaluate_operand(expression[2], lexeme_dictionary_e) and recursive_arity(expression[3], "AND")
+            result = changeDataType(evaluate_operand(expression[2], lexeme_dictionary_e), "TROOF") and recursive_arity(expression[3], "AND")
             return "WIN" if result else "FAIL"
         case "INFINITE ARITY OR":
-            result = evaluate_operand(expression[2], lexeme_dictionary_e) and recursive_arity(expression[3], "OR")
+            result = changeDataType(evaluate_operand(expression[2], lexeme_dictionary_e), "TROOF") and recursive_arity(expression[3], "OR")
             return "WIN" if result else "FAIL"
+        
+def evaluate_boolean(expression, lexeme_dictionary):
+    x = evaluate_operand(expression, lexeme_dictionary)
+    if x in ["WIN", "FAIL"]: return x == "WIN"
+    return changeDataType(x, "TROOF") == "WIN"
 
 def recursive_arity(exp, connector):
     global lexeme_dictionary_e
-    if exp[3][1] == None: return troofs[evaluate_operand(exp[2], lexeme_dictionary_e)]
-    if connector == "AND": return troofs[evaluate_operand(exp[2], lexeme_dictionary_e)] and recursive_arity(exp[3], connector)
-    elif connector == "OR": return troofs[evaluate_operand(exp[2], lexeme_dictionary_e)] or recursive_arity(exp[3], connector)
+    if exp[3][1] == None: return troofs[changeDataType(evaluate_operand(exp[2], lexeme_dictionary_e), "TROOF")]
+    if connector == "AND": return troofs[changeDataType(evaluate_operand(exp[2], lexeme_dictionary_e), "TROOF")] and recursive_arity(exp[3], connector)
+    elif connector == "OR": return troofs[changeDataType(evaluate_operand(exp[2], lexeme_dictionary_e), "TROOF")] or recursive_arity(exp[3], connector)
 
 def comparison_yielding(operation, expression):
     x = expression[2][1]

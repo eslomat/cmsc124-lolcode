@@ -18,10 +18,10 @@ def lolcodeinterpreter(path, console):
 
     print(f"\n-> INTERPRETING '{path}'\n\n")
     lexemes = tokenizer(code)
-    lexical_analyzer_value = lexical_analyzer(lexemes)
+    lexical_analyzer_value = lexical_analyzer(lexemes, console)
     lexeme_dictionary = lexical_analyzer_value[0]
     lexemes = lexical_analyzer_value[1]
-    parse_tree = syntax_analyzer(lexemes, lexeme_dictionary)
+    parse_tree = syntax_analyzer(lexemes, lexeme_dictionary, console)
     symbol_table = semantic_analyzer(lexemes, lexeme_dictionary, parse_tree, console)
 
     return {"lexemes": lexemes, 

@@ -32,5 +32,4 @@ def tokenizer(code):
     
     # GETTING THE ARRAY-OF-LEXEMES-VERSION OF THE CODE
     lexemes = re.findall(pattern, code) 
-    
     return lexemes

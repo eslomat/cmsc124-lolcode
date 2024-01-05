@@ -6,25 +6,2129 @@ _______________________________________________________________________ SYMBOL T
 
 _______________________________________________________________________ DICTIONARY OF LEXEMES
 
-[1]       &variable : Unexpected Token (ERROR)
-[2]       A : Typecast It Connector
-[3]       HAVE : Identifier
-[4]       I : Identifier
+[1]       \n : New Line Character
+[2]       "0. Exit" : Yarn Literal
+[3]       "1" : Yarn Literal
+[4]       "1. Compute age" : Yarn Literal
+[5]       "2. Compute tip" : Yarn Literal
+[6]       "3. Compute square area" : Yarn Literal
+[7]       "Choice: " : Yarn Literal
+[8]       "Enter birth year: " : Yarn Literal
+[9]       "Invalid Input!" : Yarn Literal
+[10]      "Invalid input is > 3." : Yarn Literal
+[11]      1 : Numbr Literal
+[12]      2022 : Numbr Literal
+[13]      3 : Numbr Literal
+[14]      AN : Operand Connector
+[15]      BIGGR OF : Maximum Keyword
+[16]      BOTH SAEM : Equal Keyword
+[17]      BUHBYE : Variable Declaration End Delimiter
+[18]      DIFF OF : Difference Keyword
+[19]      DIFFRINT : Not equal Keyword
+[20]      GIMMEH : Input Keyword
+[21]      HAI : Program Start Delimiter
+[22]      I HAS A : Variable Declaration Keyword
+[23]      IT : Variable Identifier
+[24]      KTHXBYE : Program End Delimiter
+[25]      NO WAI : Else Keyword
+[26]      O RLY? : Conditional Statement Start Delimiter
+[27]      OIC : Control Flow End Delimiter
+[28]      VISIBLE : Print Keyword
+[29]      WAZZUP : Variable Declaration Start Delimiter
+[30]      YA RLY : If Keyword
+[31]      choice : Variable Identifier
+[32]      input : Variable Identifier
 
 
 _______________________________________________________________________ CODE PRINTING
 
- I HAVE A &variable
+ HAI 
+ WAZZUP 
+ I HAS A choice 
+ I HAS A input 
+ BUHBYE 
+ 
+ 
+ VISIBLE "1. Compute age" 
+ VISIBLE "2. Compute tip" 
+ VISIBLE "3. Compute square area" 
+ VISIBLE "0. Exit" 
+ 
+ VISIBLE "Choice: " 
+ GIMMEH choice 
+ 
+ BOTH SAEM 1 AN "1" 
+ O RLY? 
+ YA RLY 
+ VISIBLE "Enter birth year: " 
+ GIMMEH input 
+ VISIBLE DIFF OF 2022 AN input 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ NO WAI 
+ VISIBLE "Invalid Input!" 
+ OIC 
+ 
+ DIFFRINT BIGGR OF 3 AN 1 AN 3 
+ VISIBLE BIGGR OF 3 AN 1 
+ 
+ IT 
+ O RLY? 
+ YA RLY 
+ VISIBLE "Invalid input is > 3." 
+ OIC 
+ 
+ KTHXBYE 
+
 _______________________________________________________________________ ARRAY OF LEXEMES PRINTING
 
-[1]	I : Identifier
-[2]	HAVE : Identifier
-[3]	A : Typecast It Connector
-[4]	&variable : Unexpected Token (ERROR)
+[1]	HAI : Program Start Delimiter
+[2]	\n : New Line Character
+[3]	WAZZUP : Variable Declaration Start Delimiter
+[4]	\n : New Line Character
+[5]	I HAS A : Variable Declaration Keyword
+[6]	choice : Variable Identifier
+[7]	\n : New Line Character
+[8]	I HAS A : Variable Declaration Keyword
+[9]	input : Variable Identifier
+[10]	\n : New Line Character
+[11]	BUHBYE : Variable Declaration End Delimiter
+[12]	\n : New Line Character
+[13]	\n : New Line Character
+[14]	\n : New Line Character
+[15]	VISIBLE : Print Keyword
+[16]	"1. Compute age" : Yarn Literal
+[17]	\n : New Line Character
+[18]	VISIBLE : Print Keyword
+[19]	"2. Compute tip" : Yarn Literal
+[20]	\n : New Line Character
+[21]	VISIBLE : Print Keyword
+[22]	"3. Compute square area" : Yarn Literal
+[23]	\n : New Line Character
+[24]	VISIBLE : Print Keyword
+[25]	"0. Exit" : Yarn Literal
+[26]	\n : New Line Character
+[27]	\n : New Line Character
+[28]	VISIBLE : Print Keyword
+[29]	"Choice: " : Yarn Literal
+[30]	\n : New Line Character
+[31]	GIMMEH : Input Keyword
+[32]	choice : Variable Identifier
+[33]	\n : New Line Character
+[34]	\n : New Line Character
+[35]	BOTH SAEM : Equal Keyword
+[36]	1 : Numbr Literal
+[37]	AN : Operand Connector
+[38]	"1" : Yarn Literal
+[39]	\n : New Line Character
+[40]	O RLY? : Conditional Statement Start Delimiter
+[41]	\n : New Line Character
+[42]	YA RLY : If Keyword
+[43]	\n : New Line Character
+[44]	VISIBLE : Print Keyword
+[45]	"Enter birth year: " : Yarn Literal
+[46]	\n : New Line Character
+[47]	GIMMEH : Input Keyword
+[48]	input : Variable Identifier
+[49]	\n : New Line Character
+[50]	VISIBLE : Print Keyword
+[51]	DIFF OF : Difference Keyword
+[52]	2022 : Numbr Literal
+[53]	AN : Operand Connector
+[54]	input : Variable Identifier
+[55]	\n : New Line Character
+[56]	\n : New Line Character
+[57]	\n : New Line Character
+[58]	\n : New Line Character
+[59]	\n : New Line Character
+[60]	\n : New Line Character
+[61]	\n : New Line Character
+[62]	\n : New Line Character
+[63]	\n : New Line Character
+[64]	\n : New Line Character
+[65]	\n : New Line Character
+[66]	\n : New Line Character
+[67]	\n : New Line Character
+[68]	\n : New Line Character
+[69]	\n : New Line Character
+[70]	\n : New Line Character
+[71]	NO WAI : Else Keyword
+[72]	\n : New Line Character
+[73]	VISIBLE : Print Keyword
+[74]	"Invalid Input!" : Yarn Literal
+[75]	\n : New Line Character
+[76]	OIC : Control Flow End Delimiter
+[77]	\n : New Line Character
+[78]	\n : New Line Character
+[79]	DIFFRINT : Not equal Keyword
+[80]	BIGGR OF : Maximum Keyword
+[81]	3 : Numbr Literal
+[82]	AN : Operand Connector
+[83]	1 : Numbr Literal
+[84]	AN : Operand Connector
+[85]	3 : Numbr Literal
+[86]	\n : New Line Character
+[87]	VISIBLE : Print Keyword
+[88]	BIGGR OF : Maximum Keyword
+[89]	3 : Numbr Literal
+[90]	AN : Operand Connector
+[91]	1 : Numbr Literal
+[92]	\n : New Line Character
+[93]	\n : New Line Character
+[94]	IT : Variable Identifier
+[95]	\n : New Line Character
+[96]	O RLY? : Conditional Statement Start Delimiter
+[97]	\n : New Line Character
+[98]	YA RLY : If Keyword
+[99]	\n : New Line Character
+[100]	VISIBLE : Print Keyword
+[101]	"Invalid input is > 3." : Yarn Literal
+[102]	\n : New Line Character
+[103]	OIC : Control Flow End Delimiter
+[104]	\n : New Line Character
+[105]	\n : New Line Character
+[106]	KTHXBYE : Program End Delimiter
+[107]	\n : New Line Character
+
+_______________________________________________________________________ PARSE TREE VISUALIZATION
+
+START
+└── PROGRAM
+    ├── GLOBAL ENVIRONMENT
+    │   └── None
+    ├── MAIN
+    │   ├── HAI
+    │   ├── LINE BREAK
+    │   │   ├── \n
+    │   │   └── LINE BREAK
+    │   │       └── None
+    │   ├── VARIABLE DECLARATION
+    │   │   ├── WAZZUP
+    │   │   ├── LINE BREAK
+    │   │   │   ├── \n
+    │   │   │   └── LINE BREAK
+    │   │   │       └── None
+    │   │   ├── VARIABLE INITIALIZATION
+    │   │   │   ├── I HAS A
+    │   │   │   ├── choice
+    │   │   │   ├── LINE BREAK
+    │   │   │   │   ├── \n
+    │   │   │   │   └── LINE BREAK
+    │   │   │   │       └── None
+    │   │   │   └── VARIABLE INITIALIZATION
+    │   │   │       ├── I HAS A
+    │   │   │       ├── input
+    │   │   │       ├── LINE BREAK
+    │   │   │       │   ├── \n
+    │   │   │       │   └── LINE BREAK
+    │   │   │       │       └── None
+    │   │   │       └── VARIABLE INITIALIZATION
+    │   │   │           └── None
+    │   │   └── BUHBYE
+    │   ├── LINE BREAK
+    │   │   ├── \n
+    │   │   └── LINE BREAK
+    │   │       ├── \n
+    │   │       └── LINE BREAK
+    │   │           ├── \n
+    │   │           └── LINE BREAK
+    │   │               └── None
+    │   ├── STATEMENT
+    │   │   ├── PRINT
+    │   │   │   ├── VISIBLE
+    │   │   │   ├── OPERAND
+    │   │   │   │   └── EXPRESSION
+    │   │   │   │       └── LITERAL
+    │   │   │   │           └── "1. Compute age"
+    │   │   │   └── PRINT EXTENSION
+    │   │   │       └── None
+    │   │   ├── LINE BREAK
+    │   │   │   ├── \n
+    │   │   │   └── LINE BREAK
+    │   │   │       └── None
+    │   │   └── STATEMENT
+    │   │       ├── PRINT
+    │   │       │   ├── VISIBLE
+    │   │       │   ├── OPERAND
+    │   │       │   │   └── EXPRESSION
+    │   │       │   │       └── LITERAL
+    │   │       │   │           └── "2. Compute tip"
+    │   │       │   └── PRINT EXTENSION
+    │   │       │       └── None
+    │   │       ├── LINE BREAK
+    │   │       │   ├── \n
+    │   │       │   └── LINE BREAK
+    │   │       │       └── None
+    │   │       └── STATEMENT
+    │   │           ├── PRINT
+    │   │           │   ├── VISIBLE
+    │   │           │   ├── OPERAND
+    │   │           │   │   └── EXPRESSION
+    │   │           │   │       └── LITERAL
+    │   │           │   │           └── "3. Compute square area"
+    │   │           │   └── PRINT EXTENSION
+    │   │           │       └── None
+    │   │           ├── LINE BREAK
+    │   │           │   ├── \n
+    │   │           │   └── LINE BREAK
+    │   │           │       └── None
+    │   │           └── STATEMENT
+    │   │               ├── PRINT
+    │   │               │   ├── VISIBLE
+    │   │               │   ├── OPERAND
+    │   │               │   │   └── EXPRESSION
+    │   │               │   │       └── LITERAL
+    │   │               │   │           └── "0. Exit"
+    │   │               │   └── PRINT EXTENSION
+    │   │               │       └── None
+    │   │               ├── LINE BREAK
+    │   │               │   ├── \n
+    │   │               │   └── LINE BREAK
+    │   │               │       ├── \n
+    │   │               │       └── LINE BREAK
+    │   │               │           └── None
+    │   │               └── STATEMENT
+    │   │                   ├── PRINT
+    │   │                   │   ├── VISIBLE
+    │   │                   │   ├── OPERAND
+    │   │                   │   │   └── EXPRESSION
+    │   │                   │   │       └── LITERAL
+    │   │                   │   │           └── "Choice: "
+    │   │                   │   └── PRINT EXTENSION
+    │   │                   │       └── None
+    │   │                   ├── LINE BREAK
+    │   │                   │   ├── \n
+    │   │                   │   └── LINE BREAK
+    │   │                   │       └── None
+    │   │                   └── STATEMENT
+    │   │                       ├── INPUT
+    │   │                       │   ├── GIMMEH
+    │   │                       │   └── choice
+    │   │                       ├── LINE BREAK
+    │   │                       │   ├── \n
+    │   │                       │   └── LINE BREAK
+    │   │                       │       ├── \n
+    │   │                       │       └── LINE BREAK
+    │   │                       │           └── None
+    │   │                       └── STATEMENT
+    │   │                           ├── CONDITIONAL STATEMENT
+    │   │                           │   ├── EXPRESSION
+    │   │                           │   │   └── EQUAL
+    │   │                           │   │       ├── BOTH SAEM
+    │   │                           │   │       ├── LITERAL
+    │   │                           │   │       │   └── 1
+    │   │                           │   │       ├── AN
+    │   │                           │   │       └── LITERAL
+    │   │                           │   │           └── "1"
+    │   │                           │   ├── LINE BREAK
+    │   │                           │   │   ├── \n
+    │   │                           │   │   └── LINE BREAK
+    │   │                           │   │       └── None
+    │   │                           │   ├── O RLY?
+    │   │                           │   ├── LINE BREAK
+    │   │                           │   │   ├── \n
+    │   │                           │   │   └── LINE BREAK
+    │   │                           │   │       └── None
+    │   │                           │   ├── IF BLOCK
+    │   │                           │   │   ├── YA RLY
+    │   │                           │   │   ├── LINE BREAK
+    │   │                           │   │   │   ├── \n
+    │   │                           │   │   │   └── LINE BREAK
+    │   │                           │   │   │       └── None
+    │   │                           │   │   └── STATEMENT
+    │   │                           │   │       ├── PRINT
+    │   │                           │   │       │   ├── VISIBLE
+    │   │                           │   │       │   ├── OPERAND
+    │   │                           │   │       │   │   └── EXPRESSION
+    │   │                           │   │       │   │       └── LITERAL
+    │   │                           │   │       │   │           └── "Enter birth year: "
+    │   │                           │   │       │   └── PRINT EXTENSION
+    │   │                           │   │       │       └── None
+    │   │                           │   │       ├── LINE BREAK
+    │   │                           │   │       │   ├── \n
+    │   │                           │   │       │   └── LINE BREAK
+    │   │                           │   │       │       └── None
+    │   │                           │   │       └── STATEMENT
+    │   │                           │   │           ├── INPUT
+    │   │                           │   │           │   ├── GIMMEH
+    │   │                           │   │           │   └── input
+    │   │                           │   │           ├── LINE BREAK
+    │   │                           │   │           │   ├── \n
+    │   │                           │   │           │   └── LINE BREAK
+    │   │                           │   │           │       └── None
+    │   │                           │   │           └── STATEMENT
+    │   │                           │   │               ├── PRINT
+    │   │                           │   │               │   ├── VISIBLE
+    │   │                           │   │               │   ├── OPERAND
+    │   │                           │   │               │   │   └── EXPRESSION
+    │   │                           │   │               │   │       └── DIFFERENCE
+    │   │                           │   │               │   │           ├── DIFF OF
+    │   │                           │   │               │   │           ├── OPERAND
+    │   │                           │   │               │   │           │   └── EXPRESSION
+    │   │                           │   │               │   │           │       └── LITERAL
+    │   │                           │   │               │   │           │           └── 2022
+    │   │                           │   │               │   │           ├── AN
+    │   │                           │   │               │   │           └── OPERAND
+    │   │                           │   │               │   │               └── input
+    │   │                           │   │               │   └── PRINT EXTENSION
+    │   │                           │   │               │       └── None
+    │   │                           │   │               ├── LINE BREAK
+    │   │                           │   │               │   ├── \n
+    │   │                           │   │               │   └── LINE BREAK
+    │   │                           │   │               │       ├── \n
+    │   │                           │   │               │       └── LINE BREAK
+    │   │                           │   │               │           ├── \n
+    │   │                           │   │               │           └── LINE BREAK
+    │   │                           │   │               │               ├── \n
+    │   │                           │   │               │               └── LINE BREAK
+    │   │                           │   │               │                   ├── \n
+    │   │                           │   │               │                   └── LINE BREAK
+    │   │                           │   │               │                       ├── \n
+    │   │                           │   │               │                       └── LINE BREAK
+    │   │                           │   │               │                           ├── \n
+    │   │                           │   │               │                           └── LINE BREAK
+    │   │                           │   │               │                               ├── \n
+    │   │                           │   │               │                               └── LINE BREAK
+    │   │                           │   │               │                                   ├── \n
+    │   │                           │   │               │                                   └── LINE BREAK
+    │   │                           │   │               │                                       ├── \n
+    │   │                           │   │               │                                       └── LINE BREAK
+    │   │                           │   │               │                                           ├── \n
+    │   │                           │   │               │                                           └── LINE BREAK
+    │   │                           │   │               │                                               ├── \n
+    │   │                           │   │               │                                               └── LINE BREAK
+    │   │                           │   │               │                                                   ├── \n
+    │   │                           │   │               │                                                   └── LINE BREAK
+    │   │                           │   │               │                                                       ├── \n
+    │   │                           │   │               │                                                       └── LINE BREAK
+    │   │                           │   │               │                                                           ├── \n
+    │   │                           │   │               │                                                           └── LINE BREAK
+    │   │                           │   │               │                                                               ├── \n
+    │   │                           │   │               │                                                               └── LINE BREAK
+    │   │                           │   │               │                                                                   └── None
+    │   │                           │   │               └── STATEMENT
+    │   │                           │   │                   └── None
+    │   │                           │   ├── ELSE IF BLOCK
+    │   │                           │   │   └── None
+    │   │                           │   ├── ELSE BLOCK
+    │   │                           │   │   ├── NO WAI
+    │   │                           │   │   ├── LINE BREAK
+    │   │                           │   │   │   ├── \n
+    │   │                           │   │   │   └── LINE BREAK
+    │   │                           │   │   │       └── None
+    │   │                           │   │   └── STATEMENT
+    │   │                           │   │       ├── PRINT
+    │   │                           │   │       │   ├── VISIBLE
+    │   │                           │   │       │   ├── OPERAND
+    │   │                           │   │       │   │   └── EXPRESSION
+    │   │                           │   │       │   │       └── LITERAL
+    │   │                           │   │       │   │           └── "Invalid Input!"
+    │   │                           │   │       │   └── PRINT EXTENSION
+    │   │                           │   │       │       └── None
+    │   │                           │   │       ├── LINE BREAK
+    │   │                           │   │       │   ├── \n
+    │   │                           │   │       │   └── LINE BREAK
+    │   │                           │   │       │       └── None
+    │   │                           │   │       └── STATEMENT
+    │   │                           │   │           └── None
+    │   │                           │   └── OIC
+    │   │                           ├── LINE BREAK
+    │   │                           │   ├── \n
+    │   │                           │   └── LINE BREAK
+    │   │                           │       ├── \n
+    │   │                           │       └── LINE BREAK
+    │   │                           │           └── None
+    │   │                           └── STATEMENT
+    │   │                               ├── EXPRESSION
+    │   │                               │   └── NOT EQUAL
+    │   │                               │       ├── DIFFRINT
+    │   │                               │       ├── MAX
+    │   │                               │       │   ├── BIGGR OF
+    │   │                               │       │   ├── OPERAND
+    │   │                               │       │   │   └── EXPRESSION
+    │   │                               │       │   │       └── LITERAL
+    │   │                               │       │   │           └── 3
+    │   │                               │       │   ├── AN
+    │   │                               │       │   └── OPERAND
+    │   │                               │       │       └── EXPRESSION
+    │   │                               │       │           └── LITERAL
+    │   │                               │       │               └── 1
+    │   │                               │       ├── AN
+    │   │                               │       └── LITERAL
+    │   │                               │           └── 3
+    │   │                               ├── LINE BREAK
+    │   │                               │   ├── \n
+    │   │                               │   └── LINE BREAK
+    │   │                               │       └── None
+    │   │                               └── STATEMENT
+    │   │                                   ├── PRINT
+    │   │                                   │   ├── VISIBLE
+    │   │                                   │   ├── OPERAND
+    │   │                                   │   │   └── EXPRESSION
+    │   │                                   │   │       └── MAX
+    │   │                                   │   │           ├── BIGGR OF
+    │   │                                   │   │           ├── OPERAND
+    │   │                                   │   │           │   └── EXPRESSION
+    │   │                                   │   │           │       └── LITERAL
+    │   │                                   │   │           │           └── 3
+    │   │                                   │   │           ├── AN
+    │   │                                   │   │           └── OPERAND
+    │   │                                   │   │               └── EXPRESSION
+    │   │                                   │   │                   └── LITERAL
+    │   │                                   │   │                       └── 1
+    │   │                                   │   └── PRINT EXTENSION
+    │   │                                   │       └── None
+    │   │                                   ├── LINE BREAK
+    │   │                                   │   ├── \n
+    │   │                                   │   └── LINE BREAK
+    │   │                                   │       ├── \n
+    │   │                                   │       └── LINE BREAK
+    │   │                                   │           └── None
+    │   │                                   └── STATEMENT
+    │   │                                       ├── CONDITIONAL STATEMENT
+    │   │                                       │   ├── EXPRESSION
+    │   │                                       │   │   └── IDENTIFIER
+    │   │                                       │   │       └── IT
+    │   │                                       │   ├── LINE BREAK
+    │   │                                       │   │   ├── \n
+    │   │                                       │   │   └── LINE BREAK
+    │   │                                       │   │       └── None
+    │   │                                       │   ├── O RLY?
+    │   │                                       │   ├── LINE BREAK
+    │   │                                       │   │   ├── \n
+    │   │                                       │   │   └── LINE BREAK
+    │   │                                       │   │       └── None
+    │   │                                       │   ├── IF BLOCK
+    │   │                                       │   │   ├── YA RLY
+    │   │                                       │   │   ├── LINE BREAK
+    │   │                                       │   │   │   ├── \n
+    │   │                                       │   │   │   └── LINE BREAK
+    │   │                                       │   │   │       └── None
+    │   │                                       │   │   └── STATEMENT
+    │   │                                       │   │       ├── PRINT
+    │   │                                       │   │       │   ├── VISIBLE
+    │   │                                       │   │       │   ├── OPERAND
+    │   │                                       │   │       │   │   └── EXPRESSION
+    │   │                                       │   │       │   │       └── LITERAL
+    │   │                                       │   │       │   │           └── "Invalid input is > 3."
+    │   │                                       │   │       │   └── PRINT EXTENSION
+    │   │                                       │   │       │       └── None
+    │   │                                       │   │       ├── LINE BREAK
+    │   │                                       │   │       │   ├── \n
+    │   │                                       │   │       │   └── LINE BREAK
+    │   │                                       │   │       │       └── None
+    │   │                                       │   │       └── STATEMENT
+    │   │                                       │   │           └── None
+    │   │                                       │   ├── ELSE IF BLOCK
+    │   │                                       │   │   └── None
+    │   │                                       │   ├── ELSE BLOCK
+    │   │                                       │   │   └── None
+    │   │                                       │   └── OIC
+    │   │                                       ├── LINE BREAK
+    │   │                                       │   ├── \n
+    │   │                                       │   └── LINE BREAK
+    │   │                                       │       ├── \n
+    │   │                                       │       └── LINE BREAK
+    │   │                                       │           └── None
+    │   │                                       └── STATEMENT
+    │   │                                           └── None
+    │   └── KTHXBYE
+    └── MAIN END
+        ├── LINE BREAK
+        │   ├── \n
+        │   └── LINE BREAK
+        │       └── None
+        └── GLOBAL ENVIRONMENT
+            └── None
 
 _______________________________________________________________________ PARSE TREE AND LEXEMES EQUALITY CHECKER
 
        PARSE TREE                    LEXEMES
 -----------------------------------------------------------------------
+[0]    HAI                           HAI
+[1]    \n                             \n
+[2]    WAZZUP                        WAZZUP
+[3]    \n                             \n
+[4]    I HAS A                       I HAS A
+[5]    choice                        choice
+[6]    \n                             \n
+[7]    I HAS A                       I HAS A
+[8]    input                         input
+[9]    \n                             \n
+[10]   BUHBYE                        BUHBYE
+[11]   \n                             \n
+[12]   \n                             \n
+[13]   \n                             \n
+[14]   VISIBLE                       VISIBLE
+[15]   "1. Compute age"              "1. Compute age"
+[16]   \n                             \n
+[17]   VISIBLE                       VISIBLE
+[18]   "2. Compute tip"              "2. Compute tip"
+[19]   \n                             \n
+[20]   VISIBLE                       VISIBLE
+[21]   "3. Compute square area"      "3. Compute square area"
+[22]   \n                             \n
+[23]   VISIBLE                       VISIBLE
+[24]   "0. Exit"                     "0. Exit"
+[25]   \n                             \n
+[26]   \n                             \n
+[27]   VISIBLE                       VISIBLE
+[28]   "Choice: "                    "Choice: "
+[29]   \n                             \n
+[30]   GIMMEH                        GIMMEH
+[31]   choice                        choice
+[32]   \n                             \n
+[33]   \n                             \n
+[34]   BOTH SAEM                     BOTH SAEM
+[35]   1                             1
+[36]   AN                            AN
+[37]   "1"                           "1"
+[38]   \n                             \n
+[39]   O RLY?                        O RLY?
+[40]   \n                             \n
+[41]   YA RLY                        YA RLY
+[42]   \n                             \n
+[43]   VISIBLE                       VISIBLE
+[44]   "Enter birth year: "          "Enter birth year: "
+[45]   \n                             \n
+[46]   GIMMEH                        GIMMEH
+[47]   input                         input
+[48]   \n                             \n
+[49]   VISIBLE                       VISIBLE
+[50]   DIFF OF                       DIFF OF
+[51]   2022                          2022
+[52]   AN                            AN
+[53]   input                         input
+[54]   \n                             \n
+[55]   \n                             \n
+[56]   \n                             \n
+[57]   \n                             \n
+[58]   \n                             \n
+[59]   \n                             \n
+[60]   \n                             \n
+[61]   \n                             \n
+[62]   \n                             \n
+[63]   \n                             \n
+[64]   \n                             \n
+[65]   \n                             \n
+[66]   \n                             \n
+[67]   \n                             \n
+[68]   \n                             \n
+[69]   \n                             \n
+[70]   NO WAI                        NO WAI
+[71]   \n                             \n
+[72]   VISIBLE                       VISIBLE
+[73]   "Invalid Input!"              "Invalid Input!"
+[74]   \n                             \n
+[75]   OIC                           OIC
+[76]   \n                             \n
+[77]   \n                             \n
+[78]   DIFFRINT                      DIFFRINT
+[79]   BIGGR OF                      BIGGR OF
+[80]   3                             3
+[81]   AN                            AN
+[82]   1                             1
+[83]   AN                            AN
+[84]   3                             3
+[85]   \n                             \n
+[86]   VISIBLE                       VISIBLE
+[87]   BIGGR OF                      BIGGR OF
+[88]   3                             3
+[89]   AN                            AN
+[90]   1                             1
+[91]   \n                             \n
+[92]   \n                             \n
+[93]   IT                            IT
+[94]   \n                             \n
+[95]   O RLY?                        O RLY?
+[96]   \n                             \n
+[97]   YA RLY                        YA RLY
+[98]   \n                             \n
+[99]   VISIBLE                       VISIBLE
+[100]  "Invalid input is > 3."       "Invalid input is > 3."
+[101]  \n                             \n
+[102]  OIC                           OIC
+[103]  \n                             \n
+[104]  \n                             \n
+[105]  KTHXBYE                       KTHXBYE
+[106]  \n                             \n
 
 _______________________________________________________________________ PARSE TREE PRINTING
+------------------------------------------------
+[$]  START
+
+		<PROGRAM>
+			[['GLOBAL ENVIRONMENT', None], ['MAIN', 'HAI', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['VARIABLE DECLARATION', 'WAZZUP', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['VARIABLE INITIALIZATION', 'I HAS A', 'choice', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['VARIABLE INITIALIZATION', 'I HAS A', 'input', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['VARIABLE INITIALIZATION', None]]], 'BUHBYE'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"1. Compute age"']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"2. Compute tip"']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"3. Compute square area"']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"0. Exit"']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Choice: "']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['INPUT', 'GIMMEH', 'choice'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['CONDITIONAL STATEMENT', ['EXPRESSION', ['EQUAL', 'BOTH SAEM', ['LITERAL', '1'], 'AN', ['LITERAL', '"1"']]], ['LINE BREAK', '\n', ['LINE BREAK', None]], 'O RLY?', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['IF BLOCK', 'YA RLY', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Enter birth year: "']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['INPUT', 'GIMMEH', 'input'], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['DIFFERENCE', 'DIFF OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '2022']]], 'AN', ['OPERAND', 'input']]]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]]]]]]]]]]]]]]], ['STATEMENT', None]]]]], ['ELSE IF BLOCK', None], ['ELSE BLOCK', 'NO WAI', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Invalid Input!"']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', None]]], 'OIC'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['EXPRESSION', ['NOT EQUAL', 'DIFFRINT', ['MAX', 'BIGGR OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '3']]], 'AN', ['OPERAND', ['EXPRESSION', ['LITERAL', '1']]]], 'AN', ['LITERAL', '3']]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['MAX', 'BIGGR OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '3']]], 'AN', ['OPERAND', ['EXPRESSION', ['LITERAL', '1']]]]]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['CONDITIONAL STATEMENT', ['EXPRESSION', ['IDENTIFIER', 'IT']], ['LINE BREAK', '\n', ['LINE BREAK', None]], 'O RLY?', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['IF BLOCK', 'YA RLY', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Invalid input is > 3."']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', None]]], ['ELSE IF BLOCK', None], ['ELSE BLOCK', None], 'OIC'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', None]]]]]]]]]]], 'KTHXBYE'], ['MAIN END', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['GLOBAL ENVIRONMENT', None]]]
+
+------------------------------------------------
+[$]  PROGRAM
+
+		<GLOBAL ENVIRONMENT>
+			[None]
+
+		<MAIN>
+			['HAI', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['VARIABLE DECLARATION', 'WAZZUP', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['VARIABLE INITIALIZATION', 'I HAS A', 'choice', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['VARIABLE INITIALIZATION', 'I HAS A', 'input', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['VARIABLE INITIALIZATION', None]]], 'BUHBYE'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"1. Compute age"']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"2. Compute tip"']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"3. Compute square area"']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"0. Exit"']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Choice: "']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['INPUT', 'GIMMEH', 'choice'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['CONDITIONAL STATEMENT', ['EXPRESSION', ['EQUAL', 'BOTH SAEM', ['LITERAL', '1'], 'AN', ['LITERAL', '"1"']]], ['LINE BREAK', '\n', ['LINE BREAK', None]], 'O RLY?', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['IF BLOCK', 'YA RLY', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Enter birth year: "']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['INPUT', 'GIMMEH', 'input'], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['DIFFERENCE', 'DIFF OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '2022']]], 'AN', ['OPERAND', 'input']]]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]]]]]]]]]]]]]]], ['STATEMENT', None]]]]], ['ELSE IF BLOCK', None], ['ELSE BLOCK', 'NO WAI', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Invalid Input!"']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', None]]], 'OIC'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['EXPRESSION', ['NOT EQUAL', 'DIFFRINT', ['MAX', 'BIGGR OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '3']]], 'AN', ['OPERAND', ['EXPRESSION', ['LITERAL', '1']]]], 'AN', ['LITERAL', '3']]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['MAX', 'BIGGR OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '3']]], 'AN', ['OPERAND', ['EXPRESSION', ['LITERAL', '1']]]]]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['CONDITIONAL STATEMENT', ['EXPRESSION', ['IDENTIFIER', 'IT']], ['LINE BREAK', '\n', ['LINE BREAK', None]], 'O RLY?', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['IF BLOCK', 'YA RLY', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Invalid input is > 3."']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', None]]], ['ELSE IF BLOCK', None], ['ELSE BLOCK', None], 'OIC'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', None]]]]]]]]]]], 'KTHXBYE']
+
+		<MAIN END>
+			[['LINE BREAK', '\n', ['LINE BREAK', None]], ['GLOBAL ENVIRONMENT', None]]
+
+------------------------------------------------
+[$]  GLOBAL ENVIRONMENT
+
+		EPSILON
+
+------------------------------------------------
+[$]  MAIN
+
+		HAI
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+		<VARIABLE DECLARATION>
+			['WAZZUP', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['VARIABLE INITIALIZATION', 'I HAS A', 'choice', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['VARIABLE INITIALIZATION', 'I HAS A', 'input', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['VARIABLE INITIALIZATION', None]]], 'BUHBYE']
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]]
+
+		<STATEMENT>
+			[['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"1. Compute age"']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"2. Compute tip"']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"3. Compute square area"']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"0. Exit"']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Choice: "']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['INPUT', 'GIMMEH', 'choice'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['CONDITIONAL STATEMENT', ['EXPRESSION', ['EQUAL', 'BOTH SAEM', ['LITERAL', '1'], 'AN', ['LITERAL', '"1"']]], ['LINE BREAK', '\n', ['LINE BREAK', None]], 'O RLY?', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['IF BLOCK', 'YA RLY', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Enter birth year: "']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['INPUT', 'GIMMEH', 'input'], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['DIFFERENCE', 'DIFF OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '2022']]], 'AN', ['OPERAND', 'input']]]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]]]]]]]]]]]]]]], ['STATEMENT', None]]]]], ['ELSE IF BLOCK', None], ['ELSE BLOCK', 'NO WAI', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Invalid Input!"']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', None]]], 'OIC'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['EXPRESSION', ['NOT EQUAL', 'DIFFRINT', ['MAX', 'BIGGR OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '3']]], 'AN', ['OPERAND', ['EXPRESSION', ['LITERAL', '1']]]], 'AN', ['LITERAL', '3']]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['MAX', 'BIGGR OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '3']]], 'AN', ['OPERAND', ['EXPRESSION', ['LITERAL', '1']]]]]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['CONDITIONAL STATEMENT', ['EXPRESSION', ['IDENTIFIER', 'IT']], ['LINE BREAK', '\n', ['LINE BREAK', None]], 'O RLY?', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['IF BLOCK', 'YA RLY', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Invalid input is > 3."']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', None]]], ['ELSE IF BLOCK', None], ['ELSE BLOCK', None], 'OIC'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', None]]]]]]]]]]]
+
+		KTHXBYE
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  VARIABLE DECLARATION
+
+		WAZZUP
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+		<VARIABLE INITIALIZATION>
+			['I HAS A', 'choice', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['VARIABLE INITIALIZATION', 'I HAS A', 'input', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['VARIABLE INITIALIZATION', None]]]
+
+		BUHBYE
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  VARIABLE INITIALIZATION
+
+		I HAS A
+
+		choice
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+		<VARIABLE INITIALIZATION>
+			['I HAS A', 'input', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['VARIABLE INITIALIZATION', None]]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  VARIABLE INITIALIZATION
+
+		I HAS A
+
+		input
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+		<VARIABLE INITIALIZATION>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  VARIABLE INITIALIZATION
+
+		EPSILON
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  STATEMENT
+
+		<PRINT>
+			['VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"1. Compute age"']]], ['PRINT EXTENSION', None]]
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+		<STATEMENT>
+			[['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"2. Compute tip"']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"3. Compute square area"']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"0. Exit"']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Choice: "']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['INPUT', 'GIMMEH', 'choice'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['CONDITIONAL STATEMENT', ['EXPRESSION', ['EQUAL', 'BOTH SAEM', ['LITERAL', '1'], 'AN', ['LITERAL', '"1"']]], ['LINE BREAK', '\n', ['LINE BREAK', None]], 'O RLY?', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['IF BLOCK', 'YA RLY', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Enter birth year: "']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['INPUT', 'GIMMEH', 'input'], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['DIFFERENCE', 'DIFF OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '2022']]], 'AN', ['OPERAND', 'input']]]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]]]]]]]]]]]]]]], ['STATEMENT', None]]]]], ['ELSE IF BLOCK', None], ['ELSE BLOCK', 'NO WAI', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Invalid Input!"']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', None]]], 'OIC'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['EXPRESSION', ['NOT EQUAL', 'DIFFRINT', ['MAX', 'BIGGR OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '3']]], 'AN', ['OPERAND', ['EXPRESSION', ['LITERAL', '1']]]], 'AN', ['LITERAL', '3']]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['MAX', 'BIGGR OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '3']]], 'AN', ['OPERAND', ['EXPRESSION', ['LITERAL', '1']]]]]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['CONDITIONAL STATEMENT', ['EXPRESSION', ['IDENTIFIER', 'IT']], ['LINE BREAK', '\n', ['LINE BREAK', None]], 'O RLY?', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['IF BLOCK', 'YA RLY', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Invalid input is > 3."']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', None]]], ['ELSE IF BLOCK', None], ['ELSE BLOCK', None], 'OIC'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', None]]]]]]]]]]
+
+------------------------------------------------
+[$]  PRINT
+
+		VISIBLE
+
+		<OPERAND>
+			[['EXPRESSION', ['LITERAL', '"1. Compute age"']]]
+
+		<PRINT EXTENSION>
+			[None]
+
+------------------------------------------------
+[$]  OPERAND
+
+		<EXPRESSION>
+			[['LITERAL', '"1. Compute age"']]
+
+------------------------------------------------
+[$]  EXPRESSION
+
+		<LITERAL>
+			['"1. Compute age"']
+
+------------------------------------------------
+[$]  LITERAL
+
+		"1. Compute age"
+
+------------------------------------------------
+[$]  PRINT EXTENSION
+
+		EPSILON
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  STATEMENT
+
+		<PRINT>
+			['VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"2. Compute tip"']]], ['PRINT EXTENSION', None]]
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+		<STATEMENT>
+			[['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"3. Compute square area"']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"0. Exit"']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Choice: "']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['INPUT', 'GIMMEH', 'choice'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['CONDITIONAL STATEMENT', ['EXPRESSION', ['EQUAL', 'BOTH SAEM', ['LITERAL', '1'], 'AN', ['LITERAL', '"1"']]], ['LINE BREAK', '\n', ['LINE BREAK', None]], 'O RLY?', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['IF BLOCK', 'YA RLY', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Enter birth year: "']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['INPUT', 'GIMMEH', 'input'], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['DIFFERENCE', 'DIFF OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '2022']]], 'AN', ['OPERAND', 'input']]]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]]]]]]]]]]]]]]], ['STATEMENT', None]]]]], ['ELSE IF BLOCK', None], ['ELSE BLOCK', 'NO WAI', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Invalid Input!"']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', None]]], 'OIC'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['EXPRESSION', ['NOT EQUAL', 'DIFFRINT', ['MAX', 'BIGGR OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '3']]], 'AN', ['OPERAND', ['EXPRESSION', ['LITERAL', '1']]]], 'AN', ['LITERAL', '3']]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['MAX', 'BIGGR OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '3']]], 'AN', ['OPERAND', ['EXPRESSION', ['LITERAL', '1']]]]]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['CONDITIONAL STATEMENT', ['EXPRESSION', ['IDENTIFIER', 'IT']], ['LINE BREAK', '\n', ['LINE BREAK', None]], 'O RLY?', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['IF BLOCK', 'YA RLY', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Invalid input is > 3."']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', None]]], ['ELSE IF BLOCK', None], ['ELSE BLOCK', None], 'OIC'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', None]]]]]]]]]
+
+------------------------------------------------
+[$]  PRINT
+
+		VISIBLE
+
+		<OPERAND>
+			[['EXPRESSION', ['LITERAL', '"2. Compute tip"']]]
+
+		<PRINT EXTENSION>
+			[None]
+
+------------------------------------------------
+[$]  OPERAND
+
+		<EXPRESSION>
+			[['LITERAL', '"2. Compute tip"']]
+
+------------------------------------------------
+[$]  EXPRESSION
+
+		<LITERAL>
+			['"2. Compute tip"']
+
+------------------------------------------------
+[$]  LITERAL
+
+		"2. Compute tip"
+
+------------------------------------------------
+[$]  PRINT EXTENSION
+
+		EPSILON
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  STATEMENT
+
+		<PRINT>
+			['VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"3. Compute square area"']]], ['PRINT EXTENSION', None]]
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+		<STATEMENT>
+			[['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"0. Exit"']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Choice: "']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['INPUT', 'GIMMEH', 'choice'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['CONDITIONAL STATEMENT', ['EXPRESSION', ['EQUAL', 'BOTH SAEM', ['LITERAL', '1'], 'AN', ['LITERAL', '"1"']]], ['LINE BREAK', '\n', ['LINE BREAK', None]], 'O RLY?', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['IF BLOCK', 'YA RLY', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Enter birth year: "']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['INPUT', 'GIMMEH', 'input'], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['DIFFERENCE', 'DIFF OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '2022']]], 'AN', ['OPERAND', 'input']]]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]]]]]]]]]]]]]]], ['STATEMENT', None]]]]], ['ELSE IF BLOCK', None], ['ELSE BLOCK', 'NO WAI', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Invalid Input!"']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', None]]], 'OIC'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['EXPRESSION', ['NOT EQUAL', 'DIFFRINT', ['MAX', 'BIGGR OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '3']]], 'AN', ['OPERAND', ['EXPRESSION', ['LITERAL', '1']]]], 'AN', ['LITERAL', '3']]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['MAX', 'BIGGR OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '3']]], 'AN', ['OPERAND', ['EXPRESSION', ['LITERAL', '1']]]]]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['CONDITIONAL STATEMENT', ['EXPRESSION', ['IDENTIFIER', 'IT']], ['LINE BREAK', '\n', ['LINE BREAK', None]], 'O RLY?', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['IF BLOCK', 'YA RLY', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Invalid input is > 3."']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', None]]], ['ELSE IF BLOCK', None], ['ELSE BLOCK', None], 'OIC'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', None]]]]]]]]
+
+------------------------------------------------
+[$]  PRINT
+
+		VISIBLE
+
+		<OPERAND>
+			[['EXPRESSION', ['LITERAL', '"3. Compute square area"']]]
+
+		<PRINT EXTENSION>
+			[None]
+
+------------------------------------------------
+[$]  OPERAND
+
+		<EXPRESSION>
+			[['LITERAL', '"3. Compute square area"']]
+
+------------------------------------------------
+[$]  EXPRESSION
+
+		<LITERAL>
+			['"3. Compute square area"']
+
+------------------------------------------------
+[$]  LITERAL
+
+		"3. Compute square area"
+
+------------------------------------------------
+[$]  PRINT EXTENSION
+
+		EPSILON
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  STATEMENT
+
+		<PRINT>
+			['VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"0. Exit"']]], ['PRINT EXTENSION', None]]
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]
+
+		<STATEMENT>
+			[['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Choice: "']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['INPUT', 'GIMMEH', 'choice'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['CONDITIONAL STATEMENT', ['EXPRESSION', ['EQUAL', 'BOTH SAEM', ['LITERAL', '1'], 'AN', ['LITERAL', '"1"']]], ['LINE BREAK', '\n', ['LINE BREAK', None]], 'O RLY?', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['IF BLOCK', 'YA RLY', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Enter birth year: "']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['INPUT', 'GIMMEH', 'input'], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['DIFFERENCE', 'DIFF OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '2022']]], 'AN', ['OPERAND', 'input']]]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]]]]]]]]]]]]]]], ['STATEMENT', None]]]]], ['ELSE IF BLOCK', None], ['ELSE BLOCK', 'NO WAI', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Invalid Input!"']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', None]]], 'OIC'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['EXPRESSION', ['NOT EQUAL', 'DIFFRINT', ['MAX', 'BIGGR OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '3']]], 'AN', ['OPERAND', ['EXPRESSION', ['LITERAL', '1']]]], 'AN', ['LITERAL', '3']]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['MAX', 'BIGGR OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '3']]], 'AN', ['OPERAND', ['EXPRESSION', ['LITERAL', '1']]]]]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['CONDITIONAL STATEMENT', ['EXPRESSION', ['IDENTIFIER', 'IT']], ['LINE BREAK', '\n', ['LINE BREAK', None]], 'O RLY?', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['IF BLOCK', 'YA RLY', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Invalid input is > 3."']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', None]]], ['ELSE IF BLOCK', None], ['ELSE BLOCK', None], 'OIC'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', None]]]]]]]
+
+------------------------------------------------
+[$]  PRINT
+
+		VISIBLE
+
+		<OPERAND>
+			[['EXPRESSION', ['LITERAL', '"0. Exit"']]]
+
+		<PRINT EXTENSION>
+			[None]
+
+------------------------------------------------
+[$]  OPERAND
+
+		<EXPRESSION>
+			[['LITERAL', '"0. Exit"']]
+
+------------------------------------------------
+[$]  EXPRESSION
+
+		<LITERAL>
+			['"0. Exit"']
+
+------------------------------------------------
+[$]  LITERAL
+
+		"0. Exit"
+
+------------------------------------------------
+[$]  PRINT EXTENSION
+
+		EPSILON
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  STATEMENT
+
+		<PRINT>
+			['VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Choice: "']]], ['PRINT EXTENSION', None]]
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+		<STATEMENT>
+			[['INPUT', 'GIMMEH', 'choice'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['CONDITIONAL STATEMENT', ['EXPRESSION', ['EQUAL', 'BOTH SAEM', ['LITERAL', '1'], 'AN', ['LITERAL', '"1"']]], ['LINE BREAK', '\n', ['LINE BREAK', None]], 'O RLY?', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['IF BLOCK', 'YA RLY', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Enter birth year: "']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['INPUT', 'GIMMEH', 'input'], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['DIFFERENCE', 'DIFF OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '2022']]], 'AN', ['OPERAND', 'input']]]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]]]]]]]]]]]]]]], ['STATEMENT', None]]]]], ['ELSE IF BLOCK', None], ['ELSE BLOCK', 'NO WAI', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Invalid Input!"']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', None]]], 'OIC'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['EXPRESSION', ['NOT EQUAL', 'DIFFRINT', ['MAX', 'BIGGR OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '3']]], 'AN', ['OPERAND', ['EXPRESSION', ['LITERAL', '1']]]], 'AN', ['LITERAL', '3']]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['MAX', 'BIGGR OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '3']]], 'AN', ['OPERAND', ['EXPRESSION', ['LITERAL', '1']]]]]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['CONDITIONAL STATEMENT', ['EXPRESSION', ['IDENTIFIER', 'IT']], ['LINE BREAK', '\n', ['LINE BREAK', None]], 'O RLY?', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['IF BLOCK', 'YA RLY', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Invalid input is > 3."']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', None]]], ['ELSE IF BLOCK', None], ['ELSE BLOCK', None], 'OIC'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', None]]]]]]
+
+------------------------------------------------
+[$]  PRINT
+
+		VISIBLE
+
+		<OPERAND>
+			[['EXPRESSION', ['LITERAL', '"Choice: "']]]
+
+		<PRINT EXTENSION>
+			[None]
+
+------------------------------------------------
+[$]  OPERAND
+
+		<EXPRESSION>
+			[['LITERAL', '"Choice: "']]
+
+------------------------------------------------
+[$]  EXPRESSION
+
+		<LITERAL>
+			['"Choice: "']
+
+------------------------------------------------
+[$]  LITERAL
+
+		"Choice: "
+
+------------------------------------------------
+[$]  PRINT EXTENSION
+
+		EPSILON
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  STATEMENT
+
+		<INPUT>
+			['GIMMEH', 'choice']
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]
+
+		<STATEMENT>
+			[['CONDITIONAL STATEMENT', ['EXPRESSION', ['EQUAL', 'BOTH SAEM', ['LITERAL', '1'], 'AN', ['LITERAL', '"1"']]], ['LINE BREAK', '\n', ['LINE BREAK', None]], 'O RLY?', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['IF BLOCK', 'YA RLY', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Enter birth year: "']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['INPUT', 'GIMMEH', 'input'], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['DIFFERENCE', 'DIFF OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '2022']]], 'AN', ['OPERAND', 'input']]]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]]]]]]]]]]]]]]], ['STATEMENT', None]]]]], ['ELSE IF BLOCK', None], ['ELSE BLOCK', 'NO WAI', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Invalid Input!"']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', None]]], 'OIC'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['EXPRESSION', ['NOT EQUAL', 'DIFFRINT', ['MAX', 'BIGGR OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '3']]], 'AN', ['OPERAND', ['EXPRESSION', ['LITERAL', '1']]]], 'AN', ['LITERAL', '3']]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['MAX', 'BIGGR OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '3']]], 'AN', ['OPERAND', ['EXPRESSION', ['LITERAL', '1']]]]]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['CONDITIONAL STATEMENT', ['EXPRESSION', ['IDENTIFIER', 'IT']], ['LINE BREAK', '\n', ['LINE BREAK', None]], 'O RLY?', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['IF BLOCK', 'YA RLY', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Invalid input is > 3."']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', None]]], ['ELSE IF BLOCK', None], ['ELSE BLOCK', None], 'OIC'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', None]]]]]
+
+------------------------------------------------
+[$]  INPUT
+
+		GIMMEH
+
+		choice
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  STATEMENT
+
+		<CONDITIONAL STATEMENT>
+			[['EXPRESSION', ['EQUAL', 'BOTH SAEM', ['LITERAL', '1'], 'AN', ['LITERAL', '"1"']]], ['LINE BREAK', '\n', ['LINE BREAK', None]], 'O RLY?', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['IF BLOCK', 'YA RLY', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Enter birth year: "']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['INPUT', 'GIMMEH', 'input'], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['DIFFERENCE', 'DIFF OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '2022']]], 'AN', ['OPERAND', 'input']]]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]]]]]]]]]]]]]]], ['STATEMENT', None]]]]], ['ELSE IF BLOCK', None], ['ELSE BLOCK', 'NO WAI', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Invalid Input!"']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', None]]], 'OIC']
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]
+
+		<STATEMENT>
+			[['EXPRESSION', ['NOT EQUAL', 'DIFFRINT', ['MAX', 'BIGGR OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '3']]], 'AN', ['OPERAND', ['EXPRESSION', ['LITERAL', '1']]]], 'AN', ['LITERAL', '3']]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['MAX', 'BIGGR OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '3']]], 'AN', ['OPERAND', ['EXPRESSION', ['LITERAL', '1']]]]]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['CONDITIONAL STATEMENT', ['EXPRESSION', ['IDENTIFIER', 'IT']], ['LINE BREAK', '\n', ['LINE BREAK', None]], 'O RLY?', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['IF BLOCK', 'YA RLY', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Invalid input is > 3."']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', None]]], ['ELSE IF BLOCK', None], ['ELSE BLOCK', None], 'OIC'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', None]]]]
+
+------------------------------------------------
+[$]  CONDITIONAL STATEMENT
+
+		<EXPRESSION>
+			[['EQUAL', 'BOTH SAEM', ['LITERAL', '1'], 'AN', ['LITERAL', '"1"']]]
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+		O RLY?
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+		<IF BLOCK>
+			['YA RLY', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Enter birth year: "']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['INPUT', 'GIMMEH', 'input'], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['DIFFERENCE', 'DIFF OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '2022']]], 'AN', ['OPERAND', 'input']]]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]]]]]]]]]]]]]]], ['STATEMENT', None]]]]]
+
+		<ELSE IF BLOCK>
+			[None]
+
+		<ELSE BLOCK>
+			['NO WAI', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Invalid Input!"']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', None]]]
+
+		OIC
+
+------------------------------------------------
+[$]  EXPRESSION
+
+		<EQUAL>
+			['BOTH SAEM', ['LITERAL', '1'], 'AN', ['LITERAL', '"1"']]
+
+------------------------------------------------
+[$]  EQUAL
+
+		BOTH SAEM
+
+		<LITERAL>
+			['1']
+
+		AN 
+
+		<LITERAL>
+			['"1"']
+
+------------------------------------------------
+[$]  LITERAL
+
+		1  
+
+------------------------------------------------
+[$]  LITERAL
+
+		"1"
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  IF BLOCK
+
+		YA RLY
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+		<STATEMENT>
+			[['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Enter birth year: "']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['INPUT', 'GIMMEH', 'input'], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['DIFFERENCE', 'DIFF OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '2022']]], 'AN', ['OPERAND', 'input']]]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]]]]]]]]]]]]]]], ['STATEMENT', None]]]]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  STATEMENT
+
+		<PRINT>
+			['VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Enter birth year: "']]], ['PRINT EXTENSION', None]]
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+		<STATEMENT>
+			[['INPUT', 'GIMMEH', 'input'], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['DIFFERENCE', 'DIFF OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '2022']]], 'AN', ['OPERAND', 'input']]]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]]]]]]]]]]]]]]], ['STATEMENT', None]]]
+
+------------------------------------------------
+[$]  PRINT
+
+		VISIBLE
+
+		<OPERAND>
+			[['EXPRESSION', ['LITERAL', '"Enter birth year: "']]]
+
+		<PRINT EXTENSION>
+			[None]
+
+------------------------------------------------
+[$]  OPERAND
+
+		<EXPRESSION>
+			[['LITERAL', '"Enter birth year: "']]
+
+------------------------------------------------
+[$]  EXPRESSION
+
+		<LITERAL>
+			['"Enter birth year: "']
+
+------------------------------------------------
+[$]  LITERAL
+
+		"Enter birth year: "
+
+------------------------------------------------
+[$]  PRINT EXTENSION
+
+		EPSILON
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  STATEMENT
+
+		<INPUT>
+			['GIMMEH', 'input']
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+		<STATEMENT>
+			[['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['DIFFERENCE', 'DIFF OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '2022']]], 'AN', ['OPERAND', 'input']]]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]]]]]]]]]]]]]]], ['STATEMENT', None]]
+
+------------------------------------------------
+[$]  INPUT
+
+		GIMMEH
+
+		input
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  STATEMENT
+
+		<PRINT>
+			['VISIBLE', ['OPERAND', ['EXPRESSION', ['DIFFERENCE', 'DIFF OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '2022']]], 'AN', ['OPERAND', 'input']]]], ['PRINT EXTENSION', None]]
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]]]]]]]]]]]]]]]
+
+		<STATEMENT>
+			[None]
+
+------------------------------------------------
+[$]  PRINT
+
+		VISIBLE
+
+		<OPERAND>
+			[['EXPRESSION', ['DIFFERENCE', 'DIFF OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '2022']]], 'AN', ['OPERAND', 'input']]]]
+
+		<PRINT EXTENSION>
+			[None]
+
+------------------------------------------------
+[$]  OPERAND
+
+		<EXPRESSION>
+			[['DIFFERENCE', 'DIFF OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '2022']]], 'AN', ['OPERAND', 'input']]]
+
+------------------------------------------------
+[$]  EXPRESSION
+
+		<DIFFERENCE>
+			['DIFF OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '2022']]], 'AN', ['OPERAND', 'input']]
+
+------------------------------------------------
+[$]  DIFFERENCE
+
+		DIFF OF
+
+		<OPERAND>
+			[['EXPRESSION', ['LITERAL', '2022']]]
+
+		AN 
+
+		<OPERAND>
+			['input']
+
+------------------------------------------------
+[$]  OPERAND
+
+		<EXPRESSION>
+			[['LITERAL', '2022']]
+
+------------------------------------------------
+[$]  EXPRESSION
+
+		<LITERAL>
+			['2022']
+
+------------------------------------------------
+[$]  LITERAL
+
+		2022
+
+------------------------------------------------
+[$]  OPERAND
+
+		input
+
+------------------------------------------------
+[$]  PRINT EXTENSION
+
+		EPSILON
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]]]]]]]]]]]]]]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]]]]]]]]]]]]]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]]]]]]]]]]]]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]]]]]]]]]]]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]]]]]]]]]]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]]]]]]]]]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]]]]]]]]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]]]]]]]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]]]]]]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]]]]]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]]]]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]]]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  STATEMENT
+
+		EPSILON
+
+------------------------------------------------
+[$]  ELSE IF BLOCK
+
+		EPSILON
+
+------------------------------------------------
+[$]  ELSE BLOCK
+
+		NO WAI
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+		<STATEMENT>
+			[['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Invalid Input!"']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', None]]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  STATEMENT
+
+		<PRINT>
+			['VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Invalid Input!"']]], ['PRINT EXTENSION', None]]
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+		<STATEMENT>
+			[None]
+
+------------------------------------------------
+[$]  PRINT
+
+		VISIBLE
+
+		<OPERAND>
+			[['EXPRESSION', ['LITERAL', '"Invalid Input!"']]]
+
+		<PRINT EXTENSION>
+			[None]
+
+------------------------------------------------
+[$]  OPERAND
+
+		<EXPRESSION>
+			[['LITERAL', '"Invalid Input!"']]
+
+------------------------------------------------
+[$]  EXPRESSION
+
+		<LITERAL>
+			['"Invalid Input!"']
+
+------------------------------------------------
+[$]  LITERAL
+
+		"Invalid Input!"
+
+------------------------------------------------
+[$]  PRINT EXTENSION
+
+		EPSILON
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  STATEMENT
+
+		EPSILON
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  STATEMENT
+
+		<EXPRESSION>
+			[['NOT EQUAL', 'DIFFRINT', ['MAX', 'BIGGR OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '3']]], 'AN', ['OPERAND', ['EXPRESSION', ['LITERAL', '1']]]], 'AN', ['LITERAL', '3']]]
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+		<STATEMENT>
+			[['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['MAX', 'BIGGR OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '3']]], 'AN', ['OPERAND', ['EXPRESSION', ['LITERAL', '1']]]]]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', ['CONDITIONAL STATEMENT', ['EXPRESSION', ['IDENTIFIER', 'IT']], ['LINE BREAK', '\n', ['LINE BREAK', None]], 'O RLY?', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['IF BLOCK', 'YA RLY', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Invalid input is > 3."']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', None]]], ['ELSE IF BLOCK', None], ['ELSE BLOCK', None], 'OIC'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', None]]]
+
+------------------------------------------------
+[$]  EXPRESSION
+
+		<NOT EQUAL>
+			['DIFFRINT', ['MAX', 'BIGGR OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '3']]], 'AN', ['OPERAND', ['EXPRESSION', ['LITERAL', '1']]]], 'AN', ['LITERAL', '3']]
+
+------------------------------------------------
+[$]  NOT EQUAL
+
+		DIFFRINT
+
+		<MAX>
+			['BIGGR OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '3']]], 'AN', ['OPERAND', ['EXPRESSION', ['LITERAL', '1']]]]
+
+		AN 
+
+		<LITERAL>
+			['3']
+
+------------------------------------------------
+[$]  MAX
+
+		BIGGR OF
+
+		<OPERAND>
+			[['EXPRESSION', ['LITERAL', '3']]]
+
+		AN 
+
+		<OPERAND>
+			[['EXPRESSION', ['LITERAL', '1']]]
+
+------------------------------------------------
+[$]  OPERAND
+
+		<EXPRESSION>
+			[['LITERAL', '3']]
+
+------------------------------------------------
+[$]  EXPRESSION
+
+		<LITERAL>
+			['3']
+
+------------------------------------------------
+[$]  LITERAL
+
+		3  
+
+------------------------------------------------
+[$]  OPERAND
+
+		<EXPRESSION>
+			[['LITERAL', '1']]
+
+------------------------------------------------
+[$]  EXPRESSION
+
+		<LITERAL>
+			['1']
+
+------------------------------------------------
+[$]  LITERAL
+
+		1  
+
+------------------------------------------------
+[$]  LITERAL
+
+		3  
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  STATEMENT
+
+		<PRINT>
+			['VISIBLE', ['OPERAND', ['EXPRESSION', ['MAX', 'BIGGR OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '3']]], 'AN', ['OPERAND', ['EXPRESSION', ['LITERAL', '1']]]]]], ['PRINT EXTENSION', None]]
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]
+
+		<STATEMENT>
+			[['CONDITIONAL STATEMENT', ['EXPRESSION', ['IDENTIFIER', 'IT']], ['LINE BREAK', '\n', ['LINE BREAK', None]], 'O RLY?', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['IF BLOCK', 'YA RLY', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Invalid input is > 3."']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', None]]], ['ELSE IF BLOCK', None], ['ELSE BLOCK', None], 'OIC'], ['LINE BREAK', '\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]], ['STATEMENT', None]]
+
+------------------------------------------------
+[$]  PRINT
+
+		VISIBLE
+
+		<OPERAND>
+			[['EXPRESSION', ['MAX', 'BIGGR OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '3']]], 'AN', ['OPERAND', ['EXPRESSION', ['LITERAL', '1']]]]]]
+
+		<PRINT EXTENSION>
+			[None]
+
+------------------------------------------------
+[$]  OPERAND
+
+		<EXPRESSION>
+			[['MAX', 'BIGGR OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '3']]], 'AN', ['OPERAND', ['EXPRESSION', ['LITERAL', '1']]]]]
+
+------------------------------------------------
+[$]  EXPRESSION
+
+		<MAX>
+			['BIGGR OF', ['OPERAND', ['EXPRESSION', ['LITERAL', '3']]], 'AN', ['OPERAND', ['EXPRESSION', ['LITERAL', '1']]]]
+
+------------------------------------------------
+[$]  MAX
+
+		BIGGR OF
+
+		<OPERAND>
+			[['EXPRESSION', ['LITERAL', '3']]]
+
+		AN 
+
+		<OPERAND>
+			[['EXPRESSION', ['LITERAL', '1']]]
+
+------------------------------------------------
+[$]  OPERAND
+
+		<EXPRESSION>
+			[['LITERAL', '3']]
+
+------------------------------------------------
+[$]  EXPRESSION
+
+		<LITERAL>
+			['3']
+
+------------------------------------------------
+[$]  LITERAL
+
+		3  
+
+------------------------------------------------
+[$]  OPERAND
+
+		<EXPRESSION>
+			[['LITERAL', '1']]
+
+------------------------------------------------
+[$]  EXPRESSION
+
+		<LITERAL>
+			['1']
+
+------------------------------------------------
+[$]  LITERAL
+
+		1  
+
+------------------------------------------------
+[$]  PRINT EXTENSION
+
+		EPSILON
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  STATEMENT
+
+		<CONDITIONAL STATEMENT>
+			[['EXPRESSION', ['IDENTIFIER', 'IT']], ['LINE BREAK', '\n', ['LINE BREAK', None]], 'O RLY?', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['IF BLOCK', 'YA RLY', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Invalid input is > 3."']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', None]]], ['ELSE IF BLOCK', None], ['ELSE BLOCK', None], 'OIC']
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', '\n', ['LINE BREAK', None]]]
+
+		<STATEMENT>
+			[None]
+
+------------------------------------------------
+[$]  CONDITIONAL STATEMENT
+
+		<EXPRESSION>
+			[['IDENTIFIER', 'IT']]
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+		O RLY?
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+		<IF BLOCK>
+			['YA RLY', ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', ['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Invalid input is > 3."']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', None]]]
+
+		<ELSE IF BLOCK>
+			[None]
+
+		<ELSE BLOCK>
+			[None]
+
+		OIC
+
+------------------------------------------------
+[$]  EXPRESSION
+
+		<IDENTIFIER>
+			['IT']
+
+------------------------------------------------
+[$]  IDENTIFIER
+
+		IT 
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  IF BLOCK
+
+		YA RLY
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+		<STATEMENT>
+			[['PRINT', 'VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Invalid input is > 3."']]], ['PRINT EXTENSION', None]], ['LINE BREAK', '\n', ['LINE BREAK', None]], ['STATEMENT', None]]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  STATEMENT
+
+		<PRINT>
+			['VISIBLE', ['OPERAND', ['EXPRESSION', ['LITERAL', '"Invalid input is > 3."']]], ['PRINT EXTENSION', None]]
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+		<STATEMENT>
+			[None]
+
+------------------------------------------------
+[$]  PRINT
+
+		VISIBLE
+
+		<OPERAND>
+			[['EXPRESSION', ['LITERAL', '"Invalid input is > 3."']]]
+
+		<PRINT EXTENSION>
+			[None]
+
+------------------------------------------------
+[$]  OPERAND
+
+		<EXPRESSION>
+			[['LITERAL', '"Invalid input is > 3."']]
+
+------------------------------------------------
+[$]  EXPRESSION
+
+		<LITERAL>
+			['"Invalid input is > 3."']
+
+------------------------------------------------
+[$]  LITERAL
+
+		"Invalid input is > 3."
+
+------------------------------------------------
+[$]  PRINT EXTENSION
+
+		EPSILON
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  STATEMENT
+
+		EPSILON
+
+------------------------------------------------
+[$]  ELSE IF BLOCK
+
+		EPSILON
+
+------------------------------------------------
+[$]  ELSE BLOCK
+
+		EPSILON
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  STATEMENT
+
+		EPSILON
+
+------------------------------------------------
+[$]  MAIN END
+
+		<LINE BREAK>
+			['\n', ['LINE BREAK', None]]
+
+		<GLOBAL ENVIRONMENT>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		\n 
+
+		<LINE BREAK>
+			[None]
+
+------------------------------------------------
+[$]  LINE BREAK
+
+		EPSILON
+
+------------------------------------------------
+[$]  GLOBAL ENVIRONMENT
+
+		EPSILON
+

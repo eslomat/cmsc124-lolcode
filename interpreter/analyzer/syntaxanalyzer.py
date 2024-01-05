@@ -1,3 +1,11 @@
+"""
+syntax analyzer for a custom programming language
+
+this module defines a syntax analyzer for a custom programming language. it utilizes a recursive descent parser
+to analyze the syntax of the input code and generate a parse tree. the code includes functions for various language
+constructs such as literals, operands, function parameters, function calls, statements, expressions, input/output,
+logical and arithmetic operations, and more.
+"""
 from .debugger import write_on_error
 import numpy
 import tkinter as tk

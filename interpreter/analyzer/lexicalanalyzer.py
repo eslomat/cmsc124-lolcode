@@ -1,3 +1,21 @@
+"""
+LOLCODE Lexical Analyzer
+
+this module defines a lexical analyzer for LOLCODE programs. the analyzer classifies
+each lexeme in the provided array and detects errors such as unrecognized tokens,
+unterminated comments, and unexpected tokens beside multiline comments.
+
+functions:
+- lexical_analyzer(lexemes, cons):
+  analyzes an array of lexemes, classifies each lexeme, deletes comments, and detects errors.
+  returns a list containing the lexeme dictionary and the modified array of lexemes.
+
+usage:
+- import the module and call the lexical_analyzer function with an array of lexemes
+  and a console object for error reporting.
+
+"""
+
 import re
 import tkinter as tk
 from .debugger import write_on_error

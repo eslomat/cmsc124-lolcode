@@ -1,7 +1,37 @@
+"""
+description:
+    this LOLCODE interpreter is designed to execute programs written in the LOLCODE
+    programming language. 
+    
+    this interpreter includes a lexical analyzer, parser, semantic analyzer, and an
+    execution engine to interpret LOLCODE programs.
+
+usage:
+    to use this interpreter, provide a LOLCODE program in the source code, and then
+    execute the script. The program will be analyzed, parsed, and executed.
+
+file Structure:
+    - lexer.py: contains the lexical analyzer functions.
+    - parser.py: contains the parser functions.
+    - interpreter.py: contains the interpreter functions.
+    - debugger.py: contains debugging functions.
+    - main.py: main entry point for executing the LOLCODE interpreter.
+
+implementation details:
+    - lexical analysis: the lexer converts LOLCODE source code into a list of lexemes,
+      where each lexeme is a token with associated information such as its type and value.
+    - syntax parsing: the parser processes the lexemes to construct a parse tree,
+      representing the syntactic structure of the LOLCODE program.
+    - semantic analysis: the semantic analyzer checks for semantic errors and populates
+      the symbol table with variable and function information.
+    - execution engine: the interpreter executes the LOLCODE program based on the parsed
+      tree and symbol table, producing the desired output.
+"""
 from .debugger import write_on_error
 from decimal import Decimal
 import re
 import tkinter as tk
+from tkinter import simpledialog
 
 #__________________________________________________________________________________ IMPLEMENTATION FUNCTIONS
 
@@ -106,7 +136,8 @@ def comparison_yielding(operation, expression):
 
 def execute_gimmeh(parse_tree, lexeme_dictionary):
     if parse_tree[2] in symbol_table:
-        symbol_table[parse_tree[2]] = '"' + input() + '"'
+        user_input = simpledialog.askstring("Input", f"Enter value for {parse_tree[2]}:")
+        symbol_table[parse_tree[2]] = '"' + user_input + '"'
     else:
         error(f"{parse_tree[2]} is not declared")
 

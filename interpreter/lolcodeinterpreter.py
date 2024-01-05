@@ -1,3 +1,30 @@
+"""
+LOLCODE interpreter
+
+this module defines a LOLCODE interpreter that reads source code from a file, tokenizes it, 
+performs lexical analysis, syntax analysis, and semantic analysis, and returns the results.
+
+module dependencies:
+- .analyzer.tokenizer: tokenizer module for the custom LOLCODE programming language.
+- .analyzer.lexicalanalyzer: lexical analyzer module for LOLCODE.
+- .analyzer.syntaxanalyzer: syntax analyzer module for LOLCODE.
+- .analyzer.semanticanalyzer: semantic analyzer module for LOLCODE.
+
+function:
+- `lolcodeinterpreter(path, console)`: reads and interprets LOLCODE source code.
+
+parameters:
+- `path (str)`: the file path of the LOLCODE source code.
+- `console`: the console object for displaying interpreter output.
+
+returns:
+- dict: a dictionary containing the results of the interpretation process, including:
+  - `"lexemes"`: array of lexemes extracted from the source code.
+  - `"lexeme_dictionary"`: dictionary mapping lexemes to their corresponding token types.
+  - `"parse_tree"`: parse tree resulting from syntax analysis.
+  - `"symbol_table"`: symbol table generated during semantic analysis.
+"""
+
 from .analyzer.tokenizer import tokenizer
 from .analyzer.lexicalanalyzer import lexical_analyzer
 from .analyzer.syntaxanalyzer import syntax_analyzer

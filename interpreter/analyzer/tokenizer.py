@@ -1,3 +1,17 @@
+"""
+tokenization for a custom programming language
+
+this module defines a tokenizer for a custom programming language. 
+the tokenizer is designed to recognize various lexeme patterns and tokenize the input code accordingly. 
+the regular expression pattern provided below captures a variety of lexemes including keywords, literals, operators, and newline characters.
+
+module dependencies:
+- re: regular expression module
+
+function:
+- `tokenizer(code)`: Tokenizes the input code using the specified regular expression pattern.
+
+"""
 import re
 
 #__________________________________________________________________________________ PATTERN GUIDE

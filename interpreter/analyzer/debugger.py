@@ -1,3 +1,32 @@
+"""
+LOLCODE debugger module
+
+this module provides functions for debugging LOLCODE programs. it includes functions
+to print lexemes, visualize parse trees, compare parse trees with lexemes, and print
+symbol tables.
+
+functions:
+- write_on_error(lexemes, lexeme_dictionary, parse_tree, symbol_table):
+  writes debugging information to 'debugger.txt' on errors.
+- print_code(lexemes, lexeme_dictionary):
+  prints the code to 'debugger.txt' excluding comments.
+- print_lexemes_array(lexemes, lexeme_dictionary):
+  prints the array-of-lexemes version of the code to 'debugger.txt'.
+- print_lexeme_dictionary(lexeme_dictionary):
+  prints the lexeme dictionary to 'debugger.txt'.
+- print_parse_tree(parse_tree, lexeme_dictionary):
+  prints the parse tree to 'debugger.txt' for drawing.
+- visualize_parse_tree(parse_tree):
+  visualizes the parse tree and writes it to 'debugger.txt'.
+- compare_tree_lexemes(lexemes, lexeme_dictionary, parse_tree):
+  compares terminal nodes of parse tree with lexemes and writes to 'debugger.txt'.
+- print_symbol_table(symbol_table):
+  prints the symbol table to 'debugger.txt'.
+
+usage:
+- Import the module and use the provided functions for debugging LOLCODE programs.
+"""
+
 from anytree import Node, RenderTree
 
 def write_on_error(lexemes, lexeme_dictionary, parse_tree, symbol_table):

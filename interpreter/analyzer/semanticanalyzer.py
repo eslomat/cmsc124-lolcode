@@ -29,7 +29,7 @@ def evaluate_operand(parse_tree, lexeme_dictionary):
 def changeDataType(value, dataType):
     match dataType:
         case "TROOF":
-            if value in ['""', "0"]: return "FAIL"
+            if value in ['""', "0", "FAIL"]: return "FAIL"
             return "WIN"
         case "NUMBR":
             try: return str(int(float(value.replace('"',""))))
@@ -81,7 +81,7 @@ def boolean_yielding(operation, expression):
             result = changeDataType(evaluate_operand(expression[2], lexeme_dictionary_e), "TROOF") and recursive_arity(expression[3], "AND")
             return "WIN" if result else "FAIL"
         case "INFINITE ARITY OR":
-            result = changeDataType(evaluate_operand(expression[2], lexeme_dictionary_e), "TROOF") and recursive_arity(expression[3], "OR")
+            result = changeDataType(evaluate_operand(expression[2], lexeme_dictionary_e), "TROOF") or recursive_arity(expression[3], "OR")
             return "WIN" if result else "FAIL"
         
 def evaluate_boolean(expression, lexeme_dictionary):

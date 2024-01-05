@@ -38,12 +38,19 @@ def changeDataType(value, dataType):
             try: return str(float(value.replace('"',"")))
             except: error(f"{value} cannot be typecasted to NUMBR")
         case "YARN":
-            return value
+            if value.startswith('"') and value.endswith('"'): return value[1:-1]
+            return str(value)   
     return "ERR"
 
-def alteration_yielding(operation, expression):
-    return changeDataType(symbol_table[expression[2]], expression[4])
+def alteration_yielding(operation, exp):
+    match operation:
+        case "CONCATENATION": return evaluate_yarn(exp[2]) + recursive_arity(exp[3], "CONCAT")
+        case "VALUE TYPECAST": return changeDataType(symbol_table[exp[2]], exp[4])
     
+def evaluate_yarn(exp):
+    global lexeme_dictionary_e
+    return changeDataType(evaluate_operand(exp, lexeme_dictionary_e), "YARN")
+
 def typecast_as(parse_tree, lexeme_dictionary):
     varName = parse_tree[1]
     symbol_table[varName] = changeDataType(symbol_table[varName], parse_tree[3])
@@ -91,9 +98,11 @@ def evaluate_boolean(expression):
     return changeDataType(x, "TROOF") == "WIN"
 
 def recursive_arity(exp, connector):
-    if exp[3][1] == None and connector in ["AND", "OR"] : return evaluate_boolean(exp[2])
-    if connector == "AND": return evaluate_boolean(exp[2]) and recursive_arity(exp[3], connector)
+    if len(exp) >=3 and exp[3][1] == None and connector in ["AND", "OR"] : return evaluate_boolean(exp[2])
+    elif len(exp) >= 2 and exp[0] == "CONCATENATION EXTENSION" and exp[1] == None: return ""
+    elif connector == "AND": return evaluate_boolean(exp[2]) and recursive_arity(exp[3], connector)
     elif connector == "OR": return evaluate_boolean(exp[2]) or recursive_arity(exp[3], connector)
+    elif connector == "CONCAT": return evaluate_yarn(exp[2]) + recursive_arity(exp[3], connector)
 
 def comparison_yielding(operation, expression):
     x = expression[2][1]

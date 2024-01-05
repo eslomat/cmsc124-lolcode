@@ -29,9 +29,6 @@ implementation details:
 """
 from .debugger import write_on_error
 from decimal import Decimal
-import re
-import tkinter as tk
-from tkinter import simpledialog
 
 #__________________________________________________________________________________ IMPLEMENTATION FUNCTIONS
 
@@ -39,9 +36,8 @@ def error(message):
     global line
     err = f"\nerror: at line {line}, " + message
     # print(err)
-    console.console_text.insert(tk.END, err)
     write_on_error(lexemes_e, lexeme_dictionary_e, parse_tree_e, symbol_table)
-    # exit()
+    raise ValueError(err)
 
 def exhaustline(parse_tree):
     if parse_tree[1] != None:
@@ -78,6 +74,7 @@ def alteration_yielding(operation, expression):
 def typecast_as(parse_tree, lexeme_dictionary):
     varName = parse_tree[1]
     symbol_table[varName] = changeDataType(symbol_table[varName], parse_tree[3])
+    console.update_ui(lexeme_dictionary_e, symbol_table)
 
 def arithmetic_yielding(operation, expression):
     global lexeme_dictionary_e
@@ -136,8 +133,10 @@ def comparison_yielding(operation, expression):
 
 def execute_gimmeh(parse_tree, lexeme_dictionary):
     if parse_tree[2] in symbol_table:
-        user_input = simpledialog.askstring("Input", f"Enter value for {parse_tree[2]}:")
+        # user_input = simpledialog.askstring("Input", f"Enter value for {parse_tree[2]}:")
+        user_input = console.user_input()
         symbol_table[parse_tree[2]] = '"' + user_input + '"'
+        console.update_ui(lexeme_dictionary_e, symbol_table)
     else:
         error(f"{parse_tree[2]} is not declared")
 
@@ -152,6 +151,7 @@ def execute_function(lexemes, parse_tree, lexeme_dictionary, currline, funcline,
     execute_function_parse_tree(lexemes, parse_tree, lexeme_dictionary, save_symbol_table)
     function_return = save_function_return
     symbol_table = save_symbol_table
+    console.update_ui(lexeme_dictionary_e, symbol_table)
     line = currline
 
 def get_parameters(parse_tree, parameters, variables, lexeme_dictionary):
@@ -184,6 +184,7 @@ def execute_else_if(lexemes, parse_tree, lexeme_dictionary):
 
 def controlflow_conditional(lexemes, parse_tree, lexeme_dictionary):
     symbol_table["IT"] = changeDataType(evaluate_expression(parse_tree[1]), "TROOF")
+    console.update_ui(lexeme_dictionary_e, symbol_table)
     if symbol_table["IT"] == "WIN":
         execute_parse_tree(lexemes, parse_tree[5][3], lexeme_dictionary)
         return 
@@ -202,6 +203,7 @@ def execute_case(lexemes, parse_tree, lexeme_dictionary, case_break):
 
 def controlflow_case(lexemes, parse_tree, lexeme_dictionary):
     symbol_table["IT"] = evaluate_expression(parse_tree[1])
+    console.update_ui(lexeme_dictionary_e, symbol_table)
     global caseloop_return
     case_break = [False]
     save_case_return = caseloop_return
@@ -221,6 +223,7 @@ def controlflow_infloop(lexemes, parse_tree, lexeme_dictionary):
         error(f"'{parse_tree[3]}' is already declared")
     loops.append(parse_tree[3])
     symbol_table[parse_tree[6]] = changeDataType(symbol_table[parse_tree[6]], "NUMBR")
+    console.update_ui(lexeme_dictionary_e, symbol_table)
     save_line = line
     save_case_return = caseloop_return
     caseloop_return = False
@@ -244,6 +247,7 @@ def controlflow_loop(lexemes, parse_tree, lexeme_dictionary):
         error(f"'{parse_tree[6]}' is not declared")
     loops.append(parse_tree[3])
     symbol_table[parse_tree[6]] = changeDataType(symbol_table[parse_tree[6]], "NUMBR")
+    console.update_ui(lexeme_dictionary_e, symbol_table)
     save_line = line
     save_case_return = caseloop_return
     caseloop_return = False
@@ -260,6 +264,7 @@ def controlflow_loop(lexemes, parse_tree, lexeme_dictionary):
 
         if parse_tree[4][1] == "UPPIN": symbol_table[parse_tree[6]] = str(int(symbol_table[parse_tree[6]]) + 1)
         else: symbol_table[parse_tree[6]] =  int(symbol_table[parse_tree[6]]) - 1
+        console.update_ui(lexeme_dictionary_e, symbol_table)
     
     loops.remove(parse_tree[3])
     caseloop_return = save_case_return
@@ -292,6 +297,7 @@ def evaluate_expression_it(parse_tree):
         symbol_table["IT"] =  comparison_yielding(parse_tree[1][0], parse_tree[1])
     if parse_tree[1][0] != "VARIABLE TYPECAST" and parse_tree[1][0] in alteration_expression:
         symbol_table["IT"] =  alteration_yielding(parse_tree[1][0], parse_tree[1])
+    console.update_ui(lexeme_dictionary_e, symbol_table)
 
 def variable_initialization(parse_tree, lexeme_dictionary):
     global symbol_table, line
@@ -306,8 +312,10 @@ def variable_initialization(parse_tree, lexeme_dictionary):
 
     if parse_tree[3] == "ITZ":
         symbol_table[parse_tree[2]] = evaluate_operand(parse_tree[4], lexeme_dictionary)
+        console.update_ui(lexeme_dictionary_e, symbol_table)
     else:
         symbol_table[parse_tree[2]] = "NOOB"
+        console.update_ui(lexeme_dictionary_e, symbol_table)
 
 def function_get_paramext(variables, parse_tree):
     if parse_tree[1] != None:
@@ -336,6 +344,7 @@ def variable_assignment(parse_tree, lexeme_dictionary):
     global symbol_table, arithmetic_expression
     if parse_tree[1] in symbol_table:
         symbol_table[parse_tree[1]] = evaluate_operand(parse_tree[3], lexeme_dictionary)
+        console.update_ui(lexeme_dictionary_e, symbol_table)
     else:
         error(f"'{parse_tree[1]}' is not declared")
 
@@ -355,8 +364,7 @@ def evaluate_visible(parse_tree, lexeme_dictionary):
 def execute_visible(parse_tree, lexeme_dictionary):
     to_print = evaluate_visible(parse_tree, lexeme_dictionary)
     to_print = to_print.replace("\\n", "\n").replace("\\t", "\t")
-    # print(to_print, end="")
-    console.console_text.insert(tk.END, to_print)
+    console.user_print(to_print)
 
 #__________________________________________________________________________________ PARSE TREE TRAVERSAL
 
@@ -485,7 +493,17 @@ alteration_expression = ["VALUE TYPECAST", "CONCATENATION"]
 #__________________________________________________________________________________ SEMANTIC ANALYZER
 
 def semantic_analyzer(lexemes, lexeme_dictionary, parse_tree, cons):
-    global symbol_table, line, lexemes_e, lexeme_dictionary_e, parse_tree_e, console
+    global symbol_table, line, lexemes_e, lexeme_dictionary_e, parse_tree_e, console, function_table, function_return, loops, caseloop_return
+    line = 1
+    symbol_table = {}
+    console = None
+
+    function_table = {}
+    function_return = False
+
+    loops = []
+    caseloop_return = False
+
     lexemes_e = lexemes
     lexeme_dictionary_e = lexeme_dictionary
     parse_tree_e = parse_tree

@@ -9,6 +9,7 @@ HAI
         OMG 4
             VISIBLE 4
         OMG 1
+            1
             WTF?
                 OMG 4
                     VISIBLE 4

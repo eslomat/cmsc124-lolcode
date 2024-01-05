@@ -29,27 +29,58 @@ from .analyzer.tokenizer import tokenizer
 from .analyzer.lexicalanalyzer import lexical_analyzer
 from .analyzer.syntaxanalyzer import syntax_analyzer
 from .analyzer.semanticanalyzer import semantic_analyzer
+from .analyzer.debugger import write_on_error
+import tkinter as tk
 
-def lolcodeinterpreter(path, console):
+def lolcodeinterpreter(code, console):
 
-    # _____________________________________________________________________________ READ CODE
+    # # _____________________________________________________________________________ READ CODE
     
-    try:
-        with open(path, 'r', encoding='utf-8') as file:
-            code = file.read()
-    except FileNotFoundError:
-        print("\nFile not found or could not be opened.\n")
-        exit()
+    # try:
+    #     with open(path, 'r', encoding='utf-8') as file:
+    #         code = file.read()
+    # except FileNotFoundError:
+    #     print("\nFile not found or could not be opened.\n")
+    #     exit()
     
     # _____________________________________________________________________________ TOKENIZE, ANALYZE, & INTERPRET
 
-    print(f"\n-> INTERPRETING '{path}'\n\n")
-    lexemes = tokenizer(code)
-    lexical_analyzer_value = lexical_analyzer(lexemes, console)
-    lexeme_dictionary = lexical_analyzer_value[0]
-    lexemes = lexical_analyzer_value[1]
-    parse_tree = syntax_analyzer(lexemes, lexeme_dictionary, console)
-    symbol_table = semantic_analyzer(lexemes, lexeme_dictionary, parse_tree, console)
+    # print(f"\n-> INTERPRETING '{path}'\n\n")
+    lexeme_dictionary = None
+    lexemes = None
+    parse_tree = None
+    symbol_table = None
+    try:
+        print(f"-> INTERPRETING")
+        lexemes = tokenizer(code)
+        lexical_analyzer_value = lexical_analyzer(lexemes)
+        lexeme_dictionary = lexical_analyzer_value[0]
+        console.update_ui(lexeme_dictionary, {})
+        lexemes = lexical_analyzer_value[1]
+        parse_tree = syntax_analyzer(lexemes, lexeme_dictionary)
+        symbol_table = semantic_analyzer(lexemes, lexeme_dictionary, parse_tree, console)
+        write_on_error(lexemes, lexeme_dictionary, parse_tree, symbol_table)
+        print(f"-> CODE INTERPRETED")
+        # reset the executing_file flag
+        console.executing_file = False
+        # re-enable the "execute/run" button even if an error occurs
+        console.execute_button["state"] = tk.NORMAL
+        console.file_explorer_button["state"] = tk.NORMAL
+        console.can_type = False
+        console.mouse_end()
+    except Exception as e:
+        # handle exceptions that might occur during lolcode interpretation
+        console.user_print(str(e) + "\n")
+            
+        # reset the executing_file flag
+        console.executing_file = False
+        # re-enable the "execute/run" button even if an error occurs
+        console.execute_button["state"] = tk.NORMAL
+        console.file_explorer_button["state"] = tk.NORMAL
+        console.can_type = False
+        console.mouse_end()
+        write_on_error(lexemes, lexeme_dictionary, parse_tree, symbol_table)
+        return
 
     return {"lexemes": lexemes, 
             "lexeme_dictionary": lexeme_dictionary, 

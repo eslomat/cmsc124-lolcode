@@ -120,7 +120,10 @@ def build_tree(node_list, parent=None):
             Node(child, parent=node)
 
 # COMPARES THE TERMINAL NODES OF PARSE THE ARRAY-OF-LEXEMES VERSION OF THE CODE
+ctl = 0
 def compare_tree_lexemes(lexemes, lexeme_dictionary, parse_tree):
+    global ctl
+    ctl = 0
     temp_lexemes = []
     for lexeme in lexemes:
         if lexeme_dictionary[lexeme] != "Comment":
@@ -132,7 +135,6 @@ def compare_tree_lexemes(lexemes, lexeme_dictionary, parse_tree):
     if parse_tree != None:
         compare_tree_lexemes_helper(parse_tree, temp_lexemes)
 
-ctl = 0
 def compare_tree_lexemes_helper(parse_tree, temp_lexemes):
     global ctl
     if not isinstance(parse_tree, str):

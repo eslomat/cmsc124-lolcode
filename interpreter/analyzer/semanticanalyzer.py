@@ -45,7 +45,7 @@ def changeDataType(value, dataType):
 def alteration_yielding(operation, exp):
     match operation:
         case "CONCATENATION": return evaluate_yarn(exp[2]) + recursive_arity(exp[3], "CONCAT")
-        case "VALUE TYPECAST": return changeDataType(symbol_table[exp[2]], exp[4])
+        case "VALUE TYPECAST": return changeDataType(symbol_table[exp[2]], exp[4] if len(exp) >= 5 else exp[3]) 
     
 def evaluate_yarn(exp):
     global lexeme_dictionary_e

@@ -120,7 +120,6 @@ def to_digit(x):
 
 troofs = { "WIN": True, "FAIL": False }
 def boolean_yielding(operation, exp):
-    print(exp)
     global lexeme_dictionary_e
     match operation:
         case "NOT": return "FAIL" if evaluate_boolean(exp[2]) else "WIN"
@@ -172,24 +171,33 @@ def comparison_yielding(operation, expression):
             if get_type(f'{y}') != "Numbr Literal" and get_type(f'{y}') != "Numbar Literal":
                 error(f"operands of comparison statements only works with numbers, found '{y}'")
             ans = float(x) != float(y)
-        case "GREATER OR EQUAL": 
+        case "GREATER OR EQUAL":
+            if expression[2] != expression[5]:
+                error(f"the first and second operands of comparison statements should be the same")
             y = evaluate_operand(expression[7], lexeme_dictionary_e)
             if get_type(f'{y}') != "Numbr Literal" and get_type(f'{y}') != "Numbar Literal":
                 error(f"operands of comparison statements only works with numbers, found '{y}'")
             ans = float(x) >= float(y)
         case "LESS OR EQUAL": 
+            if expression[2] != expression[5]:
+                error(f"the first and second operands of comparison statements should be the same")
             y = evaluate_operand(expression[7], lexeme_dictionary_e)
             if get_type(f'{y}') != "Numbr Literal" and get_type(f'{y}') != "Numbar Literal":
                 error(f"operands of comparison statements only works with numbers, found '{y}'")
             ans = float(x) <= float(y)
         case "GREATER": 
+            if expression[2] != expression[5]:
+                error(f"the first and second operands of comparison statements should be the same")
             y = evaluate_operand(expression[7], lexeme_dictionary_e)
             if get_type(f'{y}') != "Numbr Literal" and get_type(f'{y}') != "Numbar Literal":
+                print(y)
                 error(f"operands of comparison statements only works with numbers, found '{y}'")
             ans = float(x) > float(y)
         case "LESS": 
+            if expression[2] != expression[5]:
+                error(f"the first and second operands of comparison statements should be the same")
             y = evaluate_operand(expression[7], lexeme_dictionary_e)
-            if get_type(f'{y}') != "Numbr Literal" or get_type(f'{y}') != "Numbar Literal":
+            if get_type(f'{y}') != "Numbr Literal" and get_type(f'{y}') != "Numbar Literal":
                 error(f"operands of comparison statements only works with numbers, found '{y}'")
             ans = float(x) < float(y)
     return "WIN" if ans else "FAIL"
@@ -238,44 +246,61 @@ def function_call(lexemes, parse_tree, lexeme_dictionary):
     execute_function(lexemes, func_exec[0][5], lexeme_dictionary, line, func_exec[1], parameters)
 
 def execute_else_if(lexemes, parse_tree, lexeme_dictionary):
+    print(parse_tree)
     if parse_tree[1] != None and changeDataType(evaluate_operand(parse_tree[2], lexeme_dictionary), "TROOF") == "WIN":
+        exhaust_parse_tree(lexemes, parse_tree[3], lexeme_dictionary)
         execute_parse_tree(lexemes, parse_tree[4], lexeme_dictionary)
+        exhaust_parse_tree(lexemes, parse_tree[5], lexeme_dictionary)
         return True
-    
+
     if parse_tree[1] != None and parse_tree[5][1] != None:
+        exhaust_parse_tree(lexemes, parse_tree[3], lexeme_dictionary)
+        exhaust_parse_tree(lexemes, parse_tree[4], lexeme_dictionary)
         return execute_else_if(lexemes, parse_tree[5], lexeme_dictionary)
     else:
         return False
 
 def controlflow_conditional(lexemes, parse_tree, lexeme_dictionary):
+    global line
     symbol_table["IT"] = changeDataType(evaluate_expression(parse_tree[1]), "TROOF")
+    exhaust_parse_tree(lexemes, parse_tree[2], lexeme_dictionary)
+    exhaust_parse_tree(lexemes, parse_tree[4], lexeme_dictionary)
     console.update_ui(lexeme_dictionary_e, symbol_table)
     if symbol_table["IT"] == "WIN":
+        exhaust_parse_tree(lexemes, parse_tree[5][2], lexeme_dictionary)
         execute_parse_tree(lexemes, parse_tree[5][3], lexeme_dictionary)
+        exhaust_parse_tree(lexemes, parse_tree[6], lexeme_dictionary)
+        exhaust_parse_tree(lexemes, parse_tree[7], lexeme_dictionary)
         return 
     else: 
+        exhaust_parse_tree(lexemes, parse_tree[5], lexeme_dictionary)
         if execute_else_if(lexemes, parse_tree[6], lexeme_dictionary): return
     if parse_tree[7][1] != None:
+        exhaust_parse_tree(lexemes, parse_tree[7][2], lexeme_dictionary)
         execute_parse_tree(lexemes, parse_tree[7][3], lexeme_dictionary)
-
 
 def execute_case(lexemes, parse_tree, lexeme_dictionary, case_break):
     case_break[0] = True
     if parse_tree[2][1] == symbol_table["IT"]:
         execute_caseloop_parse_tree(lexemes, parse_tree, lexeme_dictionary)
     else:
+        exhaust_parse_tree(lexemes, parse_tree[4], lexeme_dictionary)
         if len(parse_tree) == 6:
             execute_case(lexemes, parse_tree[5], lexeme_dictionary, case_break)
 
 def controlflow_case(lexemes, parse_tree, lexeme_dictionary):
+    global line
     symbol_table["IT"] = evaluate_expression(parse_tree[1])
+    exhaust_parse_tree(lexemes, parse_tree[2], lexeme_dictionary)
+    exhaust_parse_tree(lexemes, parse_tree[4], lexeme_dictionary)
     console.update_ui(lexeme_dictionary_e, symbol_table)
     global caseloop_return
     case_break = [False]
     save_case_return = caseloop_return
     caseloop_return = False
     execute_case(lexemes, parse_tree[5], lexeme_dictionary, case_break)
-    if parse_tree[4][1] != None:
+    if parse_tree[6][1] != None:
+        exhaust_parse_tree(lexemes, parse_tree[6][2], lexeme_dictionary)
         execute_caseloop_parse_tree(lexemes, parse_tree[6][3], lexeme_dictionary)
     caseloop_return = save_case_return
 
@@ -453,7 +478,6 @@ def execute_function_parse_tree(lexemes, parse_tree, lexeme_dictionary, save_sym
                 if parse_tree[1] == None or parse_tree[1] == "GTFO":
                     save_symbol_table["IT"] = "NOOB"
                 else:
-                    print(parse_tree)
                     save_symbol_table["IT"] = evaluate_operand(parse_tree[3], lexeme_dictionary)
                 function_return = True
             else:
@@ -466,22 +490,23 @@ def execute_function_parse_tree(lexemes, parse_tree, lexeme_dictionary, save_sym
 def execute_caseloop_parse_tree(lexemes, parse_tree, lexeme_dictionary):
     global line, void, caseloop_return 
 
-    if not isinstance(parse_tree, str) and parse_tree != None and not caseloop_return:
-        if parse_tree[1] != None:
-            if parse_tree[0] == "PRINT": execute_visible(parse_tree, lexeme_dictionary)
-            elif parse_tree[0] == "INPUT": execute_gimmeh(parse_tree, lexeme_dictionary)
-            elif parse_tree[0] == "VARIABLE ASSIGNMENT": variable_assignment(parse_tree, lexeme_dictionary)
-            elif parse_tree[0] == "EXPRESSION IT": evaluate_expression_it(parse_tree)
-            elif parse_tree[0] == "VARIABLE TYPECAST": typecast_as(parse_tree, lexeme_dictionary)
-            elif parse_tree[0] == "CONDITIONAL STATEMENT": controlflow_conditional(lexemes, parse_tree, lexeme_dictionary)
-            elif parse_tree[0] == "CASE STATEMENT": controlflow_case(lexemes, parse_tree, lexeme_dictionary)
-            elif parse_tree[0] == "LOOP": controlflow_loop(lexemes, parse_tree, lexeme_dictionary)
-            elif parse_tree[0] == "INFLOOP": controlflow_infloop(lexemes, parse_tree, lexeme_dictionary)
-            elif parse_tree[0] == "FUNCTION CALL": function_call(lexemes, parse_tree, lexeme_dictionary)
-            elif parse_tree[0] == "VOID": caseloop_return = True
-            else:
-                for branch in parse_tree:
-                    execute_caseloop_parse_tree(lexemes, branch, lexeme_dictionary)
+    if not isinstance(parse_tree, str) and parse_tree != None:
+        if not caseloop_return:
+            if parse_tree[1] != None:
+                if parse_tree[0] == "PRINT": execute_visible(parse_tree, lexeme_dictionary)
+                elif parse_tree[0] == "INPUT": execute_gimmeh(parse_tree, lexeme_dictionary)
+                elif parse_tree[0] == "VARIABLE ASSIGNMENT": variable_assignment(parse_tree, lexeme_dictionary)
+                elif parse_tree[0] == "EXPRESSION IT": evaluate_expression_it(parse_tree)
+                elif parse_tree[0] == "VARIABLE TYPECAST": typecast_as(parse_tree, lexeme_dictionary)
+                elif parse_tree[0] == "CONDITIONAL STATEMENT": controlflow_conditional(lexemes, parse_tree, lexeme_dictionary)
+                elif parse_tree[0] == "CASE STATEMENT": controlflow_case(lexemes, parse_tree, lexeme_dictionary)
+                elif parse_tree[0] == "LOOP": controlflow_loop(lexemes, parse_tree, lexeme_dictionary)
+                elif parse_tree[0] == "INFLOOP": controlflow_infloop(lexemes, parse_tree, lexeme_dictionary)
+                elif parse_tree[0] == "FUNCTION CALL": function_call(lexemes, parse_tree, lexeme_dictionary)
+                elif parse_tree[0] == "VOID": caseloop_return = True
+                else:
+                    for branch in parse_tree:
+                        execute_caseloop_parse_tree(lexemes, branch, lexeme_dictionary)
 
     elif parse_tree == "\n":
         line += 1

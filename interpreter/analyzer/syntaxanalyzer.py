@@ -151,6 +151,7 @@ def funcallol():
         a = match("Function Call Keyword", None)
         b = match("Identifier", "identifier")
         c = fcparam()
+        d = match("Infinite Arity End Keyword", "MKAY")
         return ["FUNCTION CALL", a, b, c]
     return ["FUNCTION CALL", None]
 
@@ -623,14 +624,12 @@ def equallol():
             d = match("Maximum Keyword", None)
             e = compop()
             f = match("Operand Connector", "AN")
-            if b != e: error("THEY SHOULD BE EQUAL!") #! FIX THE ERROR MESSAGE
             g = compop()
             return ["GREATER OR EQUAL", a, b, c, d, e, f, g]
         elif lookahead_compare("Minimum Keyword"):
             d = match("Minimum Keyword", None)
             e = compop()
             f = match("Operand Connector", "AN")
-            if b != e: error("THEY SHOULD BE EQUAL!") #! FIX THE ERROR MESSAGE
             g = compop()
             return ["LESS OR EQUAL", a, b, c, d, e, f, g]
         else:
@@ -648,14 +647,12 @@ def notequallol():
             d = match("Maximum Keyword", None)
             e = compop()
             f = match("Operand Connector", "AN")
-            if b != e: error("THEY SHOULD BE EQUAL!") #! FIX THE ERROR MESSAGE
             g = compop()
             return ["LESS", a, b, c, d, e, f, g]
         elif lookahead_compare("Minimum Keyword"):
             d = match("Minimum Keyword", None)
             e = compop()
             f = match("Operand Connector", "AN")
-            if b != e: error("THEY SHOULD BE EQUAL!") #! FIX THE ERROR MESSAGE
             g = compop()
             return ["GREATER", a, b, c, d, e, f, g]
         else:

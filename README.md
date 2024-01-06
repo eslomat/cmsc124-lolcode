@@ -32,7 +32,15 @@ This interpreter provides functionality for reading LOLCODE source code from a f
 ## Dependencies
 
 - [numpy](https://numpy.org/): For array manipulation.
+- [anytree](https://pypi.org/project/anytree/): For constructing and manipulating tree structures.
 - [tkinter](https://docs.python.org/3/library/tkinter.html): For GUI elements in the debugger (if applicable).
+
+To install the required dependencies, run the following commands:
+
+```bash
+pip install numpy
+pip install anytree
+pip install tk
 
 ## Usage
 

@@ -12,13 +12,19 @@ class LOLCODEInterpreterGUI:
     def __init__(self, master):
         self.master = master
         master.title("LOLCODE Interpreter")
+        master.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth(), master.winfo_screenheight()))  # Full Screen
+        master.columnconfigure(0, weight=1)
+        master.columnconfigure(1, weight=1)
+        master.rowconfigure(1, weight=1)
+
         # initialize file_path attribute
         self.file_path = None  
 
         self.executing_file = False
-
+        
         # load the png file
         icon_file = "program-icon.png"
+
         try:
             icon_image = tk.PhotoImage(file=icon_file)
             master.tk.call('wm', 'iconphoto', master._w, icon_image)
@@ -30,54 +36,62 @@ class LOLCODEInterpreterGUI:
         self.file_explorer_label = tk.Label(master, text="File Explorer")
         self.file_explorer_label.grid(row=0, column=0)
         self.file_explorer_button = tk.Button(master, text="Select File", command=self.select_file)
-        self.file_explorer_button.grid(row=1, column=0, pady=10)
+        self.file_explorer_button.grid(row=1, column=0, pady=5)
 
         # horizontal scrollbar
-        xscrollbar = tk.Scrollbar(master, orient=tk.HORIZONTAL)
-        xscrollbar.grid(row=2, column=1, sticky="ew", pady=(0, 40))
+        # xscrollbar = tk.Scrollbar(master, orient=tk.HORIZONTAL)
+        # xscrollbar.grid(row=2, column=1, sticky="ew", pady=(0, 40))
 
         # text editor
         self.text_editor_label = tk.Label(master, text="Text Editor")
         self.text_editor_label.grid(row=0, column=1)
-        self.text_editor = scrolledtext.ScrolledText(master, wrap=tk.NONE, width=40, height=10, padx=30, xscrollcommand=xscrollbar.set)
-        self.text_editor.grid(row=1, column=1, pady=10)
-        xscrollbar.config(command=self.text_editor.xview)
+        # self.text_editor = scrolledtext.ScrolledText(master, wrap=tk.NONE, width=80, height=40, padx=30, xscrollcommand=xscrollbar.set)
+        self.text_editor = scrolledtext.ScrolledText(master, wrap=tk.NONE, width=85, height=50, padx=30)
+        self.text_editor.grid(row=1, column=1, pady=5)
+        #xscrollbar.config(command=self.text_editor.xview)
         self.text_editor.bind('<KeyPress>', self.editor_typed)
         self.text_editor.bind("<Button-1>", self.editor_clicked)
         self.editing = False
 
         # lexemes
         self.tokens_label = tk.Label(master, text="Lexemes")
-        self.tokens_label.grid(row=2, column=0, pady=10)
+        self.tokens_label.grid(row=2, column=0, pady=5)
         # create treeview widget for lexemes
-        self.tokens_tree = ttk.Treeview(master, columns=("Lexeme", "Classification"), show="headings", height=5)
+        self.tokens_tree = ttk.Treeview(master, columns=("Lexeme", "Classification"), show="headings", height=15)
         self.tokens_tree.heading("Lexeme", text="Lexeme")
         self.tokens_tree.heading("Classification", text="Classification")
-        self.tokens_tree.grid(row=3, column=0, pady=10)
+        # Set minwidth to make the width longer
+        self.tokens_tree.column("Lexeme", width=350, anchor="center")
+        self.tokens_tree.column("Classification", width=350, anchor="center")
+        self.tokens_tree.grid(row=3, column=0, pady=5)
 
         # symbol table
         self.symbol_table_label = tk.Label(master, text="Symbol Table")
-        self.symbol_table_label.grid(row=2, column=1, pady=10)
+        self.symbol_table_label.grid(row=2, column=1, pady=5)
         # create treeview widget for symbol table
-        self.symbol_table_tree = ttk.Treeview(master, columns=("Identifier", "Value"), show="headings", height=5)
+        self.symbol_table_tree = ttk.Treeview(master, columns=("Identifier", "Value"), show="headings", height=15)
         self.symbol_table_tree.heading("Identifier", text="Identifier")
         self.symbol_table_tree.heading("Value", text="Value")
-        self.symbol_table_tree.grid(row=3, column=1, pady=10)
+        # Set minwidth to make the width longer
+        self.symbol_table_tree.column("Identifier", width=350, anchor="center")
+        self.symbol_table_tree.column("Value", width=350, anchor="center")
+        self.symbol_table_tree.grid(row=3, column=1, pady=5)
 
         # execute/run button
         self.execute_button = tk.Button(master, text="Execute/Run", command=self.run_code)
-        self.execute_button.grid(row=4, column=0, columnspan=2, pady=10)
+        self.execute_button.grid(row=4, column=0, columnspan=2, pady=5)
 
         # console
         self.console_label = tk.Label(master, text="Console")
-        self.console_label.grid(row=5, column=0, pady=10)
-        self.console_text = scrolledtext.ScrolledText(master, wrap=tk.WORD, width=100, height=10)
-        self.console_text.grid(row=6, column=0, columnspan=2, pady=10)
+        self.console_label.grid(row=5, column=0, columnspan=2, pady=5, sticky="nsew")  # Added columnspan and sticky
+        self.console_text = scrolledtext.ScrolledText(master, wrap=tk.WORD, width=200, height=13)
+        self.console_text.grid(row=6, column=0, columnspan=2, pady=5, sticky="nsew")  # Added columnspan and sticky
         self.console_text.bind('<KeyPress>', self.console_interacted)
         self.console_text.bind("<Button-1>", self.console_interacted)
         self.console_content = ""
         self.entered = False
         self.can_type = False
+
 
     def to_raw_editor(self):
         editor_content = self.text_editor.get("1.0", tk.END)[:-2]

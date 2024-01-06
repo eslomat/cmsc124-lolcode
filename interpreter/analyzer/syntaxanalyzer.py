@@ -101,6 +101,9 @@ def literallol():
     elif lookahead_compare("Troof Literal"):
         d = match("Troof Literal", None)
         return ["LITERAL", d]
+    elif lookahead_compare("Type Literal"):
+        d = match("Type Literal", None)
+        return ["LITERAL", d]
     else:
         return ["LITERAL", None]
 
@@ -317,8 +320,16 @@ def expressionlol(an_operand):
             else:
                 error("O RLY? / WTF?")
 
-    if a == None: return ["EXPRESSION", None]
-    else: return ["EXPRESSION", a]
+    if a == None: 
+        if an_operand:
+            return ["EXPRESSION", None]
+        else:
+            return ["EXPRESSION IT", None]
+    else:
+        if an_operand:
+            return ["EXPRESSION", a]
+        else:
+            return ["EXPRESSION IT", a]
 
 def inputlol():
     if lookahead_compare("Input Keyword"):
@@ -420,17 +431,12 @@ def infarityop():
         if a[1] == None:
             a = None
 
-    if a == None: return ["INFINITE ARITY OPERAND", None]
-    else: return ["INFINITE ARITY OPERAND", a] 
+    if a == None: return ["OPERAND", None]
+    else: return ["OPERAND", a] 
 
 def infarityexpressionlol():
     global parse_index, line
-    a = None
-    if lookahead_compare("Identifier"):
-        if lexemes[parse_index+1] == "\n" or lexemes[parse_index+1] == ",":
-            a = ["IDENTIFIER", match("Identifier", None)]
-    if a == None:
-        a = literallol()        
+    a = literallol()        
     if a[1] == None:
         a = sumlol()
     if a[1] == None:
@@ -578,17 +584,13 @@ def arithmeticExpression():
         return ["ARITHEMETIC EXPRESSION", None]
     return ["ARITHMETIC EXPRESSION", a]
 
-def varident():
+# varident, number, arithmetic expr (Sum,...)
+def compop():     
+    a = None 
     if lookahead_compare("Identifier"):
         a = match("Identifier", None)
-        return ["Identifier", a]
-    return ["Identifier", None]
-
-# varident, number, arithmetic expr (Sum,...)
-def compop():
+        return ["OPERAND", a]
     a = literallol()
-    if a[1] == None:
-        a = varident()
     if a[1] == None:
         a = numberlol()
     if a[1] == None:
@@ -606,7 +608,7 @@ def compop():
     if a[1] == None:
         a = minlol()
     if a[1] != None:
-        return a
+        return ["OPERAND", ["EXPRESSION", a]]
     else: 
         return ["OPERAND", None]
 
@@ -859,7 +861,7 @@ def looplol():
         f = match("Identifier", "identifier")
         g = loopcondlol()
         if g[1] != None:
-            h = operandlol
+            h = operandlol()
             if h[1] == None:
                 error("operand")
         i = linebreaklol()
@@ -910,17 +912,12 @@ def concatoplol():
         if a[1] == None:
             a = None
 
-    if a == None: return ["CONCATENATION OPERAND", None]
-    else: return ["CONCATENATION OPERAND", a]
+    if a == None: return ["OPERAND", None]
+    else: return ["OPERAND", a]
 
 def concatexpressionlol():
     global parse_index, line
-    a = None
-    if lookahead_compare("Identifier"):
-        if lexemes[parse_index+1] == "\n" or lexemes[parse_index+1] == ",":
-            a = ["IDENTIFIER", match("Identifier", None)]
-    if a == None:
-        a = literallol()        
+    a = literallol()        
     if a[1] == None:
         a = sumlol()
     if a[1] == None:

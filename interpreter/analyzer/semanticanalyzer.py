@@ -29,13 +29,13 @@ implementation details:
 """
 from .debugger import write_on_error
 from decimal import Decimal
+import re
 
 #__________________________________________________________________________________ IMPLEMENTATION FUNCTIONS
 
 def error(message):
     global line
     err = f"\nerror: at line {line}, " + message
-    # print(err)
     write_on_error(lexemes_e, lexeme_dictionary_e, parse_tree_e, symbol_table)
     raise ValueError(err)
 
@@ -52,6 +52,18 @@ def evaluate_operand(parse_tree, lexeme_dictionary):
     else: 
         error(f"{parse_tree[1]} is not declared")
 
+def get_type(lexeme):
+    if re.match(r"^-?(0|[1-9][0-9]*)$", lexeme):
+        return "Numbr Literal"
+    elif re.match(r"^-?(|0|[1-9][0-9]*)\.[0-9]+$", lexeme):
+        return "Numbar Literal"
+    elif re.match(r'^".*"$', lexeme):
+        return "Yarn Literal"
+    elif re.match(r"^WIN$|^FAIL$", lexeme):
+        return "Troof Literal"
+    elif re.match(r"^NUMBR$|^NUMBAR$|^TROOF$|^YARN$|^NOOB$", lexeme):
+        return "Type Literal"
+
 # JERICO 
 def changeDataType(value, dataType):
     match dataType:
@@ -60,21 +72,31 @@ def changeDataType(value, dataType):
             return "WIN"
         case "NUMBR":
             try: return str(int(float(value.replace('"',""))))
-            except: error(f"{value} cannot be typecasted to NUMBR")
+            except: error(f"'{value}' cannot be typecasted to NUMBR")
         case "NUMBAR":
             try: return str(float(value.replace('"',"")))
-            except: error(f"{value} cannot be typecasted to NUMBR")
+            except: error(f"'{value}' cannot be typecasted to NUMBR")
         case "YARN":
-            return value
+            if value.startswith('"') and value.endswith('"'): return value[1:-1]
+            return str(value)   
     return "ERR"
 
-def alteration_yielding(operation, expression):
-    return changeDataType(symbol_table[expression[2]], expression[4])
+def alteration_yielding(operation, exp):
+    match operation:
+        case "CONCATENATION": return evaluate_yarn(exp[2]) + recursive_arity(exp[3], "CONCAT")
+        case "VALUE TYPECAST": 
+            if len(exp) == 4:
+                return changeDataType(symbol_table[exp[2]], exp[3])
+            else:
+                return changeDataType(symbol_table[exp[2]], exp[4])
     
+def evaluate_yarn(exp):
+    global lexeme_dictionary_e
+    return changeDataType(evaluate_operand(exp, lexeme_dictionary_e), "YARN")
+
 def typecast_as(parse_tree, lexeme_dictionary):
     varName = parse_tree[1]
     symbol_table[varName] = changeDataType(symbol_table[varName], parse_tree[3])
-    console.update_ui(lexeme_dictionary_e, symbol_table)
 
 def arithmetic_yielding(operation, expression):
     global lexeme_dictionary_e
@@ -85,48 +107,91 @@ def arithmetic_yielding(operation, expression):
         case "DIFFERENCE": ans = x - y
         case "PRODUCT": ans = x * y 
         case "QUOTIENT": ans = x / y
+        case "MODULO": ans = x % y
+        case "MAX": ans = max(x, y)
+        case "MIN": ans = min(x, y)
     return str(ans)
 
 def to_digit(x):
     x = x.replace('"',"")
+    if x in ["WIN","FAIL"]: return 1 if x == "WIN" else 0
     try: return int(x)
     except ValueError: return Decimal(x)
 
 troofs = { "WIN": True, "FAIL": False }
-def boolean_yielding(operation, expression):
+def boolean_yielding(operation, exp):
+    print(exp)
     global lexeme_dictionary_e
     match operation:
-        case "NOT": return "WIN" if evaluate_operand(expression[2], lexeme_dictionary_e) == "FAIL" else "FAIL"
+        case "NOT": return "FAIL" if evaluate_boolean(exp[2]) else "WIN"
         case "AND": 
-            x = evaluate_operand(expression[2], lexeme_dictionary_e)
-            y = evaluate_operand(expression[4], lexeme_dictionary_e)
-            return "WIN" if troofs[x] and troofs[y] else "FAIL"
+            x = evaluate_boolean(exp[2])
+            y = evaluate_boolean(exp[4]) 
+            return "WIN" if (x and y) else "FAIL"
         case "OR":
-            x = evaluate_operand(expression[2], lexeme_dictionary_e)
-            y = evaluate_operand(expression[4], lexeme_dictionary_e)
-            return "WIN" if troofs[x] or troofs[y] else "FAIL"
+            x = evaluate_boolean(exp[2])
+            y = evaluate_boolean(exp[4]) 
+            return "WIN" if (x or y) else "FAIL"
+        case "XOR":    
+            x = evaluate_boolean(exp[2])
+            y = evaluate_boolean(exp[4]) 
+            return "WIN" if (x ^ y) else "FAIL"
         case "INFINITE ARITY AND":
-            result = changeDataType(evaluate_operand(expression[2], lexeme_dictionary_e), "TROOF") and recursive_arity(expression[3], "AND")
+            result = evaluate_boolean(exp[2]) and recursive_arity(exp[3], "AND")
             return "WIN" if result else "FAIL"
         case "INFINITE ARITY OR":
-            result = changeDataType(evaluate_operand(expression[2], lexeme_dictionary_e), "TROOF") or recursive_arity(expression[3], "OR")
+            result = evaluate_boolean(exp[2]) or recursive_arity(exp[3], "OR")
             return "WIN" if result else "FAIL"
+        
+def evaluate_boolean(expression):
+    global lexeme_dictionary_e
+    x = evaluate_operand(expression, lexeme_dictionary_e)
+    if x in ["WIN", "FAIL"]: return x == "WIN"
+    return changeDataType(x, "TROOF") == "WIN"
 
 def recursive_arity(exp, connector):
-    global lexeme_dictionary_e
-    if exp[3][1] == None: return troofs[changeDataType(evaluate_operand(exp[2], lexeme_dictionary_e), "TROOF")]
-    if connector == "AND": return troofs[changeDataType(evaluate_operand(exp[2], lexeme_dictionary_e), "TROOF")] and recursive_arity(exp[3], connector)
-    elif connector == "OR": return troofs[changeDataType(evaluate_operand(exp[2], lexeme_dictionary_e), "TROOF")] or recursive_arity(exp[3], connector)
+    if len(exp) >=3 and exp[3][1] == None and connector in ["AND", "OR"] : return evaluate_boolean(exp[2])
+    elif len(exp) >= 2 and exp[0] == "CONCATENATION EXTENSION" and exp[1] == None: return ""
+    elif connector == "AND": return evaluate_boolean(exp[2]) and recursive_arity(exp[3], connector)
+    elif connector == "OR": return evaluate_boolean(exp[2]) or recursive_arity(exp[3], connector)
+    elif connector == "CONCAT": return evaluate_yarn(exp[2]) + recursive_arity(exp[3], connector)
 
 def comparison_yielding(operation, expression):
-    x = expression[2][1]
+    global lexeme_dictionary_e
+    x = evaluate_operand(expression[2], lexeme_dictionary_e)
+    if get_type(f'{x}') != "Numbr Literal" and get_type(f'{x}') != "Numbar Literal":
+        error(f"operands of comparison statements only works with numbers, found '{x}'")
     match operation:
-        case "EQUAL": ans = x == expression[4][1]
-        case "NOT EQUAL": ans = x != expression[4][1]
-        case "GREATER OR EQUAL": ans = x >= expression[5][1]
-        case "LESS OR EQUAL": ans = x <= expression[5][1]
-        case "GREATER": ans = x > expression[5][1]
-        case "LESS": ans = x < expression[5][1]
+        case "EQUAL": 
+            y = evaluate_operand(expression[4], lexeme_dictionary_e)
+            if get_type(f'{y}') != "Numbr Literal" and get_type(f'{y}') != "Numbar Literal":
+                error(f"operands of comparison statements only works with numbers, found '{y}'")
+            ans = float(x) == float(y)
+        case "NOT EQUAL": 
+            y = evaluate_operand(expression[4], lexeme_dictionary_e)
+            if get_type(f'{y}') != "Numbr Literal" and get_type(f'{y}') != "Numbar Literal":
+                error(f"operands of comparison statements only works with numbers, found '{y}'")
+            ans = float(x) != float(y)
+        case "GREATER OR EQUAL": 
+            y = evaluate_operand(expression[7], lexeme_dictionary_e)
+            if get_type(f'{y}') != "Numbr Literal" and get_type(f'{y}') != "Numbar Literal":
+                error(f"operands of comparison statements only works with numbers, found '{y}'")
+            ans = float(x) >= float(y)
+        case "LESS OR EQUAL": 
+            y = evaluate_operand(expression[7], lexeme_dictionary_e)
+            if get_type(f'{y}') != "Numbr Literal" and get_type(f'{y}') != "Numbar Literal":
+                error(f"operands of comparison statements only works with numbers, found '{y}'")
+            ans = float(x) <= float(y)
+        case "GREATER": 
+            y = evaluate_operand(expression[7], lexeme_dictionary_e)
+            if get_type(f'{y}') != "Numbr Literal" and get_type(f'{y}') != "Numbar Literal":
+                error(f"operands of comparison statements only works with numbers, found '{y}'")
+            ans = float(x) > float(y)
+        case "LESS": 
+            y = evaluate_operand(expression[7], lexeme_dictionary_e)
+            if get_type(f'{y}') != "Numbr Literal" or get_type(f'{y}') != "Numbar Literal":
+                error(f"operands of comparison statements only works with numbers, found '{y}'")
+            ans = float(x) < float(y)
     return "WIN" if ans else "FAIL"
 
 # EIRENE
@@ -173,7 +238,7 @@ def function_call(lexemes, parse_tree, lexeme_dictionary):
     execute_function(lexemes, func_exec[0][5], lexeme_dictionary, line, func_exec[1], parameters)
 
 def execute_else_if(lexemes, parse_tree, lexeme_dictionary):
-    if parse_tree[1] != None and changeDataType(evaluate_expression(parse_tree[2]), "TROOF") == "WIN":
+    if parse_tree[1] != None and changeDataType(evaluate_operand(parse_tree[2], lexeme_dictionary), "TROOF") == "WIN":
         execute_parse_tree(lexemes, parse_tree[4], lexeme_dictionary)
         return True
     
@@ -190,7 +255,8 @@ def controlflow_conditional(lexemes, parse_tree, lexeme_dictionary):
         return 
     else: 
         if execute_else_if(lexemes, parse_tree[6], lexeme_dictionary): return
-    execute_parse_tree(lexemes, parse_tree[7][3], lexeme_dictionary)
+    if parse_tree[7][1] != None:
+        execute_parse_tree(lexemes, parse_tree[7][3], lexeme_dictionary)
 
 
 def execute_case(lexemes, parse_tree, lexeme_dictionary, case_break):
@@ -256,14 +322,14 @@ def controlflow_loop(lexemes, parse_tree, lexeme_dictionary):
         exhaust_parse_tree(lexemes, parse_tree[9], lexeme_dictionary)
         
         if parse_tree[7][1] == "TIL":
-            if evaluate_expression(parse_tree[8]) == "WIN": break
+            if evaluate_operand(parse_tree[8], lexeme_dictionary) == "WIN": break
         else:
-            if evaluate_expression(parse_tree[8]) == "FAIL": break
+            if evaluate_operand(parse_tree[8], lexeme_dictionary) == "FAIL": break
         execute_caseloop_parse_tree(lexemes, parse_tree[10], lexeme_dictionary)
         if caseloop_return: break
 
         if parse_tree[4][1] == "UPPIN": symbol_table[parse_tree[6]] = str(int(symbol_table[parse_tree[6]]) + 1)
-        else: symbol_table[parse_tree[6]] =  int(symbol_table[parse_tree[6]]) - 1
+        else: symbol_table[parse_tree[6]] =  str(int(symbol_table[parse_tree[6]]) - 1)
         console.update_ui(lexeme_dictionary_e, symbol_table)
     
     loops.remove(parse_tree[3])
@@ -376,7 +442,7 @@ def execute_function_parse_tree(lexemes, parse_tree, lexeme_dictionary, save_sym
             if parse_tree[0] == "PRINT": execute_visible(parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "INPUT": execute_gimmeh(parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "VARIABLE ASSIGNMENT": variable_assignment(parse_tree, lexeme_dictionary)
-            elif parse_tree[0] == "EXPRESSION": evaluate_expression_it(parse_tree)
+            elif parse_tree[0] == "EXPRESSION IT": evaluate_expression_it(parse_tree)
             elif parse_tree[0] == "VARIABLE TYPECAST": typecast_as(parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "CONDITIONAL STATEMENT": controlflow_conditional(lexemes, parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "CASE STATEMENT": controlflow_case(lexemes, parse_tree, lexeme_dictionary)
@@ -387,7 +453,8 @@ def execute_function_parse_tree(lexemes, parse_tree, lexeme_dictionary, save_sym
                 if parse_tree[1] == None or parse_tree[1] == "GTFO":
                     save_symbol_table["IT"] = "NOOB"
                 else:
-                    save_symbol_table["IT"] = evaluate_expression(parse_tree[3])
+                    print(parse_tree)
+                    save_symbol_table["IT"] = evaluate_operand(parse_tree[3], lexeme_dictionary)
                 function_return = True
             else:
                 for branch in parse_tree:
@@ -404,7 +471,7 @@ def execute_caseloop_parse_tree(lexemes, parse_tree, lexeme_dictionary):
             if parse_tree[0] == "PRINT": execute_visible(parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "INPUT": execute_gimmeh(parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "VARIABLE ASSIGNMENT": variable_assignment(parse_tree, lexeme_dictionary)
-            elif parse_tree[0] == "EXPRESSION": evaluate_expression_it(parse_tree)
+            elif parse_tree[0] == "EXPRESSION IT": evaluate_expression_it(parse_tree)
             elif parse_tree[0] == "VARIABLE TYPECAST": typecast_as(parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "CONDITIONAL STATEMENT": controlflow_conditional(lexemes, parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "CASE STATEMENT": controlflow_case(lexemes, parse_tree, lexeme_dictionary)
@@ -436,7 +503,7 @@ def execute_parse_tree(lexemes, parse_tree, lexeme_dictionary):
             if parse_tree[0] == "PRINT": execute_visible(parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "INPUT": execute_gimmeh(parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "VARIABLE ASSIGNMENT": variable_assignment(parse_tree, lexeme_dictionary)
-            elif parse_tree[0] == "EXPRESSION": evaluate_expression_it(parse_tree)
+            elif parse_tree[0] == "EXPRESSION IT": evaluate_expression_it(parse_tree)
             elif parse_tree[0] == "VARIABLE TYPECAST": typecast_as(parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "CONDITIONAL STATEMENT": controlflow_conditional(lexemes, parse_tree, lexeme_dictionary)
             elif parse_tree[0] == "CASE STATEMENT": controlflow_case(lexemes, parse_tree, lexeme_dictionary)

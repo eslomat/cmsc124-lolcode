@@ -1,4 +1,5 @@
 HOW IZ I addNum YR x AN YR y
+    VISIBLE x + " + " + y + " = " !
     FOUND YR SUM OF x AN y
 IF U SAY SO
 
@@ -26,6 +27,7 @@ HAI
     I IZ addNum YR num1 AN YR num2
     VISIBLE IT
 
+    VISIBLE "what's your name? " !
     GIMMEH name
     I IZ printName YR name
     VISIBLE IT

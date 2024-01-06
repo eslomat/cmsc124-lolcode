@@ -6,6 +6,7 @@ HAI
 	
 	VISIBLE "Gimmeh a number: "
 	GIMMEH num1
+	num1 R MAEK num1 A NUMBR
 
 	num2 R 0
 

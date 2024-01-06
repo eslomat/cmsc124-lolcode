@@ -33,14 +33,14 @@ def changeDataType(value, dataType):
             return "WIN"
         case "NUMBR":
             try: return str(int(float(value.replace('"',""))))
-            except: error(f"{value} cannot be typecasted to NUMBR")
+            except: pass
         case "NUMBAR":
             try: return str(float(value.replace('"',"")))
-            except: error(f"{value} cannot be typecasted to NUMBR")
+            except: pass
         case "YARN":
             if value.startswith('"') and value.endswith('"'): return value[1:-1]
             return str(value)   
-    return "ERR"
+    return f"Cannot convert {value} to a {dataType}"
 
 def alteration_yielding(operation, exp):
     match operation:

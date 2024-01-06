@@ -24,15 +24,15 @@ HAI
     VISIBLE "num2: " !
     GIMMEH num2
 
-    I IZ addNum YR num1 AN YR num2
+    I IZ addNum YR num1 AN YR num2 MKAY
     VISIBLE IT
 
     VISIBLE "what's your name? " !
     GIMMEH name
-    I IZ printName YR name
+    I IZ printName YR name MKAY
     VISIBLE IT
 
-    I IZ printNum YR SUM OF num1 AN 2
+    I IZ printNum YR SUM OF num1 AN 2 MKAY
     VISIBLE IT
 
 KTHXBYE

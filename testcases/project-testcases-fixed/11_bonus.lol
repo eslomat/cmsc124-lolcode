@@ -6,19 +6,19 @@ HAI
         I HAS A dump
     BUHBYE
 
-    I IZ proceed YR NOOB
+    I IZ proceed YR NOOB MKAY
     
     VISIBLE "\n\n\n\n\n\n\n\n\n\n\n\n-------------------------------------------------- SOFT LINE / COMMAND BREAKS"
 
     VISIBLE "Hello ", VISIBLE "World!"
 
-    I IZ proceed YR NOOB
+    I IZ proceed YR NOOB MKAY
 
     VISIBLE "\n\n\n\n\n\n\n\n\n\n\n\n-------------------------------------------------- SPECIAL CHARACTERS IN YARNS/STRINGS"
     
     VISIBLE "(:>, :)"
 
-    I IZ proceed YR NOOB
+    I IZ proceed YR NOOB MKAY
 
     VISIBLE "\n\n\n\n\n\n\n\n\n\n\n\n-------------------------------------------------- LOOP NESTING"
 
@@ -34,6 +34,8 @@ HAI
         start2 R 0
 	IM OUTTA YR asc1
 
+    I IZ proceed YR NOOB MKAY
+
     VISIBLE "\n\n\n\n\n\n\n\n\n\n\n\n-------------------------------------------------- MEBBE / ELSE IF CLAUSES"
 
     FAIL
@@ -44,6 +46,8 @@ HAI
             VISIBLE "MEBBE WAS ALSO PRESENTED ON TEST CAST 7"
     OIC
 
+    I IZ proceed YR NOOB MKAY
+
     VISIBLE "\n\n\n\n\n\n\n\n\n\n\n\n-------------------------------------------------- SUPPRESS NEW LINE (!)"
 
     VISIBLE "1"!
@@ -52,7 +56,7 @@ HAI
     VISIBLE "4"!
     VISIBLE "5"!
     
-    I IZ proceed YR NOOB
+    I IZ proceed YR NOOB MKAY
 
     VISIBLE "\n\n\n\n\n\n\n\n\n\n\n\n-------------------------------------------------- SWITCH NESTING / IF-ELSE NESTING / DIFFERENT CONTROL FLOW NESTING"
 
@@ -93,7 +97,7 @@ HAI
             OIC                      
     OIC
 
-    I IZ proceed YR NOOB
+    I IZ proceed YR NOOB MKAY
 
     VISIBLE "\n\n\n\n\nDONE! :>\n\n\n"
 

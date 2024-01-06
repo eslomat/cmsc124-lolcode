@@ -1,1 +1,5 @@
-VISIBLE variable 
+HAI
+    WAZZUP
+    BUHBYE
+    VISIBLE num
+KTHXBYE

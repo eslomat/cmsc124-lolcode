@@ -13,7 +13,7 @@ HAI
     GIMMEH name                                                                     BTW (3) -- INPUT
     VISIBLE "\n.\n.\n.\n\nHello " + name + "!"
 
-    I IZ twicetwice YR SUM OF number AN number AN YR SUM OF number AN number        BTW (6) -- FUNCTION CALL, ARITHMETIC OPERATION
+    I IZ twicetwice YR SUM OF number AN number AN YR SUM OF number AN number MKAY   BTW (6) -- FUNCTION CALL, ARITHMETIC OPERATION
     
     number R IT                                                                     BTW (5) -- VARIABLE ASSIGNMENT
     VISIBLE number                                      

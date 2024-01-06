@@ -27,12 +27,12 @@ HAI
     VISIBLE "Enter your name: " !
     GIMMEH name
     VISIBLE "\nSign ito na mag-ccode ka na, " + name + ".\n"
-    I IZ void
-    I IZ plusparam2 YR SUM OF 1 AN 1 AN YR SUM OF 2 AN 2
+    I IZ void MKAY
+    I IZ plusparam2 YR SUM OF 1 AN 1 AN YR SUM OF 2 AN 2 MKAY
 
     BTW --------------------------------------------------------------------------- NEEDS TO BE FIXED
 
-    I IZ birthdaymo YR SMOOSH "CMSC 124"
+    I IZ birthdaymo YR SMOOSH "CMSC 124" MKAY
 
     name R 1
     VISIBLE name 

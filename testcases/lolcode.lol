@@ -19,6 +19,7 @@ HAI                                                                          BTW
         I HAS A var1 ITZ 12                                                  BTW                    Initialization: Literal
         I HAS A thing2 ITZ thing                                             BTW                    Initialization: Variable
         I HAS A thing3 ITZ SUM OF 5 AN 4                                     BTW                    Initialization: <expression> (Operation)
+        I HAS A number
     BUHBYE                                                                   BTW                    Variable Declaration End
 
     GIMMEH thing                                                             BTW <input>
@@ -49,7 +50,7 @@ HAI                                                                          BTW
     BOTH SAEM 1.24 AN BIGGR OF 1.24 AN 1                                     BTW <greatqual>        x >= y
     BOTH SAEM 1 AN SMALLR OF 1 AN 1                                          BTW <lessequal>        x <= y
     DIFFRINT 1 AN SMALLR OF 1 AN 1                                           BTW <less>             x < y
-    DIFFRINT 1 AN BIGGR OF 1 AN 1                                            BTW <great>            x > y
+    DIFFRINT 10 AN BIGGR OF 10 AN 20                                         BTW <great>            x > y
 
     MAEK var1 A NUMBAR                                                       BTW <typecastit>       Result to   IT
     var1 IS NOW A NUMBAR                                                     BTW <typecastis>       Through     IS NOW A   
@@ -59,14 +60,23 @@ HAI                                                                          BTW
     thing R number                                                           BTW                    <variable> R <variable>
     thing R SUM OF 1 AN 123                                                  BTW                    <variable> R <expression>
     thing R BOTH OF WIN AN WIN                                               BTW                    <variable> R <expression>
-OBTW
+
+    WIN
     O RLY?                                                                   BTW <ifelse>           Flow-Control Start (uses value of IT)
         YA RLY                                                               BTW <if>               If
             VISIBLE "YES"                                                    BTW                    Statements
+            VISIBLE "YES"
+            VISIBLE "YES"
+            VISIBLE "YES", VISIBLE "YES"
         NO WAI                                                               BTW <else>             Else
             VISIBLE "NO"                                                     BTW                    Statements
+            VISIBLE "NO"
+            VISIBLE "NO"
+            VISIBLE "NO"
+            VISIBLE "NO"
     OIC                                                                      BTW                    Flow-Control End
     
+    1
     WTF?                                                                     BTW <case>             Case (uses value of IT)
         OMG 1                                                                BTW <acase>            A Particular Case
             VISIBLE 1                                                        BTW                    Statements
@@ -76,7 +86,6 @@ OBTW
             VISIBLE "NAH"                                                    BTW                    Statements
     OIC                                                                      BTW                    Case End
 
-    I HAS A temp ITZ 2                                                       BTW                    for(temp=2; UNTIL temp == 10; temp++)
     IM IN YR print_10 UPPIN YR temp TIL BOTH SAEM temp AN 10                 BTW <loop>             Start of A Till Loop
         VISIBLE temp                                                         BTW                    Statements      
     IM OUTTA YR print_10                                                     BTW                    End of A Loop
@@ -86,7 +95,7 @@ OBTW
         VISIBLE temp                                                         BTW                    Statements                           
     IM OUTTA YR print_10                                                     BTW                    End of A Loop
 
-    I IZ plusparam2 YR SUM OF 1 AN 1 AN YR SUM OF 1 AN 1                     BTW <funccall>         Function Call: 3 Parameters
+    I IZ plusparam2 YR SUM OF 1 AN 1 AN YR SUM OF 1 AN 1 MKAY                BTW <funccall>         Function Call: 3 Parameters
     I IZ yayyparam0 MKAY                                                     BTW                    Function Call: 0 Parameter
-TLDR
+
 KTHXBYE                                                                      BTW                    Program End

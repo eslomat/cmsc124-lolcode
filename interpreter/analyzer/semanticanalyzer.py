@@ -70,10 +70,11 @@ def arithmetic_yielding(operation, expression):
     return str(ans)
 
 def to_digit(x):
-    x = x.replace('"',"")
     if x in ["WIN","FAIL"]: return 1 if x == "WIN" else 0
     try: return int(x)
-    except ValueError: return Decimal(x)
+    except ValueError: 
+        try: return Decimal(x)
+        except: error(f'Cannot convert {x} to NUMBR')
 
 troofs = { "WIN": True, "FAIL": False }
 def boolean_yielding(operation, exp):

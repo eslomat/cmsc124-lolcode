@@ -63,45 +63,66 @@ def get_type(lexeme):
         return "Troof Literal"
     elif re.match(r"^NUMBR$|^NUMBAR$|^TROOF$|^YARN$|^NOOB$", lexeme):
         return "Type Literal"
+    
+def count_decimal_places(number):
+    decimal_places = 0
+    str_number = str(number)
+    if '.' in str_number:
+        decimal_places = len(str_number) - str_number.index('.') - 1
+    return decimal_places
 
 # JERICO 
 def changeDataType(value, dataType):
     match dataType:
         case "TROOF":
-            if value in ['""', "0", "FAIL"]: return "FAIL"
+            if get_type(value) == "Numbr Literal" or get_type(value) == "Numbar Literal": value = float(value)
+            if value in ['""', "FAIL", "NOOB"]: return "FAIL"
+            if value == 0: return "FAIL"
             return "WIN"
         case "NUMBR":
-            try: return str(int(float(value.replace('"',""))))
-            except: error(f"'{value}' cannot be typecasted to NUMBR")
+            if get_type(value) == "Yarn Literal": value = value[1:-1]
+            if value == "NOOB" or value == "FAIL": value = 0
+            if value == "WIN": value = 1
+            try: return str(int(float(value)))
+            except: pass
         case "NUMBAR":
-            try: return str(float(value.replace('"',"")))
-            except: error(f"'{value}' cannot be typecasted to NUMBR")
+            if get_type(value) == "Yarn Literal": value = value[1:-1]
+            if value == "NOOB" or value == "FAIL": value = 0
+            if value == "WIN": value = 1
+            try: return str(float(value))
+            except: pass
         case "YARN":
-            if value.startswith('"') and value.endswith('"'): return value[1:-1]
-            return str(value)   
-    return "ERR"
+            if value.startswith('"') and value.endswith('"'): return value
+            if value == "NOOB": return '""'
+            if get_type(value) == "Numbar Literal" and count_decimal_places(value) > 2: return "{:.{prec}f}".format(round(float(value), 2), prec=2)
+            return f'"{str(value)}"'   
+    if isinstance(value, str): value = f'"{value}"'
+    return error(f"cannot convert {value} to a {dataType}")
 
 def alteration_yielding(operation, exp):
     match operation:
-        case "CONCATENATION": return evaluate_yarn(exp[2]) + recursive_arity(exp[3], "CONCAT")
-        case "VALUE TYPECAST": 
-            if len(exp) == 4:
-                return changeDataType(symbol_table[exp[2]], exp[3])
-            else:
-                return changeDataType(symbol_table[exp[2]], exp[4])
+        case "CONCATENATION": 
+            return f'"{evaluate_yarn(exp[2]) + recursive_arity(exp[3], "CONCAT")}"'
+        case "VALUE TYPECAST":
+            if exp[2] not in symbol_table: error(f"{exp[2]} is not declared")
+            else: return changeDataType(symbol_table[exp[2]], exp[4] if len(exp) >= 5 else exp[3]) 
     
 def evaluate_yarn(exp):
     global lexeme_dictionary_e
-    return changeDataType(evaluate_operand(exp, lexeme_dictionary_e), "YARN")
+    if evaluate_operand(exp, lexeme_dictionary_e) == "NOOB": error(f'cannot implicitly typecast NOOB to YARN')
+    return changeDataType(evaluate_operand(exp, lexeme_dictionary_e), "YARN")[1:-1]
 
 def typecast_as(parse_tree, lexeme_dictionary):
     varName = parse_tree[1]
     symbol_table[varName] = changeDataType(symbol_table[varName], parse_tree[3])
+    console.update_ui(lexeme_dictionary_e, symbol_table)
 
 def arithmetic_yielding(operation, expression):
     global lexeme_dictionary_e
     x = to_digit(evaluate_operand(expression[2], lexeme_dictionary_e))
     y = to_digit(evaluate_operand(expression[4], lexeme_dictionary_e))
+    if count_decimal_places(str(x)) == 0 and count_decimal_places(str(y)) == 0: ansnumbr= True
+    else: ansnumbr = False
     match operation:
         case "SUM": ans = x + y
         case "DIFFERENCE": ans = x - y
@@ -110,13 +131,21 @@ def arithmetic_yielding(operation, expression):
         case "MODULO": ans = x % y
         case "MAX": ans = max(x, y)
         case "MIN": ans = min(x, y)
-    return str(ans)
+
+    if ansnumbr: return str(int(ans))
+    return str(float(ans))
 
 def to_digit(x):
-    x = x.replace('"',"")
+    if x == "NOOB": error(f'cannot implicitly typecast {x} to NUMBR/NUMBAR')
     if x in ["WIN","FAIL"]: return 1 if x == "WIN" else 0
+    if get_type(x) == "Yarn Literal":
+        x = x[1:-1]
     try: return int(x)
-    except ValueError: return Decimal(x)
+    except ValueError: 
+        try: return Decimal(x)
+        except:
+            if isinstance(x, str): x = f'"{x}"'
+            error(f'cannot convert {x} to NUMBR/NUMBAR')
 
 troofs = { "WIN": True, "FAIL": False }
 def boolean_yielding(operation, exp):
@@ -159,46 +188,45 @@ def comparison_yielding(operation, expression):
     global lexeme_dictionary_e
     x = evaluate_operand(expression[2], lexeme_dictionary_e)
     if get_type(f'{x}') != "Numbr Literal" and get_type(f'{x}') != "Numbar Literal":
-        error(f"operands of comparison statements only works with numbers, found '{x}'")
+        error(f"operands of comparison statements only work with NUMBR/NUMBAR, found {x}")
     match operation:
         case "EQUAL": 
             y = evaluate_operand(expression[4], lexeme_dictionary_e)
             if get_type(f'{y}') != "Numbr Literal" and get_type(f'{y}') != "Numbar Literal":
-                error(f"operands of comparison statements only works with numbers, found '{y}'")
+                error(f"operands of comparison statements only work with NUMBR/NUMBAR, found {y}")
             ans = float(x) == float(y)
         case "NOT EQUAL": 
             y = evaluate_operand(expression[4], lexeme_dictionary_e)
             if get_type(f'{y}') != "Numbr Literal" and get_type(f'{y}') != "Numbar Literal":
-                error(f"operands of comparison statements only works with numbers, found '{y}'")
+                error(f"operands of comparison statements only works with NUMBR/NUMBAR, found {y}")
             ans = float(x) != float(y)
         case "GREATER OR EQUAL":
             if expression[2] != expression[5]:
                 error(f"the first and second operands of comparison statements should be the same")
             y = evaluate_operand(expression[7], lexeme_dictionary_e)
             if get_type(f'{y}') != "Numbr Literal" and get_type(f'{y}') != "Numbar Literal":
-                error(f"operands of comparison statements only works with numbers, found '{y}'")
+                error(f"operands of comparison statements only work with NUMBR/NUMBAR, found {y}")
             ans = float(x) >= float(y)
         case "LESS OR EQUAL": 
             if expression[2] != expression[5]:
                 error(f"the first and second operands of comparison statements should be the same")
             y = evaluate_operand(expression[7], lexeme_dictionary_e)
             if get_type(f'{y}') != "Numbr Literal" and get_type(f'{y}') != "Numbar Literal":
-                error(f"operands of comparison statements only works with numbers, found '{y}'")
+                error(f"operands of comparison statements only work with NUMBR/NUMBAR, found {y}")
             ans = float(x) <= float(y)
         case "GREATER": 
             if expression[2] != expression[5]:
                 error(f"the first and second operands of comparison statements should be the same")
             y = evaluate_operand(expression[7], lexeme_dictionary_e)
             if get_type(f'{y}') != "Numbr Literal" and get_type(f'{y}') != "Numbar Literal":
-                print(y)
-                error(f"operands of comparison statements only works with numbers, found '{y}'")
+                error(f"operands of comparison statements only work with NUMBR/NUMBAR, found {y}")
             ans = float(x) > float(y)
         case "LESS": 
             if expression[2] != expression[5]:
                 error(f"the first and second operands of comparison statements should be the same")
             y = evaluate_operand(expression[7], lexeme_dictionary_e)
             if get_type(f'{y}') != "Numbr Literal" and get_type(f'{y}') != "Numbar Literal":
-                error(f"operands of comparison statements only works with numbers, found '{y}'")
+                error(f"operands of comparison statements only work with NUMBR/NUMBAR, found {y}")
             ans = float(x) < float(y)
     return "WIN" if ans else "FAIL"
 
@@ -218,6 +246,7 @@ def execute_function(lexemes, parse_tree, lexeme_dictionary, currline, funcline,
     save_symbol_table = symbol_table.copy()
     symbol_table = variables
     symbol_table["IT"] = save_symbol_table["IT"]
+    console.update_ui(lexeme_dictionary_e, symbol_table)
     line = funcline
     save_function_return = function_return
     function_return = False
@@ -246,7 +275,6 @@ def function_call(lexemes, parse_tree, lexeme_dictionary):
     execute_function(lexemes, func_exec[0][5], lexeme_dictionary, line, func_exec[1], parameters)
 
 def execute_else_if(lexemes, parse_tree, lexeme_dictionary):
-    print(parse_tree)
     if parse_tree[1] != None and changeDataType(evaluate_operand(parse_tree[2], lexeme_dictionary), "TROOF") == "WIN":
         exhaust_parse_tree(lexemes, parse_tree[3], lexeme_dictionary)
         execute_parse_tree(lexemes, parse_tree[4], lexeme_dictionary)
@@ -263,6 +291,7 @@ def execute_else_if(lexemes, parse_tree, lexeme_dictionary):
 def controlflow_conditional(lexemes, parse_tree, lexeme_dictionary):
     global line
     symbol_table["IT"] = changeDataType(evaluate_expression(parse_tree[1]), "TROOF")
+    console.update_ui(lexeme_dictionary_e, symbol_table)
     exhaust_parse_tree(lexemes, parse_tree[2], lexeme_dictionary)
     exhaust_parse_tree(lexemes, parse_tree[4], lexeme_dictionary)
     console.update_ui(lexeme_dictionary_e, symbol_table)
@@ -284,6 +313,7 @@ def execute_case(lexemes, parse_tree, lexeme_dictionary, case_break):
     if parse_tree[2][1] == symbol_table["IT"]:
         execute_caseloop_parse_tree(lexemes, parse_tree, lexeme_dictionary)
     else:
+        exhaust_parse_tree(lexemes, parse_tree[3], lexeme_dictionary)
         exhaust_parse_tree(lexemes, parse_tree[4], lexeme_dictionary)
         if len(parse_tree) == 6:
             execute_case(lexemes, parse_tree[5], lexeme_dictionary, case_break)
@@ -291,6 +321,7 @@ def execute_case(lexemes, parse_tree, lexeme_dictionary, case_break):
 def controlflow_case(lexemes, parse_tree, lexeme_dictionary):
     global line
     symbol_table["IT"] = evaluate_expression(parse_tree[1])
+    console.update_ui(lexeme_dictionary_e, symbol_table)
     exhaust_parse_tree(lexemes, parse_tree[2], lexeme_dictionary)
     exhaust_parse_tree(lexemes, parse_tree[4], lexeme_dictionary)
     console.update_ui(lexeme_dictionary_e, symbol_table)
@@ -323,6 +354,10 @@ def controlflow_infloop(lexemes, parse_tree, lexeme_dictionary):
         exhaust_parse_tree(lexemes, parse_tree[7], lexeme_dictionary)
         execute_caseloop_parse_tree(lexemes, parse_tree[8], lexeme_dictionary)
         if caseloop_return: break
+        if parse_tree[4][1] == "UPPIN": symbol_table[parse_tree[6]] = str(int(symbol_table[parse_tree[6]]) + 1)
+        else: symbol_table[parse_tree[6]] =  str(int(symbol_table[parse_tree[6]]) - 1)
+        console.update_ui(lexeme_dictionary_e, symbol_table)
+        
     loops.remove(parse_tree[3])
     caseloop_return = save_case_return
     line = save_line
@@ -604,6 +639,7 @@ def semantic_analyzer(lexemes, lexeme_dictionary, parse_tree, cons):
     symbol_table["IT"] = "NOOB"
     lexeme_dictionary["IT"] = "Variable Identifier"
     symbol_table_and_type_identifier(lexemes, parse_tree, lexeme_dictionary)
+    console.update_ui(lexeme_dictionary_e, symbol_table)
 
     line = 1
     execute_parse_tree(lexemes, parse_tree, lexeme_dictionary)

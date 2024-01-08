@@ -8,19 +8,19 @@ HAI
 
     I IZ proceed YR NOOB MKAY
     
-    VISIBLE "\n\n\n\n\n\n\n\n\n\n\n\n-------------------------------------------------- SOFT LINE / COMMAND BREAKS"
+    VISIBLE "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n-------------------------------------------------- SOFT LINE / COMMAND BREAKS"
 
     VISIBLE "Hello ", VISIBLE "World!"
 
     I IZ proceed YR NOOB MKAY
 
-    VISIBLE "\n\n\n\n\n\n\n\n\n\n\n\n-------------------------------------------------- SPECIAL CHARACTERS IN YARNS/STRINGS"
+    VISIBLE "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n-------------------------------------------------- SPECIAL CHARACTERS IN YARNS/STRINGS"
     
     VISIBLE "(:>, :)"
 
     I IZ proceed YR NOOB MKAY
 
-    VISIBLE "\n\n\n\n\n\n\n\n\n\n\n\n-------------------------------------------------- LOOP NESTING"
+    VISIBLE "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n-------------------------------------------------- LOOP NESTING"
 
     VISIBLE "How many iterations? " ! , GIMMEH iterations
     iterations IS NOW A NUMBR
@@ -36,19 +36,19 @@ HAI
 
     I IZ proceed YR NOOB MKAY
 
-    VISIBLE "\n\n\n\n\n\n\n\n\n\n\n\n-------------------------------------------------- MEBBE / ELSE IF CLAUSES"
+    VISIBLE "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n-------------------------------------------------- MEBBE / ELSE IF CLAUSES"
 
     FAIL
     O RLY?
         YA RLY
             VISIBLE "IF"
         MEBBE WIN
-            VISIBLE "MEBBE WAS ALSO PRESENTED ON TEST CAST 7"
+            VISIBLE "MEBBE WAS ALSO PRESENTED ON TEST CASE 7"
     OIC
 
     I IZ proceed YR NOOB MKAY
 
-    VISIBLE "\n\n\n\n\n\n\n\n\n\n\n\n-------------------------------------------------- SUPPRESS NEW LINE (!)"
+    VISIBLE "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n-------------------------------------------------- SUPPRESS NEW LINE (!)"
 
     VISIBLE "1"!
     VISIBLE "2"!
@@ -58,7 +58,7 @@ HAI
     
     I IZ proceed YR NOOB MKAY
 
-    VISIBLE "\n\n\n\n\n\n\n\n\n\n\n\n-------------------------------------------------- SWITCH NESTING / IF-ELSE NESTING / DIFFERENT CONTROL FLOW NESTING"
+    VISIBLE "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n-------------------------------------------------- SWITCH NESTING / IF-ELSE NESTING / DIFFERENT CONTROL FLOW NESTING"
 
     SUM OF 1 AN 0
     WTF?
@@ -99,7 +99,7 @@ HAI
 
     I IZ proceed YR NOOB MKAY
 
-    VISIBLE "\n\n\n\n\nDONE! :>\n\n\n"
+    VISIBLE "\n\n\n\n\n\n\n\n\n\n\n\nDONE! :>\n\n\n"
 
 KTHXBYE
 

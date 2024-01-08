@@ -23,7 +23,7 @@ class LOLCODEInterpreterGUI:
         self.executing_file = False
         
         # load the png file
-        icon_file = "program-icon.png"
+        icon_file = "./src/program-icon.png"
 
         try:
             icon_image = tk.PhotoImage(file=icon_file)
@@ -39,16 +39,16 @@ class LOLCODEInterpreterGUI:
         self.file_explorer_button.grid(row=1, column=0, pady=5)
 
         # horizontal scrollbar
-        # xscrollbar = tk.Scrollbar(master, orient=tk.HORIZONTAL)
-        # xscrollbar.grid(row=2, column=1, sticky="ew", pady=(0, 40))
+        xscrollbar = tk.Scrollbar(master, orient=tk.HORIZONTAL)
+        xscrollbar.grid(row=2, column=1, sticky="ew", pady=(0, 40))
 
         # text editor
         self.text_editor_label = tk.Label(master, text="Text Editor")
         self.text_editor_label.grid(row=0, column=1)
         # self.text_editor = scrolledtext.ScrolledText(master, wrap=tk.NONE, width=80, height=40, padx=30, xscrollcommand=xscrollbar.set)
-        self.text_editor = scrolledtext.ScrolledText(master, wrap=tk.NONE, width=85, height=50, padx=30)
+        self.text_editor = scrolledtext.ScrolledText(master, wrap=tk.NONE, width=85, height=50, padx=30, xscrollcommand=xscrollbar.set)
         self.text_editor.grid(row=1, column=1, pady=5)
-        #xscrollbar.config(command=self.text_editor.xview)
+        xscrollbar.config(command=self.text_editor.xview)
         self.text_editor.bind('<KeyPress>', self.editor_typed)
         self.text_editor.bind("<Button-1>", self.editor_clicked)
         self.editing = False
@@ -120,6 +120,10 @@ class LOLCODEInterpreterGUI:
                 return 'break'
             elif event.keysym == 'Return':
                 self.entered = True
+        if len(self.console_content) > len(self.console_text.get("1.0", tk.END))-1:
+            self.console_text.replace("1.0", tk.END, self.console_content)
+            return 'break'
+        
     
     def mouse_end(self):
         self.console_text.see(tk.END)
@@ -179,17 +183,19 @@ class LOLCODEInterpreterGUI:
         self.text_editor.insert(tk.END, new_code_content)
     
     def update_ui(self, lexeme_dictionary, symbol_table):
-        # update lexemes treeview
-        self.tokens_tree.delete(*self.tokens_tree.get_children())
-        for lexeme, classification in lexeme_dictionary.items():
-            self.tokens_tree.insert("", "end", values=(lexeme.replace("\n", "\\n"), classification))
-
         # update symbol table treeview
         self.symbol_table_tree.delete(*self.symbol_table_tree.get_children())
         for identifier, value in symbol_table.items():
             self.symbol_table_tree.insert("", "end", values=(identifier, value))
         
         self.console_text.see(tk.END)
+    
+    def update_lexemes_view(self, lexeme_dictionary):
+        # update lexemes treeview
+        self.tokens_tree.delete(*self.tokens_tree.get_children())
+        for lexeme, classification in lexeme_dictionary.items():
+            self.tokens_tree.insert("", "end", values=(lexeme.replace("\n", "\\n"), classification))
+
 
     def run_code(self):
         # set the executing_file flag

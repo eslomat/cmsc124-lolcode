@@ -55,7 +55,7 @@ def lolcodeinterpreter(code, console):
         lexemes = tokenizer(code)
         lexical_analyzer_value = lexical_analyzer(lexemes)
         lexeme_dictionary = lexical_analyzer_value[0]
-        console.update_ui(lexeme_dictionary, {})
+        console.update_lexemes_view(lexeme_dictionary)
         lexemes = lexical_analyzer_value[1]
         parse_tree = syntax_analyzer(lexemes, lexeme_dictionary)
         symbol_table = semantic_analyzer(lexemes, lexeme_dictionary, parse_tree, console)

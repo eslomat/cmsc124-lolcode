@@ -94,7 +94,9 @@ def changeDataType(value, dataType):
         case "YARN":
             if value.startswith('"') and value.endswith('"'): return value
             if value == "NOOB": return '""'
-            if get_type(value) == "Numbar Literal" and count_decimal_places(value) > 2: return "{:.{prec}f}".format(round(float(value), 2), prec=2)
+            if get_type(value) == "Numbar Literal":
+                if count_decimal_places(value) > 2: return "{:.{prec}f}".format(round(float(value), 2), prec=2)
+                return str(float(value))
             return f'"{str(value)}"'   
     if isinstance(value, str): value = f'"{value}"'
     return error(f"cannot convert {value} to a {dataType}")
